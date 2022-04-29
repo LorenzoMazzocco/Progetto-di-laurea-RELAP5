@@ -231,14 +231,14 @@
    192    .                                                                                               
 0    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     26-Apr-22    18:47:27      
+  strip_input                                                                     29-Apr-22    17:24:09      
 1    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     26-Apr-22    18:47:27      
+  strip_input                                                                     29-Apr-22    17:24:09      
 0Processing type is strip   
 +                                       problem option is fmtout  
 0inp-chk, run option is run.    
-0Restart input file was written by program   RELAP5/3.3gl           on 26-Apr-22    18:23:44   , transient run.
+0******** Open error number      30 on file out\rstplt                                                                      , perhaps file is not available.
 0         Strip variable requests
  req.num.    variable code    parameter
      1001      cntrlvar             110
@@ -413,6 +413,4 @@
      1318      htchfr         555004801
      1319      htchfr         555004901
      1320      htchfr         555005001
-0$$$$$$$$ Input processing completed successfully.
-
-0Successful end of strip processing.
+0******** Errors detected during input processing.
