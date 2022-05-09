@@ -28,13 +28,13 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$[Mazzocco, Musile Tanzi, Tagliabue]$$$$$$
 *crdno   Initialtime[s]
 200           0.
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-201        1.        1.e-8    0.001     00003   500      500     500
+201        1.        1e-8      0.001     00003   500      500     500
 *
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-202        10.       1.e-8     0.01     00003    50       50      50
+202        10.       1e-8      0.01     00003    50       50      50
 *
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-203   100.0   1.e-8   0.05   00003   10   10   10   
+203   100.0   1e-8   0.05   00003   10   10   10   
 *
 * (201 writes every 0.5 s)
 * (202 writes every 0.5 s)
@@ -55,7 +55,8 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$[Mazzocco, Musile Tanzi, Tagliabue]$$$$$$
 *|||||||||||||||||||||||||||     Hydraulic components    ||||||||||||||||||||||
 *||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 *
-**
+*
+*
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 $                                                                             $
 $                        COMPONENT 100 - LOWER RESERVOIR                      $
@@ -80,7 +81,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 1000200  003
 *
 *crdno   Time[s]      P[Pa]      T[K]
-*
 1000201   0.   16000000.0   566.25   
 1000202   100.   16000000.0   566.25   
 *
@@ -193,7 +193,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 2000200  003
 *
 *crdno   Time[s]      P[Pa]      T[K]
-*
 2000201   0.   15803000.0   566.25   
 2000202   100.   15803000.0   566.25   
 *
@@ -235,10 +234,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *
 *crdno    Naxial  Nradial  Geomtype  SSFlag  Leftboundary[m]
 15550000   50       10        2        0         0.0
-$ ho messo np=4 perchè considero: centro del fuel pellet + esterno del fuel pellet (raggio di 0.004096 m) + interno del cladding + esterno del cladding$
-$ con la SSFlag=1 RELAP prende le temperature iniziali date in input nelle card 1CCCG402-G499 e si porta in steady-state (credo sia l'opzione migliore, così possiamo $
-$ analizzare i transitori partendo da una condizione di regime). Se SSFlag=0, RELAP prende come temperature iniziali quelle nella card 1CCCG401 e non si porta in $
-$ steady-state condition $
 *
 *crdno     Initial He Pressure [Pa]    ReferenceVolume
 15550001         2410000.0                555480000
@@ -279,10 +274,6 @@ $ steady-state condition $
 *
 *crdno      Tableno     Increment   BCtype  SAcode  SAfactor   Heatstno
 15550601   555010004      10000        1      1     0.07752       50
-$ ho messo come altezza di ogni heat structure 0.07752 m, cioè 1/50 dell'altezza totale della fuel rod indicata dal Kazimi per il PWR: 3.876 m . Tuttavia viene $
-$ indicata un'altezza leggermente minore relativa alla porzione di fuel rod scaldata: va chiarito quale delle 2 inserire e se/come considerare il profilo di $
-$ temperatura e di potenza scambiata lungo la fuel rod $
-$ la W3 andrebbe controllata meglio, ho messo 1 ad indicare uno scambio termico convettivo di default ma si può andare più nello specifico$
 *
 *
 *------------------------------ SOURCE DATA -------------------------------
@@ -338,12 +329,6 @@ $ la W3 andrebbe controllata meglio, ho messo 1 ad indicare uno scambio termico 
 15550748    888    0.001070538     0.     0.     48
 15550749    888    0.000000000     0.     0.     49
 15550750    888    0.000000000     0.     0.     50
-
-$ se la SSFlag nella W4 della card 1CCCG000 è 1 allora devo dare in input una potenza iniziale, se invece è 0 non ce n'è bisogno $
-$ dalla general table 888 ricevo in input nella W1 la potenza termica generata nella fuel rod. La W2 indica la frazione di questa $
-$ potenza totale associata a ciascuna heat structure. Le W3 e W4 indicano quanta di questa potenza è trasferita per irraggiamento $
-$ (direct heating) al fluido. La somma di questi fattori tra tutte le heat structures deve essere 1 $
-$$$$$ PROFILO ASSIALE DELLA POTENZA TERMICA NELLA FUEL ROD DA SISTEMARE $$$$$
 *
 *
 *------------------ ADDITIONAL RIGHT BOUNDARY CONDITION -------------------
@@ -368,14 +353,41 @@ $                               TABLE - MATERIALS                             $
 $                                                                             $
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *
-20111100  uo2
+* URANIUM DIOXIDE
+20111100  tbl/fctn   1   1
+20111101        298.15      7.6121     326.65      7.2963     355.16      7.0027     383.66      6.7292     412.16      6.4738
+20111102        440.67      6.2348     469.17      6.0107     497.67      5.8002     526.18      5.6021     554.68      5.4153
+20111103        583.19      5.2390     611.69      5.0723     640.19      4.9144     668.70      4.7647     697.20      4.6227
+20111104        725.70      4.4877     754.21      4.3592     782.71      4.2368     811.21      4.1201     839.72      4.0088
+20111105        868.22      3.9024     896.72      3.8007     925.23      3.7033     953.73      3.6101     982.23      3.5208
+20111106        1010.74      3.4352     1039.24      3.3531     1067.75      3.2743     1096.25      3.1987     1124.75      3.1261
+20111107        1153.26      3.0565     1181.76      2.9896     1210.26      2.9254     1238.77      2.8638     1267.27      2.8048
+20111108        1295.77      2.7483     1324.28      2.6942     1352.78      2.6424     1381.28      2.5930     1409.79      2.5460
+20111109        1438.29      2.5012     1466.79      2.4587     1495.30      2.4184     1523.80      2.3803     1552.31      2.3445
+20111110        1580.81      2.3108     1609.31      2.2793     1637.82      2.2501     1666.32      2.2229     1694.82      2.1980
+20111111        1723.33      2.1751     1751.83      2.1544     1780.33      2.1359     1808.84      2.1194     1837.34      2.1050
+20111112        1865.84      2.0926     1894.35      2.0823     1922.85      2.0740     1951.36      2.0676     1979.86      2.0633
+20111113        2008.36      2.0608     2036.87      2.0602     2065.37      2.0615     2093.87      2.0646     2122.38      2.0695
+20111114        2150.88      2.0761     2179.38      2.0844     2207.89      2.0944     2236.39      2.1059     2264.89      2.1190
+20111115        2293.40      2.1337     2321.90      2.1498     2350.40      2.1673     2378.91      2.1861     2407.41      2.2063
+20111116        2435.92      2.2278     2464.42      2.2504     2492.92      2.2742     2521.43      2.2992     2549.93      2.3251
+20111117        2578.43      2.3521     2606.94      2.3801     2635.44      2.4090     2663.94      2.4387     2692.45      2.4692
+20111118        2720.95      2.5005     2749.45      2.5325     2777.96      2.5652     2806.46      2.5985     2834.96      2.6323
+20111119        2863.47      2.6667     2891.97      2.7016     2920.48      2.7369     2948.98      2.7727     2977.48      2.8087
+20111120        3005.99      2.8452     3034.49      2.8819     3062.99      2.9188     3091.50      2.9560     3120.00      2.9933
+20111151  3839500.  *[J/m^3/°K]
+*
+* GAP GAS
 20122200  tbl/fctn  3   1       * gas mixture
 20122201  helium  1.0
 20122202  xenon   0.0
 20122251  10.126  *[J/m^3/°K]
-20133300  zr
-$ la card 001 della heat structure richiede che la W2 della card 00 sia 3. Ma la W2 in teoria è necessaria solo se inseriamo manualmente $
-$ i dati sui materiali, quindi non dovrebbe essere necessaria. Vediamo se il codice funziona o no e in base a quello decidiamo $
+*
+* ZIRCONIUM
+20133300  tbl/fctn  2   1
+20133301  298.   2000.    8.8527  7.082e-3   2.5329e-6  0.   0.  2.9918e+3  0.
+20133352  2200000.   *[J/m^3/°K]
+*
 *
 *
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -390,8 +402,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *crdno         t[s]     Power [W]
 20288801        0.      66351.88
 20288802       100.     66351.88
-$ potenza ottenuta moltiplicando la potenza media del core (17.86 kW/m) per la l'altezza totale della fuel rod (3.658 m) basandosi sui dati del Kazimi $
-$ 100 secondi è il tempo finale della simulazione $
 *
 *
 *
