@@ -72,7 +72,7 @@ m_dot = {
 
 power = {
         "name" : "Power",
-        "line" : 403,
+        "line" : 408,
         "word" : 2,
         "initial_value" : 66351.88,
         "final_value" : 68000.0,
@@ -99,7 +99,7 @@ T_init_hs = {
 
 gap_composition_he = {
         "name" : "GapCompositionHe",
-        "line" : 382,
+        "line" : 387,
         "word" : 2,
         "initial_value" : 1.0,
         "final_value" : 0.9,
@@ -108,7 +108,7 @@ gap_composition_he = {
 
 gap_composition_xe = {
         "name" : "GapCompositionXe",
-        "line" : 383,
+        "line" : 388,
         "word" : 2,
         "initial_value" : 0.0,
         "final_value" : 0.1,

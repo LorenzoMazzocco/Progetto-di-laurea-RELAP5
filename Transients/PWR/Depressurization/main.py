@@ -27,12 +27,12 @@ card_pressureinlet_100 = 1000202
 line_pressureoutlet_100 = 197
 card_pressureoutlet_100 = 2000202
 
-line_power_100 = 404
+line_power_100 = 409
 card_power_100 = 20288802
 
 # TRANSITORIO
 lambdas = np.array([0.01, 0.05, 0.1, 0.2])
-delta_trans = 10 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
+delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
 
 
 
