@@ -8,7 +8,7 @@ clc
 %                DATA EXCTRACTION               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-lambdas = [0.01, 0.05, 0.1];
+lambdas = [0.05, 0.1];
 accident_time = 100; % [s]
 scram_time = 200;    % [s]
 
@@ -29,18 +29,24 @@ for i=1:length(lambdas)
     data(i).time = table2array(data(i).raw_data(:,1));  % [s]
     data(i).power = table2array(data(i).raw_data(:,2)); % [kW]
     data(i).outlet_temperature = table2array(data(i).raw_data(:,3));   % [°K]
-    data(i).max_fuel_temp_bct = table2array(data(i).raw_data(:,4:6));  % [°K]
-    data(i).max_clad_temp_bct = table2array(data(i).raw_data(:, 7:9)); % [°K]
-    data(i).center_radial_temp_profile = table2array(data(i).raw_data(:, 10:20)); % [°K]
-    data(i).max_fuel_temp_axial = table2array(data(i).raw_data(:,22:71)); % [°K]
-    data(i).ht_mode_axial = table2array(data(i).raw_data(:,72:121)); % []
-    data(i).heat_flux_axial = table2array(data(i).raw_data(:,122:171))./1000; % [kW/m2]
-    data(i).htc_axial = table2array(data(i).raw_data(:,172:221))./1000; % [kW/m2/°K]
-    data(i).flow_regimes_axial = table2array(data(i).raw_data(:,222:271));  % []
-    data(i).void_fraction_axial = table2array(data(i).raw_data(:,272:321)); % []
-    data(i).quality_axial = table2array(data(i).raw_data(:,322:371));       % []
-    data(i).enthalpy_f_axial = table2array(data(i).raw_data(:,372:421));    % [J/kg] (entalpia del LIQUIDO SATURO)
-    data(i).pressure_axial = table2array(data(i).raw_data(:,422:471));      % [Pa]
+    data(i).center_radial_temp_profile = table2array(data(i).raw_data(:, 4:14)); % [°K]
+    data(i).max_fuel_temp_axial = table2array(data(i).raw_data(:,15:64)); % [°K]
+    data(i).ht_mode_axial = table2array(data(i).raw_data(:,65:114)); % []
+    data(i).heat_flux_axial = table2array(data(i).raw_data(:,115:164))./1000; % [kW/m2]
+    data(i).htc_axial = table2array(data(i).raw_data(:,165:214))./1000; % [kW/m2/°K]
+    data(i).flow_regimes_axial = table2array(data(i).raw_data(:,215:264));  % []
+    data(i).void_fraction_axial = table2array(data(i).raw_data(:,265:314)); % []
+    data(i).quality_axial = table2array(data(i).raw_data(:,315:364));       % []
+    data(i).enthalpy_f_axial = table2array(data(i).raw_data(:,365:414));    % [J/kg] (entalpia del LIQUIDO SATURO)
+    data(i).pressure_axial = table2array(data(i).raw_data(:,415:464));      % [Pa]
+    data(i).max_clad_temp_axial = table2array(data(i).raw_data(:,465:514)); % [°K]
+    data(i).temp_liquid_axial = table2array(data(i).raw_data(:,515:564)); % [°K]
+    data(i).temp_vapor_axial = table2array(data(i).raw_data(:,565:614)); % [°K]
+    data(i).rho_axial = table2array(data(i).raw_data(:,615:664)); % [kg/m3]
+    data(i).CHF_RELAP_axial = table2array(data(i).raw_data(:,665:712))./1000; % [kW/m2]
+    data(i).CHFR_RELAP_axial = table2array(data(i).raw_data(:,715:762)); % []
+    data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:813)); % [m/s]
+    data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,814:862)); % [m/s]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
@@ -49,9 +55,9 @@ for i=1:length(lambdas)
         data(i).CHF_W3 = [data(i).CHF_W3; CHF_W3(data(i).pressure_axial(j,:), data(i).quality_axial(j,:), 0.335, data(i).enthalpy_f_axial(j,:), data(i).heat_flux_axial(j,:), 8.79e-5, 1.17808e-2, 3.876)]; % [kW/m2]
     end
 
-    data(i).CHFR = data(i).CHF_W3./data(i).heat_flux_axial;
+    data(i).CHFR_W3 = data(i).CHF_W3./data(i).heat_flux_axial;
     data(i).CHF_W3 = data(i).CHF_W3(:,1:48);
-    data(i).CHFR = data(i).CHFR(:,1:48);
+    data(i).CHFR_W3 = data(i).CHFR_W3(:,1:48);
 end
 
 
@@ -73,119 +79,119 @@ labels = [labels "ACCIDENT" "SCRAM"];
 
 
 
-% ------ TOTAL POWER -------
-f = figure('Position', [10 10 900 900]);
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).power, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('TOTAL POWER EXCHANGED [kW]')
-legend(labels)
-xlim([95 250])
-%saveas(f, "TOTAL POWER.png")
-
-
-% --- -OUTLET TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).outlet_temperature, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('OUTLET TEMPERATURE [K]')
-xlim([95 250])
-legend(labels)
-
-
-
-
-% ---- MAX FUEL TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,max(data(i).max_fuel_temp_axial, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MAX FUEL TEMPERATURE [K]')
-xlim([95 250])
-legend(labels)
-
-
-% ------- MDNBR -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,min(data(i).CHFR, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MDNBR (W-3 Correlation)')
-ylim([0 7])
-xlim([95 120])
-legend(labels)
-
-% ------- MEAN VOID FRACTION -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN VOID FRACTION')
-ylim([0 1])
-xlim([95 150])
-legend(labels)
-
-
-% ------- MEAN PRESSURE -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN PRESSURE [bar]')
-xlim([95 150])
-legend(labels)
-
-% ------- MEAN HTC -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN HTC [kW/m^2/°K]')
-xlim([95 115])
-legend(labels)
+% % ------ TOTAL POWER -------
+% f = figure('Position', [10 10 900 900]);
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).power, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('TOTAL POWER EXCHANGED [kW]')
+% legend(labels)
+% xlim([95 250])
+% %saveas(f, "TOTAL POWER.png")
+% 
+% 
+% % --- -OUTLET TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).outlet_temperature, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('OUTLET TEMPERATURE [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% 
+% 
+% % ---- MAX FUEL TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,max(data(i).max_fuel_temp_axial, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MAX FUEL TEMPERATURE [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% % ------- MDNBR -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,min(data(i).CHFR, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MDNBR (W-3 Correlation)')
+% ylim([0 7])
+% xlim([95 120])
+% legend(labels)
+% 
+% % ------- MEAN VOID FRACTION -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VOID FRACTION')
+% ylim([0 1])
+% xlim([95 150])
+% legend(labels)
+% 
+% 
+% % ------- MEAN PRESSURE -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN PRESSURE [bar]')
+% xlim([95 150])
+% legend(labels)
+% 
+% % ------- MEAN HTC -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN HTC [kW/m^2/°K]')
+% xlim([95 115])
+% legend(labels)
 
 
 
