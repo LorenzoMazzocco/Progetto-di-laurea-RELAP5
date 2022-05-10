@@ -1,0 +1,35 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = lambda_0.1\input.i                                                                      
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     11-May-22    00:22:26      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  46.216     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a    7152  Courant
+     20.1  95.065     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a   13641  Courant
+     30.1  124.61     1.82E-03 1.82E-03 55550F   1.394     0.8396  3.303E-05 55501    2.78  0.316    g  0.00    a   22812  Courant
+     40.1  144.66     4.63E-03 4.63E-03 55549G  0.2781     0.9665  6.384E-05 55501    0.35  0.456    f  0.00    a   33534  Courant
+     50.1  163.22     1.40E-04 1.40E-04 55550F  0.9797E-01 0.9991  7.278E-05 55505    0.14  0.413    f  0.00    a   45113  Courant
+     60.1  164.17     1.95E-06 1.95E-06 55550V  0.9021E-02 0.9999  7.299E-05 55501   -0.04  5.631E-20g  0.00    a   60682  Courant
+     70.1  164.30     8.39E-06 8.39E-06 55550F  0.8526E-02 0.9998  7.300E-05 55501    0.31  0.439    f  0.00    a   75739  Courant
+     80.1  165.99     9.23E-06 9.23E-06 55550F  0.9314E-02 0.9998  7.455E-05 55501    0.30  0.403    g  0.00    a   90878  Courant
+     90.1  166.38     5.05E-06 5.05E-06 55550F  0.8240E-02 0.9998  7.456E-05 55501   -0.15 -4.986E-19g  0.00    a  106219  Courant
+    100.1  167.06     2.89E-04 2.89E-04 55550F  0.1069     0.9969  7.449E-05 55501    0.30  0.411    f  0.00    a  121239  Courant
+    110.1  169.63     5.64E-06 5.64E-06 55550F  0.5333E-02 0.9999  7.767E-05 55550    0.01  1.008E-04f  0.00    a  136904  Courant
+    120.1  169.86     1.13E-05 1.13E-05 55550F  0.9988E-02 0.9997  7.760E-05 55550    0.01  1.002E-04f  0.00    a  152482  Courant
+    130.1  170.01     1.35E-05 1.35E-05 55550F  0.1051E-01 0.9996  7.760E-05 55550    0.01  3.071E-04f  0.00    a  168676  Courant
+    140.1  170.09     6.01E-07 6.01E-07 55550V  0.1148E-01 0.9999  7.761E-05 55550    0.01  1.502E-04f  0.00    a  185344  Courant
+    150.1  170.10     7.11E-07 7.11E-07 55550V  0.1232E-01 0.9999  7.761E-05 55550    0.03  1.019E-04f  0.00    a  202040  Courant
+    160.1  170.12     1.10E-06 1.10E-06 55550V  0.9503E-02 0.9999  7.761E-05 55550    0.01  1.013E-04f  0.00    a  218547  Courant
+    170.1  170.17     7.65E-06 7.65E-06 55550F  0.7264E-02 0.9998  7.759E-05 55550    0.01  1.013E-04f  0.00    a  234996  Courant
+    180.1  170.81     3.06E-05 3.06E-05 55550F  0.2536E-01 0.9989  7.742E-05 55550    0.01  2.456E-04f  0.00    a  252127  Courant
+    190.1  171.24     2.33E-05 2.33E-05 55550F  0.2114E-01 0.9991  7.438E-05 55501   -0.04 -6.885E-20g  0.00    a  269515  Courant
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+    200.1  190.45     5.00E-02 0.31     55501G  0.1136     0.1707  7.343E-05 55504    0.11  7.699E-04f  0.00    a  280505  dtmax  
+Transient terminated by end of time step cards.
+ At time     203.003     seconds; Step    280756

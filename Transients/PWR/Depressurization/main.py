@@ -43,7 +43,7 @@ delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pression
 
 
 for l in lambdas:
-    
+
     #####################################################
     #                   PRE-PROCESSING                  #
     #####################################################
