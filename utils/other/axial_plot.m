@@ -23,10 +23,10 @@ if animate
         drawnow nocallbacks
 
         dim = [.5 .1 .1 .1];
-        timestep = num2str(time(i));
-        str = strcat('TIME:',{'  '}, timestep(1:4), ' s');
+        timestep = sprintf("%.1f", time(i));
+        str = strcat('TIME:',{'  '}, timestep, ' s');
         annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
-
+        
         %pause(0.1)
     end
 else
