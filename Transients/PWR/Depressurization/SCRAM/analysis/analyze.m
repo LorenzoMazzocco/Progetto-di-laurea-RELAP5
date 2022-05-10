@@ -73,163 +73,171 @@ labels = [labels "ACCIDENT" "SCRAM"];
 
 
 
-% ------ TOTAL POWER -------
-f = figure('Position', [10 10 900 900]);
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).power, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('TOTAL POWER EXCHANGED [kW]')
-legend(labels)
-xlim([95 120])
-%saveas(f, "TOTAL POWER.png")
-
-
-% --- -OUTLET TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).outlet_temperature, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('OUTLET TEMPERATURE [K]')
-xlim([95 130])
-legend(labels)
-
-
-
-
-% ---- MAX FUEL TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,max(data(i).max_fuel_temp_axial, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MAX FUEL TEMPERATURE [K]')
-xlim([95 160])
-legend(labels)
-
-
-% ------- MDNBR -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,min(data(i).CHFR, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MDNBR (W-3 Correlation)')
-ylim([0 7])
-xlim([95 106])
-legend(labels)
-
-% ------- MEAN VOID FRACTION -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN VOID FRACTION')
-ylim([0 1])
-xlim([95 160])
-legend(labels)
-
-
-% ------- MEAN PRESSURE -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN PRESSURE [bar]')
-xlim([95 160])
-legend(labels)
-
-% ------- MEAN HTC -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN HTC [kW/m^2/°K]')
-xlim([95 110])
-legend(labels)
+% % ------ TOTAL POWER -------
+% f = figure('Position', [10 10 900 900]);
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).power, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('TOTAL POWER EXCHANGED [kW]')
+% legend(labels)
+% xlim([95 120])
+% %saveas(f, "TOTAL POWER.png")
+% 
+% 
+% % --- -OUTLET TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).outlet_temperature, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('OUTLET TEMPERATURE [K]')
+% xlim([95 130])
+% legend(labels)
+% 
+% 
+% 
+% 
+% % ---- MAX FUEL TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,max(data(i).max_fuel_temp_axial, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MAX FUEL TEMPERATURE [K]')
+% xlim([95 160])
+% legend(labels)
+% 
+% 
+% % ------- MDNBR -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,min(data(i).CHFR, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MDNBR (W-3 Correlation)')
+% ylim([0 7])
+% xlim([95 106])
+% legend(labels)
+% 
+% % ------- MEAN VOID FRACTION -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VOID FRACTION')
+% ylim([0 1])
+% xlim([95 160])
+% legend(labels)
+% 
+% 
+% % ------- MEAN PRESSURE -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN PRESSURE [bar]')
+% xlim([95 160])
+% legend(labels)
+% 
+% % ------- MEAN HTC -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN HTC [kW/m^2/°K]')
+% xlim([95 110])
+% legend(labels)
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
 
-% % ----- PROFILE CHFR -------
-% idx = 1;
-% f0 = 1; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:end,:), data(idx).CHFR(f0:end,:)), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10)
 
-% 
-% ----- PROFILE HTMODE -------
-% idx = 2;
-% f0 = 195; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% htmode_plot(horzcat(data(idx).time(f0:end,:), data(idx).ht_mode_axial(f0:end,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1)
-
-% ----- PROFILE FLOW REGIME -------
-% idx = 2;
-% f0 = 180; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% flowreg_plot(horzcat(data(idx).time(f0:end,:), data(idx).flow_regimes_axial(f0:end,:)), true, 'Animation Profile - Flow Regime', '', 1)
-
-%
-% % ----- PROFILE HTC -------
-% idx = 1;
-% f0 = 1; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:end,:), data(idx).htc_axial(f0:end,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 60)
-
-% ----- PROFILE VOID FRACTION -------
-% idx = 1;
-% f0 = 100; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:end,:), data(idx).void_fraction_axial(f0:end,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1)
-
-% % ----- PROFILE RADIAL TEMPERATURE -------
+% ----- PROFILE CHFR -------
 % idx = 3;
 % f0 = 180; % initial frame (timestep)
-% figure(10)
-% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:end, :), data(idx).time(f0:end,:)), true, 'pwr')
+% fend = 250;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR(f0:fend,:)), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10, 'Animations/CHFR')
+% 
+% 
+% % ----- PROFILE HTMODE -------
+% idx = 3;
+% f0 = 195; % initial frame (timestep)
+% fend = 300; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1, 'Animations/HTMODE')
+
+% ----- PROFILE FLOW REGIME -------
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 250; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Animation Profile - Flow Regime', '', 1, 'Animations/Flow Regime')
+% 
+% 
+% % ----- PROFILE HTC -------
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 300;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 60, 'Animations/HTC')
+% 
+% % ----- PROFILE VOID FRACTION -------
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 300; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
+
+% ----- PROFILE RADIAL TEMPERATURE -------
+idx = 3;
+f0 = 180; % initial frame (timestep)
+fend = 300; % final frame (timestep)
+figure(10)
+radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
 
 
 

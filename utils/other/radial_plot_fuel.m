@@ -1,4 +1,4 @@
-function [] = radial_plot_fuel(tt, animate, reactor_type)
+function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
 % La funzione richiede di indicare con quale modalità procedere
 % inserendo una variabile booleana per il valore animate:
 %
@@ -26,6 +26,10 @@ function [] = radial_plot_fuel(tt, animate, reactor_type)
     time = tt(:,12);
 
     if animate
+        % Initialize Video
+        myVideo = VideoWriter(videoname); %open video file
+        myVideo.FrameRate = 10;  %can adjust this, 5 - 10 works well for me
+        open(myVideo)
         hold on
         patch([rr(1) rr(7) rr(7) rr(1)], [0 0 3000 3000], [89 89 89]./255, 'LineStyle', 'none')
         patch([rr(7) rr(8) rr(8) rr(7)], [0 0 3000 3000], [255 255 128]./255, 'LineStyle', 'none')
@@ -54,7 +58,10 @@ function [] = radial_plot_fuel(tt, animate, reactor_type)
             timestep = sprintf("%.1f", time(i));
             str = strcat('TIME:',{'  '}, timestep, ' s');
             annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+            frame = getframe(gcf); %get frame
+            writeVideo(myVideo, frame);
         end
+        close(myVideo);
 
     else
                

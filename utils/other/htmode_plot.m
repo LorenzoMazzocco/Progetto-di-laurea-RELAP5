@@ -1,4 +1,4 @@
-function [] = htmode_plot(data, animate, title_string, xlable_string, xlim_value)
+function [] = htmode_plot(data, animate, title_string, xlable_string, xlim_value, videoname)
 % La funzione richiede i seguenti input:
 %
 %   - data: array contenente i dati che si vogliono plottare.
@@ -17,6 +17,10 @@ ht_texts = ["MODE 0", "", "", "", "SAT", "", "SAT", "", "SAT", "VAP", "COND", "C
 if animate
     time = data(:,1);
     data = data(:,2:end);
+    % Initialize Video
+    myVideo = VideoWriter(videoname); %open video file
+    myVideo.FrameRate = 10;  %can adjust this, 5 - 10 works well for me
+    open(myVideo)
     for i=2:length(time)
         clf
         patch([55 100 100 55], [0 0 1 1], [1 1 1])
@@ -39,7 +43,10 @@ if animate
         annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
 
         drawnow 
+        frame = getframe(gcf); %get frame
+        writeVideo(myVideo, frame);
     end
+    close(myVideo);
     
 else
     data = floor(data);
