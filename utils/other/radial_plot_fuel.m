@@ -13,7 +13,7 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
 
 
     % Cambio la grandezza della finestra per renderla grande
-    set(gcf, 'Position',  [50, 50, 1000, 600])
+    set(gcf, 'Position',  [50, 50, 800, 500])
     
     if strcmp(reactor_type, 'pwr')
         rr = [0 0.67817 1.35633 2.03450 2.71267 3.39083 4.06900 4.17860 4.4646 4.7506 5.7506];

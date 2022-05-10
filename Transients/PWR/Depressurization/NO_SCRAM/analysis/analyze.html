@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+  </style></head><body><div class="content"><img vspace="5" hspace="5" src="analyze_01.png" alt=""> <img vspace="5" hspace="5" src="analyze_02.png" alt=""> <img vspace="5" hspace="5" src="analyze_03.png" alt=""> <img vspace="5" hspace="5" src="analyze_04.png" alt=""> <img vspace="5" hspace="5" src="analyze_05.png" alt=""> <img vspace="5" hspace="5" src="analyze_06.png" alt=""> <img vspace="5" hspace="5" src="analyze_07.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 addpath(genpath('../../../../../utils/'));
 warning('OFF', 'MATLAB:table:ModifiedAndSavedVarnames')
@@ -115,8 +115,9 @@ for i=1:length(lambdas)
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
+    data(i).CHF_W3 = [];
     for j=1:length(data(i).time)
-        data(i).CHF_W3 = CHF_W3(data(i).pressure_axial(j,:), data(i).quality_axial(j,:), 0.335, data(i).enthalpy_f_axial(j,:), data(i).heat_flux_axial(j,:), 8.79e-5, 1.17808e-2, 3.876); % [kW/m2]
+        data(i).CHF_W3 = [data(i).CHF_W3; CHF_W3(data(i).pressure_axial(j,:), data(i).quality_axial(j,:), 0.335, data(i).enthalpy_f_axial(j,:), data(i).heat_flux_axial(j,:), 8.79e-5, 1.17808e-2, 3.876)]; % [kW/m2]
     end
 
     data(i).CHFR = data(i).CHF_W3./data(i).heat_flux_axial;
@@ -144,7 +145,7 @@ labels = [labels "ACCIDENT" "SCRAM"];
 
 
 % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH TOTAL POWER REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f = figure('Position', [10 10 900 900], 'Visible','off');
+f = figure('Position', [10 10 900 900]);
 hold on
 for i=1:length(data)
     plot(data(i).time,data(i).power, 'LineWidth', 1.3);
@@ -156,6 +157,7 @@ grid on, grid minor
 xlabel('Time [s]')
 title('TOTAL POWER EXCHANGED [kW]')
 legend(labels)
+xlim([95 250])
 %saveas(f, "TOTAL POWER.png")
 
 
@@ -171,6 +173,7 @@ hold off
 grid on, grid minor
 xlabel('Time [s]')
 title('OUTLET TEMPERATURE [K]')
+xlim([95 250])
 legend(labels)
 
 
@@ -188,6 +191,7 @@ hold off
 grid on, grid minor
 xlabel('Time [s]')
 title('MAX FUEL TEMPERATURE [K]')
+xlim([95 250])
 legend(labels)
 
 
@@ -203,45 +207,122 @@ hold off
 grid on, grid minor
 xlabel('Time [s]')
 title('MDNBR (W-3 Correlation)')
+ylim([0 7])
+xlim([95 120])
 legend(labels)
 
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- MEAN VOID FRACTION REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+figure('Position', [10 10 900 900])
+hold on
+for i=1:length(data)
+    plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
+end
+xline(accident_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'r')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'k')
+hold off
+grid on, grid minor
+xlabel('Time [s]')
+title('MEAN VOID FRACTION')
+ylim([0 1])
+xlim([95 150])
+legend(labels)
+
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- MEAN PRESSURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+figure('Position', [10 10 900 900])
+hold on
+for i=1:length(data)
+    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
+end
+xline(accident_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'r')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'k')
+hold off
+grid on, grid minor
+xlabel('Time [s]')
+title('MEAN PRESSURE [bar]')
+xlim([95 150])
+legend(labels)
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- MEAN HTC REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+figure('Position', [10 10 900 900])
+hold on
+for i=1:length(data)
+    plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
+end
+xline(accident_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'r')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', 'REPLACE_WITH_DASH_DASH', 'Color', 'k')
+hold off
+grid on, grid minor
+xlabel('Time [s]')
+title('MEAN HTC [kW/m^2/°K]')
+xlim([95 115])
+legend(labels)
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
+
 
 % % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE CHFR REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-% idx = 2;
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time, data(idx).CHFR), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10)
-
-% 
-% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTMODE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-% idx = 1;
+% idx = 3;
 % f0 = 180; % initial frame (timestep)
+% fend = 250;
 % figure('Position', [10 10 300 900])
-% htmode_plot(horzcat(data(idx).time(f0:end,:), data(idx).ht_mode_axial(f0:end,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1)
-%
-% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTC REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-% idx = 1;
-% f0 = 1; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:end,:), data(idx).htc_axial(f0:end,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 60)
-%
-% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE VOID FRACTION REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-% idx = 1;
-% f0 = 1; % initial frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:end,:), data(idx).void_fraction_axial(f0:end,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1)
-%
-% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE RADIAL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-% idx = 1;
-% f0 = 1; % initial frame (timestep)
-% figure(10)
-% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile, data(idx).time), true, 'pwr')
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR(f0:fend,:)), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10, 'Animations/CHFR')
 
+
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTMODE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 195; % initial frame (timestep)
+% fend = 295; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1, 'Animations/HTMODE')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE FLOW REGIME REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 250; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Animation Profile - Flow Regime', '', 1, 'Animations/Flow Regime')
+
+
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTC REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 295;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 100, 'Animations/HTC')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE VOID FRACTION REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 295; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
+
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE RADIAL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 295; % final frame (timestep)
+% figure(10)
+% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE MAX FUEL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 295; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)), true, 'Animation Profile - Max Fuel Temp [°K]', 'Temperature [°K]', 2300, 'Animations/Max Fuel Temperature')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HEAT FLUX REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 295; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Animation Profile - Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
 
 
 
