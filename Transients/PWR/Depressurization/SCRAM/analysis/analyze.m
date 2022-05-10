@@ -232,13 +232,26 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % figure('Position', [10 10 300 900])
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
 
-% ----- PROFILE RADIAL TEMPERATURE -------
-idx = 3;
-f0 = 180; % initial frame (timestep)
-fend = 300; % final frame (timestep)
-figure(10)
-radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
+% % ----- PROFILE RADIAL TEMPERATURE -------
+% idx = 3;
+% f0 = 180; % initial frame (timestep)
+% fend = 300; % final frame (timestep)
+% figure(10)
+% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
 
+% ----- PROFILE MAX FUEL TEMPERATURE -------
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 300; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)), true, 'Animation Profile - Max Fuel Temp [°K]', 'Temperature [°K]', 2300, 'Animations/Max Fuel Temperature')
+
+% ----- PROFILE HEAT FLUX -------
+% idx = 3;
+% f0 = 170; % initial frame (timestep)
+% fend = 300; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Animation Profile - Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
 
 
 
