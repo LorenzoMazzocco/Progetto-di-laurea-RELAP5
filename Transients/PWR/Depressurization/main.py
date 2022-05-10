@@ -16,7 +16,7 @@ p_atm = 3      # [bar]
 toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p_atm)
 
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
-delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
+delta_t0_scram = 3     # [s] delay di scram dall'inizio del transitorio
 delta_t_scram = 0.5      # [s] tempo di esecuzione dello scram
 P0 = 66351.88            # [W] potenza nominale rod
 
