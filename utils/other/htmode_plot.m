@@ -18,13 +18,14 @@ if animate
     time = data(:,1);
     data = data(:,2:end);
     for i=2:length(time)
+        clf
         patch([55 100 100 55], [0 0 1 1], [1 1 1])
         patch([0 45 45 0], [0 0 1 1], [1 1 1])
         hold on
         for j=1:length(data(i,:))
           patch([0 100 100 0], [j-1 j-1 j j]./length(data(i,:)), ht_colors(data(i,j)+1,:), 'LineStyle', 'none')
-          text(20,(i-0.5)/length(data),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
-          text(70,(i-0.5)/length(data),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
+          text(20,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
+          text(70,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
         end
         hold off
         alpha(.75)

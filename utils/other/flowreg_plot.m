@@ -16,13 +16,14 @@ if animate
     time = data(:,1);
     data = data(:,2:end);
     for i=2:length(time)
+        clf
         patch([55 100 100 55], [0 0 1 1], [1 1 1])
         patch([0 45 45 0], [0 0 1 1], [1 1 1])
         hold on
         for j=1:length(data(i,:))
           patch([0 100 100 0], [j-1 j-1 j j]./length(data(i,:)), flow_colors(data(i,j),:), 'LineStyle', 'none')
-          text(15,(i-0.5)/length(data),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
-          text(65,(i-0.5)/length(data),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
+          text(15,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
+          text(65,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
         end
         hold off
         alpha(.75)

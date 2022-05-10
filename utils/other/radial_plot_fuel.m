@@ -51,8 +51,8 @@ function [] = radial_plot_fuel(tt, animate, reactor_type)
             drawnow nocallbacks
 
             dim = [.2 0 .3 .3];
-            timestep = num2str(time(i));
-            str = strcat('TIME:',{'  '}, timestep(1:5), ' s');
+            timestep = sprintf("%.1f", time(i));
+            str = strcat('TIME:',{'  '}, timestep, ' s');
             annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
         end
 
