@@ -36,9 +36,9 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$[Mazzocco, Musile Tanzi, Tagliabue]$$$$$$
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
 203        100.      1e-8      0.05     00003   10        10       1
 *
-* (201 writes every 0.5 s)
-* (202 writes every 0.5 s)
-* (203 writes every 0.5 s)
+* (201 writes every 0.05 s)
+* (202 writes every 0.05 s)
+* (203 writes every 0.05 s)
 *
 *
 *
