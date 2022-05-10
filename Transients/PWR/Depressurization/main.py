@@ -16,7 +16,7 @@ p_atm = 3      # [bar]
 toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p_atm)
 
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
-delta_t0_scram = 3     # [s] delay di scram dall'inizio del transitorio
+delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
 delta_t_scram = 0.5      # [s] tempo di esecuzione dello scram
 P0 = 66351.88            # [W] potenza nominale rod
 
@@ -31,7 +31,7 @@ line_power_100 = 409
 card_power_100 = 20288802
 
 # TRANSITORIO
-lambdas = np.array([0.01, 0.05, 0.1, 0.2])
+lambdas = np.array([0.05, 0.1, 0.15, 0.2])
 delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
 
 
@@ -136,7 +136,7 @@ for l in lambdas:
         r_lines.insert(line_pressureinlet_100, add_pressureinlet[len(add_pressureinlet)-1-i])
 
     # ALLUNGO LA SIMULAZIONE AGGIUNGENDO LA CARD 204
-    r_lines.insert(38, "204     {}     1e-8   0.05   00003   10    10    10 \n".format(t_fin+delta_trans))
+    r_lines.insert(38, "204     {}     1e-8   0.05   00003   10    10    1 \n".format(t_fin+delta_trans))
 
 
     # SCRIVO FILE
