@@ -75,6 +75,9 @@ warning('OFF', 'MATLAB:table:ModifiedAndSavedVarnames')
 clear all 
 clc
 
+
+media_mobile = true;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                DATA EXCTRACTION               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,6 +134,34 @@ for i=1:length(lambdas)
     data(i).CHFR_W3_axial = data(i).CHFR_W3_axial(:,1:48);
 end
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  MOVING MEAN                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if media_mobile
+    for i=1:length(lambdas)
+        data(i).power = movmean(data(i).power, 80, 1);
+        %data(i).max_fuel_temp_axial = movmean(data(i).max_fuel_temp_axial, 20, 1);
+        data(i).ht_mode_axial = round(movmean(data(i).ht_mode_axial, 40, 1));
+        data(i).heat_flux_axial = movmean(data(i).heat_flux_axial, 40, 1);
+        data(i).htc_axial = movmean(data(i).htc_axial, 40, 1);
+        data(i).flow_regimes_axial = round(movmean(data(i).flow_regimes_axial, 40, 1));
+        data(i).void_fraction_axial = movmean(data(i).void_fraction_axial, 40,1);
+        data(i).quality_axial = movmean(data(i).quality_axial, 80, 1);
+        data(i).pressure_axial = movmean(data(i).pressure_axial, 80, 1);
+        %data(i).max_clad_temp_axial = movmean(data(i).max_clad_temp_axial, 20, 1);
+        data(i).temp_liquid_axial = movmean(data(i).temp_liquid_axial, 40, 1);
+        data(i).temp_vapor_axial = movmean(data(i).temp_vapor_axial, 40, 1);
+        data(i).rho_axial = movmean(data(i).rho_axial, 50, 1);
+        data(i).CHF_RELAP_axial = movmean(data(i).CHF_RELAP_axial, 80, 1);
+        data(i).CHFR_RELAP_axial = movmean(data(i).CHFR_RELAP_axial, 80, 1);
+        data(i).CHF_W3_axial = movmean(data(i).CHF_W3_axial, 100, 1);
+        data(i).CHFR_W3_axial = movmean(data(i).CHFR_W3_axial, 100, 1);
+        data(i).velocity_liquid_axial = movmean(data(i).velocity_liquid_axial, 50, 1);
+        data(i).velocity_vapor_axial = movmean(data(i).velocity_vapor_axial, 50, 1);
+    end
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
