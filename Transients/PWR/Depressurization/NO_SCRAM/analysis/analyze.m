@@ -112,8 +112,6 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % 
-% 
-% 
 % % ---- MAX FUEL TEMPERATURE ----
 % figure('Position', [10 10 900 900])
 % hold on
@@ -130,11 +128,103 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % 
+% % ---- MAX CLAD TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,max(data(i).max_clad_temp_axial, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MAX CLAD TEMPERATURE [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN BULK TEMPERATURE LIQUID ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).temp_liquid_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN BULK TEMPERATURE LIQUID [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN BULK TEMPERATURE VAPOR ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).temp_vapor_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN BULK TEMPERATURE VAPOR [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN DENSITY MIXTURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).rho_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN DENSITY MIXTURE [kg/m^3]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN VELOCITY LIQUID ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).velocity_liquid_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VELOCITY LIQUID [m/s]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN VELOCITY VAPOR ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).velocity_vapor_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VELOCITY VAPOR [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% 
 % % ------- MDNBR -------
 % figure('Position', [10 10 900 900])
 % hold on
 % for i=1:length(data)
-%     plot(data(i).time,min(data(i).CHFR, [], 2), 'LineWidth', 1.3);
+%     plot(data(i).time,min(data(i).CHFR_W3, [], 2), 'LineWidth', 1.3);
 % end
 % xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 % xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
@@ -143,7 +233,7 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % xlabel('Time [s]')
 % title('MDNBR (W-3 Correlation)')
 % ylim([0 7])
-% xlim([95 120])
+% xlim([95 250])
 % legend(labels)
 % 
 % % ------- MEAN VOID FRACTION -------
@@ -159,7 +249,7 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % xlabel('Time [s]')
 % title('MEAN VOID FRACTION')
 % ylim([0 1])
-% xlim([95 150])
+% xlim([95 250])
 % legend(labels)
 % 
 % 
@@ -175,7 +265,7 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % grid on, grid minor
 % xlabel('Time [s]')
 % title('MEAN PRESSURE [bar]')
-% xlim([95 150])
+% xlim([95 250])
 % legend(labels)
 % 
 % % ------- MEAN HTC -------
@@ -190,7 +280,7 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % grid on, grid minor
 % xlabel('Time [s]')
 % title('MEAN HTC [kW/m^2/°K]')
-% xlim([95 115])
+% xlim([95 250])
 % legend(labels)
 
 
@@ -198,66 +288,73 @@ labels = [labels "ACCIDENT" "SCRAM"];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
+% TUTTE LE ANIMAZIONI SONO CON IL SECONDO LAMBDA (0.1)
 
 
-% % ----- PROFILE CHFR -------
-% idx = 3;
-% f0 = 180; % initial frame (timestep)
-% fend = 250;
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR(f0:fend,:)), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10, 'Animations/CHFR')
+% ----- PROFILE CHFR RELAP -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900;
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_RELAP_axial(f0:fend,:)), true, 'Animation Profile - CHFR (RELAP)', 'CHFR', 10, 'Animations/CHFR_RELAP')
+
+% ----- PROFILE CHFR W3 -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900;
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_W3_axial(f0:fend,:)), true, 'Animation Profile - CHFR (W3)', 'CHFR', 10, 'Animations/CHFR_W3')
 
 
-% % ----- PROFILE HTMODE -------
-% idx = 3;
-% f0 = 195; % initial frame (timestep)
-% fend = 295; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1, 'Animations/HTMODE')
-% 
-% % ----- PROFILE FLOW REGIME -------
-% idx = 3;
-% f0 = 180; % initial frame (timestep)
-% fend = 250; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Animation Profile - Flow Regime', '', 1, 'Animations/Flow Regime')
+% ----- PROFILE HTMODE -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure('Position', [10 10 300 900])
+htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Animation Profile - Heat Transfer Mode', '', 1, 'Animations/HTMODE')
+
+% ----- PROFILE FLOW REGIME -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure('Position', [10 10 300 900])
+flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Animation Profile - Flow Regime', '', 1, 'Animations/Flow Regime')
 
 
-% % ----- PROFILE HTC -------
-% idx = 3;
-% f0 = 180; % initial frame (timestep)
-% fend = 295;
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 100, 'Animations/HTC')
-% 
-% % ----- PROFILE VOID FRACTION -------
-% idx = 3;
-% f0 = 170; % initial frame (timestep)
-% fend = 295; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
+% ----- PROFILE HTC -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900;
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'Animation Profile - HTC [kW/m^2/°K]', 'HTC [kW/m^2/°K]', 100, 'Animations/HTC')
 
-% % ----- PROFILE RADIAL TEMPERATURE -------
-% idx = 3;
-% f0 = 180; % initial frame (timestep)
-% fend = 295; % final frame (timestep)
-% figure(10)
-% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
-% 
-% % ----- PROFILE MAX FUEL TEMPERATURE -------
-% idx = 3;
-% f0 = 170; % initial frame (timestep)
-% fend = 295; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)), true, 'Animation Profile - Max Fuel Temp [°K]', 'Temperature [°K]', 2300, 'Animations/Max Fuel Temperature')
-% 
-% % ----- PROFILE HEAT FLUX -------
-% idx = 3;
-% f0 = 170; % initial frame (timestep)
-% fend = 295; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Animation Profile - Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
+% ----- PROFILE VOID FRACTION -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Animation Profile - Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
+
+% ----- PROFILE RADIAL TEMPERATURE -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure(10)
+radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :), data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
+
+% ----- PROFILE MAX FUEL TEMPERATURE -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)), true, 'Animation Profile - Max Fuel Temp [°K]', 'Temperature [°K]', 2300, 'Animations/Max Fuel Temperature')
+
+% ----- PROFILE HEAT FLUX -------
+idx = 2;
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure('Position', [10 10 300 900])
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Animation Profile - Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
 
 
 

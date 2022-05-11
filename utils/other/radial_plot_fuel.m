@@ -46,7 +46,7 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
         ylabel('Temperature [K]')
         title('Temperature Distribution in Fuel Rod')
 
-        for i=2:length(time)
+        for i=2:10:length(time)
             clearpoints(h);
             addpoints(h, rr(1:10), tt(i,1:10));
             drawnow nocallbacks

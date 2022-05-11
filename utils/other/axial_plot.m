@@ -22,7 +22,7 @@ if animate
     myVideo = VideoWriter(videoname); %open video file
     myVideo.FrameRate = 10;  %can adjust this, 5 - 10 works well for me
     open(myVideo)
-    for i=2:length(time)
+    for i=2:10:length(time)
         clearpoints(h);
         addpoints(h, data(i,:), (1:length(data(i,:)))./length(data(i,:)));
         drawnow nocallbacks
