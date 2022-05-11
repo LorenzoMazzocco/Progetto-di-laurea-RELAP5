@@ -21,7 +21,7 @@ if animate
     myVideo = VideoWriter(videoname); %open video file
     myVideo.FrameRate = 10;  %can adjust this, 5 - 10 works well for me
     open(myVideo)
-    for i=2:10:length(time)
+    for i=2:4:length(time)
         clf
         patch([55 100 100 55], [0 0 1 1], [1 1 1])
         patch([0 45 45 0], [0 0 1 1], [1 1 1])
