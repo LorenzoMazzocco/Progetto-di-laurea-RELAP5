@@ -28,17 +28,17 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$[Mazzocco, Musile Tanzi, Tagliabue]$$$$$$
 *crdno   Initialtime[s]
 200           0.
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-201        1.        1e-8      0.001     00003   500      500     500
+201        1.        1e-8      0.001     00003   500      500      50
 *
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-202        10.       1e-8      0.01     00003    50       50      50
+202        10.       1e-8      0.01     00003    50       50       5
 *
 *crdno   Endtime[s] Mindt[s]  Maxdt[s]   ctrl  Minedit  Majedit   Rst
-203   100.0   1e-8   0.05   00003   10   10   10   
+203   100.0   1e-8   0.05   00003   10   10   1   
 *
-* (201 writes every 0.5 s)
-* (202 writes every 0.5 s)
-* (203 writes every 0.5 s)
+* (201 writes every 0.05 s)
+* (202 writes every 0.05 s)
+* (203 writes every 0.05 s)
 *
 *
 *
@@ -696,4 +696,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 20800348 sathf 555480000
 20800349 sathf 555490000
 20800350 sathf 555500000
+*
+*
 .

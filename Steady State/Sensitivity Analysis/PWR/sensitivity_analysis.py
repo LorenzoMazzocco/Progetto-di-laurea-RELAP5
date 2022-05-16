@@ -18,7 +18,7 @@ extract_command = r"py ..\..\..\utils\other\parser.py"
 # pressione, T_in, mass flow rate, power
 nominale = {
         "name" : "nominale",
-        "line" : 29,
+        "card" : 200,
         "word" : 1,
         "initial_value" : 0.,
         "final_value" : 0.,
@@ -27,7 +27,7 @@ nominale = {
 
 time = {
         "name" : "simulation_time",
-        "line" : 37,
+        "card" : 203,
         "word" : 1,
         "initial_value" : 100.,
         "final_value" : 100.,
@@ -36,7 +36,7 @@ time = {
 
 p_in = {
         "name" : "InletPressure",
-        "line" : 84,
+        "card" : 1000201,
         "word" : 2,
         "initial_value" : 1.551e+7,
         "final_value" : 1.6e+7,
@@ -45,7 +45,7 @@ p_in = {
 
 p_out = {
         "name" : "OutletPressure",
-        "line" : 196,
+        "card" : 2000201,
         "word" : 2,
         "initial_value" : 1.5313e+7,
         "final_value" : 1.5803e+7,
@@ -54,7 +54,7 @@ p_out = {
 
 T_in = {
         "name" : "InletTemperature",
-        "line" : 84,
+        "card" : 1000201,
         "word" : 3,
         "initial_value" : 566.25,
         "final_value" : 568.0,
@@ -63,7 +63,7 @@ T_in = {
 
 m_dot = {
         "name" : "MassFlowRate",
-        "line" : 108,
+        "card" : 1100201,
         "word" : 2,
         "initial_value" : 0.335,
         "final_value" : 0.34,
@@ -72,7 +72,7 @@ m_dot = {
 
 power = {
         "name" : "Power",
-        "line" : 408,
+        "card" : 20288801,
         "word" : 2,
         "initial_value" : 66351.88,
         "final_value" : 68000.0,
@@ -81,7 +81,7 @@ power = {
 
 He_pressure = {
         "name" : "GapPressure",
-        "line" : 239,
+        "card" : 15550001,
         "word" : 1,
         "initial_value" : 2410000.0,
         "final_value" : 2500000.0,
@@ -90,7 +90,7 @@ He_pressure = {
 
 T_init_hs = {
         "name" : "InitialHeatStrTemperature",
-        "line" : 264,
+        "card" : 15550401,
         "word" : 1,
         "initial_value" : 600.0,
         "final_value" : 620.0,
@@ -99,7 +99,7 @@ T_init_hs = {
 
 gap_composition_he = {
         "name" : "GapCompositionHe",
-        "line" : 387,
+        "card" : 20122201,
         "word" : 2,
         "initial_value" : 1.0,
         "final_value" : 0.9,
@@ -108,7 +108,7 @@ gap_composition_he = {
 
 gap_composition_xe = {
         "name" : "GapCompositionXe",
-        "line" : 388,
+        "card" : 20122202,
         "word" : 2,
         "initial_value" : 0.0,
         "final_value" : 0.1,
@@ -188,30 +188,42 @@ header = ';'.join(header)
 
 fuel_absolute = []
 fuel_relative = []
+fuel_adimensional = []
 clad_absolute = []
 clad_relative = []
+clad_adimensional = []
 MDNBR_absolute = []
 MDNBR_relative = []
+MDNBR_adimensional = []
 
 for parameter in parameters:
     delta_input = parameter[0]['final_value'] - parameter[0]['initial_value']
     delta_input_rel = 100*delta_input/parameter[0]['initial_value'] # pctg points
     delta_ft = np.subtract(max_fuel_temperature[parameter[0]['name']], max_fuel_temperature['nominale'])
+    delta_ft_rel = 100*delta_ft/max_fuel_temperature['nominale'] # pctg points
     delta_ct = np.subtract(max_clad_temperature[parameter[0]['name']], max_clad_temperature['nominale'])
+    delta_ct_rel = 100*delta_ct/max_clad_temperature['nominale'] # pctg points
     delta_mdnbr = np.subtract(MDNBR[parameter[0]['name']], MDNBR['nominale'])
+    delta_mdnbr_rel = 100*delta_mdnbr/MDNBR['nominale'] # pctg points
     fuel_absolute = np.append(fuel_absolute, np.divide(delta_ft,delta_input))
     fuel_relative = np.append(fuel_relative, np.divide(delta_ft,delta_input_rel))
+    fuel_adimensional = np.append(fuel_adimensional, np.divide(delta_ft_rel,delta_input_rel))
     clad_absolute = np.append(clad_absolute, np.divide(delta_ct,delta_input))
     clad_relative = np.append(clad_relative, np.divide(delta_ct,delta_input_rel))
+    clad_adimensional = np.append(clad_adimensional, np.divide(delta_ct_rel,delta_input_rel))
     MDNBR_absolute = np.append(MDNBR_absolute, np.divide(delta_mdnbr,delta_input))
     MDNBR_relative = np.append(MDNBR_relative, np.divide(delta_mdnbr,delta_input_rel))
+    MDNBR_adimensional = np.append(MDNBR_adimensional, np.divide(delta_mdnbr_rel,delta_input_rel))
 
 
 # SALVO IL CSV
 body_asbolute = np.vstack((fuel_absolute,clad_absolute,MDNBR_absolute))
 body_relative = np.vstack((fuel_relative,clad_relative,MDNBR_relative))
+body_adimensional = np.vstack((fuel_adimensional,clad_adimensional,MDNBR_adimensional))
 np.savetxt('sensitivity_absolute.csv', body_asbolute, delimiter=';', comments='', fmt='%.6e', header=header)
 np.savetxt('sensitivity_relative.csv', body_relative, delimiter=';', comments='', fmt='%.6e', header=header)
+np.savetxt('sensitivity_adimensional.csv', body_adimensional, delimiter=';', comments='', fmt='%.6e', header=header)
+
 
 
 
