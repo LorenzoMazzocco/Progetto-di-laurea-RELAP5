@@ -15,8 +15,12 @@ T0 = 566.25    # [°K]
 p_atm = 3      # [bar]
 toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p_atm)
 
+<<<<<<< HEAD
 m0 = 0.335   # [kg/s]
 m_eccs = 0.3 # [kg/s]
+=======
+m0 = 0.335 # [kg/s]
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
 delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
@@ -28,7 +32,10 @@ card_pressureinlet_100 = 1000202
 card_pressureoutlet_100 = 2000202
 card_power_100 = 20288802
 card_m_in_100 = 1100202
+<<<<<<< HEAD
 card_m_eccs_100 = 3300202
+=======
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 
 # TRANSITORIO
 lambdas = np.array([0.05, 0.1, 0.15, 0.2])
@@ -79,6 +86,7 @@ for l in lambdas:
 
     # Genero vettore mass flow rate primario
     m_in = m0*np.exp(-l*(t-100))
+<<<<<<< HEAD
 
     # Trovo tempo di attivazione ECCS
     for i in range(len(p_in)):
@@ -86,6 +94,8 @@ for l in lambdas:
             break
 
     t_eccs = t[i]
+=======
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 
     ############### GENERO CODICE DA SOSTITUIRE IN RELAP INPUT #############
 
@@ -128,6 +138,7 @@ for l in lambdas:
         line = "{}  {:.1f}   {:.5e}  {} {}\n".format(cardno, t[i], m_in[i], 0., 0.)
         add_m_in.append(line)
 
+<<<<<<< HEAD
 
     # Mass flow rate ECCS
     add_m_eccs = []
@@ -135,6 +146,8 @@ for l in lambdas:
     add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100, t_eccs, 0., 0., 0.))
     add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100+1, t_eccs+0.01, m_eccs, 0., 0.))
 
+=======
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 
     #####################################################
     #                 MODIFICO L'INPUT                  #
@@ -189,6 +202,7 @@ for l in lambdas:
     for i in range(len(add_m_in)):
         r_lines.insert(line_m_in_100, add_m_in[len(add_m_in)-1-i])
 
+<<<<<<< HEAD
     # Mass flow rate ECCS
     for idx, line in enumerate(r_lines):
         if line.split()[0] == str(card_m_eccs_100):
@@ -199,6 +213,8 @@ for l in lambdas:
     for i in range(len(add_m_eccs)):
         r_lines.insert(line_m_eccs_100, add_m_eccs[len(add_m_eccs)-1-i])
 
+=======
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 
     # ALLUNGO LA SIMULAZIONE AGGIUNGENDO LA CARD 204
     r_lines.insert(38, "204     {}     1e-8   0.05   00003   10    10    1 \n".format(t_fin+delta_trans))

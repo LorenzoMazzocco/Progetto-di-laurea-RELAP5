@@ -118,7 +118,11 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *
 *
 *crdno       Name        Type
+<<<<<<< HEAD
 3000000     emer_res    snglvol
+=======
+3000000     emer_res    tmdpvol
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 *
 *crdno    Volflowarea[m^2]   Vollength[m]   Volvolume[m^3]
 3000101       1.e+5               1.             0.
@@ -143,20 +147,36 @@ $                                                                             $
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *
 *crdno     Name       Type
+<<<<<<< HEAD
 3300000   eccs_jun   tmdpjun
 *
 *crdno       From        To      Junarea[m^2]
 3300101    300010000  900010003     0.
+=======
+1100000   eccs_jun   tmdpjun
+*
+*crdno       From        To      Junarea[m^2]
+1100101    300010000  900010003     0.
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 *
 *--------------------------- JUNCTION DATA ----------------------------
 *
 *crdno    Controlword    W2   W3   W4
+<<<<<<< HEAD
 3300200       1 *  (0 = velocity ; 1 = mass flow rate)
 *
 *crdno    Time[s]   Ml[kg/s]   Mv[kg/s]   Vint[m/s]
 *
 3300201      0.      0.        0.          0.
 3300202     100.     0.        0.          0.
+=======
+1100200       1 *  (0 = velocity ; 1 = mass flow rate)
+*
+*crdno    Time[s]   Ml[kg/s]   Mv[kg/s]   Vint[m/s]
+*
+1100201      0.      0.        0.          0.
+1100202     100.     0.        0.          0.
+>>>>>>> 1e39532aa2fe102f1110b943ed67dbde13226a72
 *
 *----------------------------------------------------------------------
 *
