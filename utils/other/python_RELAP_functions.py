@@ -9,27 +9,32 @@ import numpy as np
 
 def modify_RELAP_parameter(parameter, filepath):
 # La funzione prende in input un dictionary (parameter) con indicate le seguenti informazioni
-# ("name", "line", "word", "initial_value", "final_value", "table_rep"). La funzione identifica il valore cercato,
+# ("name", "card", "word", "initial_value", "final_value", "table_rep"). La funzione identifica il valore cercato,
 # modifica il valore con quello indicato e riscrive il file.
 
     # APRO FILE
     r_file = open(filepath, 'r')
     lines = r_file.readlines()
 
-    target_line = lines[parameter['line']-1]
+    # identifico la line corretta data la word
+    for idx, line in enumerate(lines):
+        if line.split()[0] == str(parameter['card']):
+            target_line = lines[idx]
+            break
+
     words = target_line.split()
 
     # CAMBIO LA TARGET WORD
     words[parameter['word']] = str(parameter['final_value'])
     words.append("\n")
-    lines[parameter['line']-1] = "   ".join(words)
+    lines[idx] = "   ".join(words)
 
     if parameter['table_rep']: # caso in cui ho una tabella temporale
-        target_line_t = lines[parameter['line']]
+        target_line_t = lines[idx+1]
         words_t = target_line_t.split()
         words_t[parameter['word']] = str(parameter['final_value'])
         words_t.append("\n")
-        lines[parameter['line']] = "   ".join(words_t)
+        lines[idx+1] = "   ".join(words_t)
 
     # SCRIVO FILE
     w_file = open(filepath, 'w')
