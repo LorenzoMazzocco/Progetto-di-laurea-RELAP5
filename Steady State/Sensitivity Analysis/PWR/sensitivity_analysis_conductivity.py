@@ -311,7 +311,7 @@ MDNBR_relative = np.append(MDNBR_relative, np.divide(delta_mdnbr, delta_function
 MDNBR_adimensional = np.append(MDNBR_adimensional, np.divide(delta_mdnbr_rel, delta_function))
 
 # SALVO IL CSV
-header=["zirconium", "uo2"]
+header=["Zr", "UO2"]
 header=';'.join(header)
 
 body_relative = np.vstack((fuel_relative,clad_relative,MDNBR_relative))

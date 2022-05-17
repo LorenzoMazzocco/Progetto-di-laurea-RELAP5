@@ -121,6 +121,29 @@ sa_adi_max_fuel = sens_analysis_adimensional(1,:);
 sa_adi_max_clad = sens_analysis_adimensional(2,:);
 sa_adi_mdnbr = sens_analysis_adimensional(3,:);
 
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+sens_analysis_k_relative = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_relative.csv")
+sens_analysis_k_adimensional = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_adimensional.csv")
+
+parameter_lables_k = sens_analysis_k_relative.Properties.VariableNames;
+sens_analysis_k_relative = table2array(sens_analysis_k_relative);
+sens_analysis_k_adimensional = table2array(sens_analysis_k_adimensional);
+
+% Sostituisco agli zeri numeri piccolissimi in modo da non avere rogne con
+% le funzioni di plotting
+R = rand(3,length(parameter_lables_k))*1e-10;
+sens_analysis_k_relative(sens_analysis_k_relative == 0) = R(sens_analysis_k_relative == 0);
+sens_analysis_k_adimensional(sens_analysis_k_adimensional == 0) = R(sens_analysis_k_adimensional == 0);
+
+
+sak_rel_max_fuel = sens_analysis_k_relative(1,:);
+sak_rel_max_clad = sens_analysis_k_relative(2,:);
+sak_rel_mdnbr = sens_analysis_k_relative(3,:);
+sak_adi_max_fuel = sens_analysis_k_adimensional(1,:);
+sak_adi_max_clad = sens_analysis_k_adimensional(2,:);
+sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                            %
 %                           PLOTS                            %
@@ -129,10 +152,10 @@ sa_adi_mdnbr = sens_analysis_adimensional(3,:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS %%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % --------- RELATIVE PLOT ------------
 figure('Position', [10 10 900 900])
-tiledlayout(3,1, 'TileSpacing', 'loose')
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA RELATIVE")
 
 % Relative Fuel Temp
 nexttile
@@ -176,7 +199,8 @@ xlabel("MDNBR Variation [ ^{1}/_{%} ]")
 
 % --------- ADIMENSIONAL PLOT ------------
 figure('Position', [10 10 900 900])
-tiledlayout(3,1, 'TileSpacing', 'loose')
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA ADIMENSIONAL")
 
 % Adimensional Fuel Temp
 nexttile
@@ -216,6 +240,77 @@ end
 barh(X,sort(Y))
 title("MDNBR")
 xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+
+
+
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+
+% --------- RELATIVE PLOT ------------
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA CONDUCTIVITY RELATIVE")
+% Relative Fuel Temp
+nexttile
+Y = sak_rel_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Relative Clad Temp
+nexttile
+Y = sak_rel_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+
+
+
+% --------- ADIMENSIONAL PLOT ------------
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA CONDUCTIVITY ADIMENSIONAL")
+
+% Adimensional Fuel Temp
+nexttile
+Y = sak_adi_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Adimensional Clad Temp
+nexttile
+Y = sak_adi_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% OTHER %%%%%%%%%%%%%%%%%%%%%%%%
