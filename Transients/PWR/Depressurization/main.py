@@ -15,28 +15,28 @@ T0 = 566.25    # [°K]
 p_atm = 3      # [bar]
 toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p_atm)
 
+m0 = 0.335   # [kg/s]
+m_eccs = 0.3 # [kg/s]
+
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
 delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
 delta_t_scram = 0.5      # [s] tempo di esecuzione dello scram
 P0 = 66351.88            # [W] potenza nominale rod
 
 # INPUT RELAP
-line_pressureinlet_100 = 85
 card_pressureinlet_100 = 1000202
-
-line_pressureoutlet_100 = 197
 card_pressureoutlet_100 = 2000202
-
-line_power_100 = 409
 card_power_100 = 20288802
+card_m_in_100 = 1100202
+card_m_eccs_100 = 3300202
 
 # TRANSITORIO
 lambdas = np.array([0.05, 0.1, 0.15, 0.2])
 delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
 
 
-
-
+# ECCS
+p_eccs = 20.
 
 
 
@@ -77,12 +77,21 @@ for l in lambdas:
     t_power = np.linspace(100+delta_t0_scram+delta_t_scram, t_fin+delta_trans ,97)
     P_decay = 0.0622*P0*(((t_power-(100+delta_t0_scram))**(-0.2)) - ((t_active_core + t_power - (100+delta_t0_scram))**(-0.2))) # formula di Wigner-Way
 
+    # Genero vettore mass flow rate primario
+    m_in = m0*np.exp(-l*(t-100))
+
+    # Trovo tempo di attivazione ECCS
+    for i in range(len(p_in)):
+        if p_in[i] < p_eccs:
+            break
+
+    t_eccs = t[i]
 
     ############### GENERO CODICE DA SOSTITUIRE IN RELAP INPUT #############
 
     # Inlet pressure
     add_pressureinlet = []
-    cardno = card_pressureinlet_100-1;
+    cardno = card_pressureinlet_100-1
 
     for i in range(len(t)):
         cardno = cardno+1
@@ -92,7 +101,7 @@ for l in lambdas:
 
     # Outlet pressure
     add_pressureoutlet = []
-    cardno = card_pressureoutlet_100-1;
+    cardno = card_pressureoutlet_100-1
 
     for i in range(len(t)):
         cardno = cardno+1
@@ -110,6 +119,22 @@ for l in lambdas:
         add_power.append(line)
 
 
+    # Mass flow rate primario
+    add_m_in = []
+    cardno = card_m_in_100-1
+
+    for i in range(len(t)):
+        cardno = cardno+1
+        line = "{}  {:.1f}   {:.5e}  {} {}\n".format(cardno, t[i], m_in[i], 0., 0.)
+        add_m_in.append(line)
+
+
+    # Mass flow rate ECCS
+    add_m_eccs = []
+    cardno = card_m_eccs_100
+    add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100, t_eccs, 0., 0., 0.))
+    add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100+1, t_eccs+0.01, m_eccs, 0., 0.))
+
 
     #####################################################
     #                 MODIFICO L'INPUT                  #
@@ -122,19 +147,58 @@ for l in lambdas:
     r_lines = r_file.readlines()
     r_file.close()
 
-    # AGGIUNGO LE TABELLE (da quella più in basso a quella più in alto per mantenere la validità degli indici di line)
+    # TROVO LE LINES GIUSTE E AGGIUNGO LE TABELLE
 
     # Power
+    for idx, line in enumerate(r_lines):
+        if line.split()[0] == str(card_power_100):
+            target_line = r_lines[idx]
+            break
+    line_power_100 = idx+1
+
     for i in range(len(add_power)):
         r_lines.insert(line_power_100, add_power[len(add_power)-1-i])
 
     # Outlet Pressure
+    for idx, line in enumerate(r_lines):
+        if line.split()[0] == str(card_pressureoutlet_100):
+            target_line = r_lines[idx]
+            break
+    line_pressureoutlet_100 = idx+1
+
     for i in range(len(add_pressureoutlet)):
         r_lines.insert(line_pressureoutlet_100, add_pressureoutlet[len(add_pressureoutlet)-1-i])
 
     # Inlet Pressure
+    for idx, line in enumerate(r_lines):
+        if line.split()[0] == str(card_pressureinlet_100):
+            target_line = r_lines[idx]
+            break
+    line_pressureinlet_100 = idx+1
+
     for i in range(len(add_pressureinlet)):
         r_lines.insert(line_pressureinlet_100, add_pressureinlet[len(add_pressureinlet)-1-i])
+
+    # Mass flow rate primario
+    for idx, line in enumerate(r_lines):
+        if line.split()[0] == str(card_m_in_100):
+            target_line = r_lines[idx]
+            break
+    line_m_in_100 = idx+1
+
+    for i in range(len(add_m_in)):
+        r_lines.insert(line_m_in_100, add_m_in[len(add_m_in)-1-i])
+
+    # Mass flow rate ECCS
+    for idx, line in enumerate(r_lines):
+        if line.split()[0] == str(card_m_eccs_100):
+            target_line = r_lines[idx]
+            break
+    line_m_eccs_100 = idx+1
+
+    for i in range(len(add_m_eccs)):
+        r_lines.insert(line_m_eccs_100, add_m_eccs[len(add_m_eccs)-1-i])
+
 
     # ALLUNGO LA SIMULAZIONE AGGIUNGENDO LA CARD 204
     r_lines.insert(38, "204     {}     1e-8   0.05   00003   10    10    1 \n".format(t_fin+delta_trans))
@@ -176,5 +240,6 @@ for l in lambdas:
     # Estraggo i dati (creo data.csv)
     os.system(r"cd lambda_{} & py ..\..\..\..\utils\other\parser.py".format(l))
 
-    # Elimino rstplt per alleggerire la cartella
+    # Elimino rstplt e output per alleggerire la cartella
+    #os.system(r'del lambda_{}\out\output'.format(l))
     os.system(r'del lambda_{}\out\rstplt'.format(l))
