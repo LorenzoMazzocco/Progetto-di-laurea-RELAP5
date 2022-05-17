@@ -112,6 +112,119 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 *
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 $                                                                             $
+$                COMPONENT 300 - EMERGENCY INJECTION RESERVOIR                $
+$                                                                             $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*
+*
+*crdno       Name        Type
+3000000     emer_res    tmdpvol
+*
+*crdno    Volflowarea[m^2]   Vollength[m]   Volvolume[m^3]
+3000101       1.e+5               1.             0.
+*
+*crdno    Azangle   Vertangle   Elevchange[m]
+3000102      0.        90.           1.
+*                    90 = verticale, se vertangle=0 => orizzontale
+*crdno   Rough[m]  Dhyd[m]    Control Flags
+3000103     0.       0.           0000000
+*
+*--------------------------- VOLUME DATA ----------------------------
+*
+*crdno    ebt      P[Pa]      T[K]
+3000200   003      20.e+5     327.
+*
+*------------------------------------------------------------------------------
+*
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$                                                                             $
+$                     COMPONENT 330 - ECCS JUNCTION                           $
+$                                                                             $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*
+*crdno     Name     Type
+1100000   feedin   tmdpjun
+*
+*crdno       From        To      Junarea[m^2]
+1100101    100010000  900000000    8.79e-5
+*
+*--------------------------- JUNCTION DATA ----------------------------
+*
+*crdno    Controlword    W2   W3   W4
+1100200       1 *  (0 = velocity ; 1 = mass flow rate)
+*
+*crdno    Time[s]   Ml[kg/s]   Mv[kg/s]   Vint[m/s]
+*
+1100201      0.      0.335        0.          0.
+1100202     100.     0.335        0.          0.
+*
+*----------------------------------------------------------------------
+*
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$                                                                             $
+$                          COMPONENT 900 - BRANCH                             $
+$                                                                             $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*
+*crdno      Name      Type
+9000000   bran_vol   branch
+*
+*crdno      NoOfJunHereDescribed      ControlWord
+9000001             0                      1      *  (0 = velocity ; 1 = mass flow rate)
+*
+*crdno     Volflowarea[m^2]   Vollength[m]   Volvolume[m^3]
+9000101       8.79e-5            0.1             0.
+*
+*crdno    Azangle   Vertangle   Elevchange[m]
+9000102      0.        90.          0.1
+*                    90 = verticale, se vertangle=0 => orizzontale
+*crdno   Rough[m]  Dhyd[m]    Control Flags
+9000103     0.       0.           0000001   *chiedo che sia valutato l'equilibrio tra i 2 flussi
+*
+*---------------- BRANCH Y-coordinate: tee connection data ----------------------------
+*
+*crdno     Volflowarea[m^2]   Vollength[m]
+*******+9000181        8.79e-5            0.01
+*
+*crdno   Rough[m]    Dhyd[m]    Control Flags
+************9000103     0.         0.         0000010    * non considero perdite di carico dovute alla geometria a T della branch
+*
+*crdno      W6       W7             W8
+*9000103     0.       0.             0.
+*
+*------------------------ BRANCH INITIAL DATA ----------------------------
+*
+*crdno    Controlword-ebt   pressure[Pa]    temperature[°K]
+9000200       003            155.1e+5          566.25
+*
+*------------------------------------------------------------
+*
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$                                                                             $
+$                     COMPONENT 990 - BRANCH JUNCTION                         $
+$                                                                             $
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+*
+*crdno      Name      Type
+9900000   bran_jun   sngljun
+*
+*crdno       From        To      Junarea[m^2]
+9900101    900010000  555010001      0.
+*
+*crdno     Area[m^2]    Loss K fwd    Loss K bwd
+9900102       0.             0.           0.
+*
+*--------------------------- JUNCTION IC ----------------------------
+*
+*crdno    Controlword        Ml[kg/s]      Mv[kg/s]      Vint[m/s]
+9900201        1                0.             0.            0.
+*
+* DA CAMBIARE PORTATA E JUNAREA
+*----------------------------------------------------------------------
+*
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$                                                                             $
 $                      COMPONENT 555 - HEATED CHANNEL                         $
 $                                                                             $
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
