@@ -196,7 +196,6 @@ for l in lambdas:
     for i in range(len(add_m_in)):
         r_lines.insert(line_m_in_100, add_m_in[len(add_m_in)-1-i])
 
-<<<<<<< HEAD
     # Mass flow rate ECCS
     for idx, line in enumerate(r_lines):
         if line.split()[0] == str(card_m_eccs_100):
