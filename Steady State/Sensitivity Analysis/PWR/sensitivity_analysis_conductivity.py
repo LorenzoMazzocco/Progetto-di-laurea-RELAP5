@@ -268,13 +268,56 @@ print(MDNBR)
 #          ELABORO E SALVO RISULTATI         #
 ##############################################
 
+# Inizializzo
+fuel_relative = []
+fuel_adimensional = []
+clad_relative = []
+clad_adimensional = []
+MDNBR_relative = []
+MDNBR_adimensional = []
 
+# ZIRCONIUM
+delta_function = 100*(mf-1) # pctg points
 
+delta_ft = np.subtract(max_fuel_temperature['zirconium'],max_fuel_temperature['nominale'])
+delta_ft_rel = 100*delta_ft/max_fuel_temperature['nominale']
+delta_ct = np.subtract(max_clad_temperature['zirconium'],max_clad_temperature['nominale'])
+delta_ct_rel = 100*delta_ct/max_clad_temperature['nominale']
+delta_mdnbr = np.subtract(MDNBR['zirconium'], MDNBR['nominale'])
+delta_mdnbr_rel = 100*delta_mdnbr/MDNBR['nominale']
 
+fuel_relative = np.append(fuel_relative, np.divide(delta_ft, delta_function))
+fuel_adimensional = np.append(fuel_adimensional, np.divide(delta_ft_rel, delta_function))
+clad_relative = np.append(clad_relative, np.divide(delta_ct, delta_function))
+clad_adimensional = np.append(clad_adimensional, np.divide(delta_ct_rel,delta_function))
+MDNBR_relative = np.append(MDNBR_relative, np.divide(delta_mdnbr, delta_function))
+MDNBR_adimensional = np.append(MDNBR_adimensional, np.divide(delta_mdnbr_rel, delta_function))
 
+# UO2
+delta_function = 100*(mf-1) # pctg points
 
+delta_ft = np.subtract(max_fuel_temperature['uo2'],max_fuel_temperature['nominale'])
+delta_ft_rel = 100*delta_ft/max_fuel_temperature['nominale']
+delta_ct = np.subtract(max_clad_temperature['uo2'],max_clad_temperature['nominale'])
+delta_ct_rel = 100*delta_ct/max_clad_temperature['nominale']
+delta_mdnbr = np.subtract(MDNBR['uo2'], MDNBR['nominale'])
+delta_mdnbr_rel = 100*delta_mdnbr/MDNBR['nominale']
 
+fuel_relative = np.append(fuel_relative, np.divide(delta_ft, delta_function))
+fuel_adimensional = np.append(fuel_adimensional, np.divide(delta_ft_rel, delta_function))
+clad_relative = np.append(clad_relative, np.divide(delta_ct, delta_function))
+clad_adimensional = np.append(clad_adimensional, np.divide(delta_ct_rel,delta_function))
+MDNBR_relative = np.append(MDNBR_relative, np.divide(delta_mdnbr, delta_function))
+MDNBR_adimensional = np.append(MDNBR_adimensional, np.divide(delta_mdnbr_rel, delta_function))
 
+# SALVO IL CSV
+header=["zirconium", "uo2"]
+header=';'.join(header)
+
+body_relative = np.vstack((fuel_relative,clad_relative,MDNBR_relative))
+body_adimensional = np.vstack((fuel_adimensional,clad_adimensional,MDNBR_adimensional))
+np.savetxt('sensitivity_conductivity_relative.csv', body_relative, delimiter=';', comments='', fmt='%.6e', header=header)
+np.savetxt('sensitivity_conductivity_adimensional.csv', body_adimensional, delimiter=';', comments='', fmt='%.6e', header=header)
 
 
 
@@ -282,9 +325,6 @@ print(MDNBR)
 ##############################################
 #             PULISCO LA CARTELLA            #
 ##############################################
-# elimino file superflui
-os.system(r"del screen")
-os.system(r"del input.i")
 while len(os.listdir('out/')) != 0:
     os.system("del input.i")
     os.system(r"del out\output")
@@ -293,3 +333,6 @@ while len(os.listdir('out/')) != 0:
     os.system(r"del out\stripf")
     os.system(r"del out\data.csv")
 os.system(r"rd out")
+# elimino file superflui
+os.system(r"del screen")
+os.system(r"del input.i")
