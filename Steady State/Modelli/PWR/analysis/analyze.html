@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-16"><meta name="DC.source" content="analyze.m"><style type="text/css">
+      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-17"><meta name="DC.source" content="analyze.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -104,11 +104,30 @@ sens_analysis_adimensional =
          -4.893            0.88818      -1.1715             0                 0                    0.34584        -1.6767e-07   
 
 
-sa_rel_mdnbr =
+sens_analysis_k_relative =
 
-   -0.1566    0.0284   -0.0375    0.0000    0.0000    0.0111   -0.0000
+  3x2 table
 
-</pre><img vspace="5" hspace="5" src="analyze_01.png" alt=""> <img vspace="5" hspace="5" src="analyze_02.png" alt=""> <img vspace="5" hspace="5" src="analyze_03.png" alt=""> <img vspace="5" hspace="5" src="analyze_04.png" alt=""> <img vspace="5" hspace="5" src="analyze_05.png" alt=""> <img vspace="5" hspace="5" src="analyze_06.png" alt=""> <img vspace="5" hspace="5" src="analyze_07.png" alt=""> <img vspace="5" hspace="5" src="analyze_08.png" alt=""> <img vspace="5" hspace="5" src="analyze_09.png" alt=""> <img vspace="5" hspace="5" src="analyze_10.png" alt=""> <img vspace="5" hspace="5" src="analyze_11.png" alt=""> <img vspace="5" hspace="5" src="analyze_12.png" alt=""> <img vspace="5" hspace="5" src="analyze_13.png" alt=""> <img vspace="5" hspace="5" src="analyze_14.png" alt=""> <img vspace="5" hspace="5" src="analyze_15.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+      Zr         UO2  
+    _______    _______
+
+    -0.3702    -8.3364
+    -0.2725          0
+          0          0
+
+
+sens_analysis_k_adimensional =
+
+  3x2 table
+
+       Zr          UO2   
+    _________    ________
+
+    -0.023371    -0.52629
+    -0.042484           0
+            0           0
+
+</pre><img vspace="5" hspace="5" src="analyze_01.png" alt=""> <img vspace="5" hspace="5" src="analyze_02.png" alt=""> <img vspace="5" hspace="5" src="analyze_03.png" alt=""> <img vspace="5" hspace="5" src="analyze_04.png" alt=""> <img vspace="5" hspace="5" src="analyze_05.png" alt=""> <img vspace="5" hspace="5" src="analyze_06.png" alt=""> <img vspace="5" hspace="5" src="analyze_07.png" alt=""> <img vspace="5" hspace="5" src="analyze_08.png" alt=""> <img vspace="5" hspace="5" src="analyze_09.png" alt=""> <img vspace="5" hspace="5" src="analyze_10.png" alt=""> <img vspace="5" hspace="5" src="analyze_11.png" alt=""> <img vspace="5" hspace="5" src="analyze_12.png" alt=""> <img vspace="5" hspace="5" src="analyze_13.png" alt=""> <img vspace="5" hspace="5" src="analyze_14.png" alt=""> <img vspace="5" hspace="5" src="analyze_15.png" alt=""> <img vspace="5" hspace="5" src="analyze_16.png" alt=""> <img vspace="5" hspace="5" src="analyze_17.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 addpath(genpath('../../../../utils/'));
 warning('OFF', 'MATLAB:table:ModifiedAndSavedVarnames')
@@ -228,10 +247,33 @@ sa_abs_max_clad = sens_analysis_absolute(2,:);
 sa_abs_mdnbr = sens_analysis_absolute(3,:);
 sa_rel_max_fuel = sens_analysis_relative(1,:);
 sa_rel_max_clad = sens_analysis_relative(2,:);
-sa_rel_mdnbr = sens_analysis_relative(3,:)
+sa_rel_mdnbr = sens_analysis_relative(3,:);
 sa_adi_max_fuel = sens_analysis_adimensional(1,:);
 sa_adi_max_clad = sens_analysis_adimensional(2,:);
 sa_adi_mdnbr = sens_analysis_adimensional(3,:);
+
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+sens_analysis_k_relative = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_relative.csv")
+sens_analysis_k_adimensional = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_adimensional.csv")
+
+parameter_lables_k = sens_analysis_k_relative.Properties.VariableNames;
+sens_analysis_k_relative = table2array(sens_analysis_k_relative);
+sens_analysis_k_adimensional = table2array(sens_analysis_k_adimensional);
+
+% Sostituisco agli zeri numeri piccolissimi in modo da non avere rogne con
+% le funzioni di plotting
+R = rand(3,length(parameter_lables_k))*1e-10;
+sens_analysis_k_relative(sens_analysis_k_relative == 0) = R(sens_analysis_k_relative == 0);
+sens_analysis_k_adimensional(sens_analysis_k_adimensional == 0) = R(sens_analysis_k_adimensional == 0);
+
+
+sak_rel_max_fuel = sens_analysis_k_relative(1,:);
+sak_rel_max_clad = sens_analysis_k_relative(2,:);
+sak_rel_mdnbr = sens_analysis_k_relative(3,:);
+sak_adi_max_fuel = sens_analysis_k_adimensional(1,:);
+sak_adi_max_clad = sens_analysis_k_adimensional(2,:);
+sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                            %
@@ -241,10 +283,10 @@ sa_adi_mdnbr = sens_analysis_adimensional(3,:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS %%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- RELATIVE PLOT REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
 figure('Position', [10 10 900 900])
-tiledlayout(3,1, 'TileSpacing', 'loose')
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA RELATIVE")
 
 % Relative Fuel Temp
 nexttile
@@ -288,7 +330,8 @@ xlabel("MDNBR Variation [ ^{1}/_{%} ]")
 
 % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- ADIMENSIONAL PLOT REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
 figure('Position', [10 10 900 900])
-tiledlayout(3,1, 'TileSpacing', 'loose')
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA ADIMENSIONAL")
 
 % Adimensional Fuel Temp
 nexttile
@@ -328,6 +371,77 @@ end
 barh(X,sort(Y))
 title("MDNBR")
 xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+
+
+
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- RELATIVE PLOT REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA CONDUCTIVITY RELATIVE")
+% Relative Fuel Temp
+nexttile
+Y = sak_rel_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Relative Clad Temp
+nexttile
+Y = sak_rel_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+
+
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- ADIMENSIONAL PLOT REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'loose');
+title(t, "SA CONDUCTIVITY ADIMENSIONAL")
+
+% Adimensional Fuel Temp
+nexttile
+Y = sak_adi_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Adimensional Clad Temp
+nexttile
+Y = sak_adi_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% OTHER %%%%%%%%%%%%%%%%%%%%%%%%
