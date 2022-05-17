@@ -1,0 +1,23 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = lambda_0.2\input.i                                                                      
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     11-May-22    00:27:22      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  47.315     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a    7298  Courant
+     20.1  95.871     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a   13748  Courant
+     30.1  119.21     6.03E-04 6.03E-04 55550F  0.4042     0.9350  3.578E-05 55544    0.52  0.355    f  0.00    a   23918  Courant
+     40.1  132.10     1.75E-04 1.75E-04 55550F  0.9140E-01 0.9964  4.217E-05 55501    0.13  0.377    f  0.00    a   36745  Courant
+     50.1  134.78     1.88E-04 1.88E-04 55550F  0.8391E-01 0.9923  4.388E-05 55501    0.29  0.357    f  0.00    a   51529  Courant
+     60.1  135.31     1.10E-04 1.10E-04 55550F  0.6527E-01 0.9968  4.403E-05 55550    0.01  1.006E-04f  0.00    a   66872  Courant
+     70.1  135.53     1.56E-06 1.56E-06 55550V  0.8689E-02 0.9999  4.403E-05 55550    0.01  1.008E-04f  0.00    a   83124  Courant
+     80.1  135.62     9.14E-06 9.14E-06 55550F  0.9574E-02 0.9997  4.404E-05 55550    0.01  1.537E-04f  0.00    a   98586  Courant
+     90.1  149.10     4.84E-02 4.84E-02 55507f  0.1133     1.0000  4.407E-05 55504    0.11  7.526E-04f  0.00    a  110583  Courant
+Transient terminated by end of time step cards.
+ At time     166.546     seconds; Step    110932
