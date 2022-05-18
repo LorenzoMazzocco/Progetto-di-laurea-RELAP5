@@ -17,7 +17,7 @@ toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p
 
 
 m0 = 0.335   # [kg/s]
-m_eccs = 0.3 # [kg/s]
+m_eccs = 0.2 # [kg/s]
 
 m0 = 0.335 # [kg/s]
 
@@ -140,7 +140,7 @@ for l in lambdas:
     add_m_eccs = []
     cardno = card_m_eccs_100
     add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100, t_eccs, 0., 0., 0.))
-    add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100+1, t_eccs+0.01, m_eccs, 0., 0.))
+    add_m_eccs.append("{}  {:.1f}  {:.5e}  {}  {}\n".format(card_m_eccs_100+1, t_eccs+0.1, m_eccs, 0., 0.))
 
 
     #####################################################
