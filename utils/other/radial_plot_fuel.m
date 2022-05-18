@@ -43,7 +43,7 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
         ylim([0 3000])
         xlim([0 rr(11)])
         xlabel('Distance from center [mm]') 
-        ylabel('Temperature [K]')
+        ylabel('Temperature [°C]')
         title('Temperature Distribution in Fuel Rod')
 
         for i=2:10:length(time)
@@ -79,7 +79,7 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
         ylim([0 3000])
         xlim([0 rr(11)])
         xlabel('Distance from center [mm]') 
-        ylabel('Temperature [K]')
+        ylabel('Temperature [°C]')
         title('Temperature Distribution in Fuel Rod')
     end
 

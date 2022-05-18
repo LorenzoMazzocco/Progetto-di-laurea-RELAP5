@@ -19,11 +19,9 @@ toll = 0.1     # tolleranza per la fine della simulazione (distanza tra p_in e p
 m0 = 0.335   # [kg/s]
 m_eccs = 0.2 # [kg/s]
 
-m0 = 0.335 # [kg/s]
-
 
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
-delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
+delta_t0_scram = 4     # [s] delay di scram dall'inizio del transitorio
 delta_t_scram = 0.5      # [s] tempo di esecuzione dello scram
 P0 = 66351.88            # [W] potenza nominale rod
 
@@ -37,7 +35,7 @@ card_m_eccs_100 = 3300202
 
 
 # TRANSITORIO
-lambdas = np.array([0.05, 0.1, 0.15, 0.2])
+lambdas = np.array([0.05, 0.1, 0.15])
 delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
 
 
@@ -248,5 +246,5 @@ for l in lambdas:
     os.system(r"cd lambda_{} & py ..\..\..\..\utils\other\parser.py".format(l))
 
     # Elimino rstplt e output per alleggerire la cartella
-    #os.system(r'del lambda_{}\out\output'.format(l))
+    os.system(r'del lambda_{}\out\output'.format(l))
     os.system(r'del lambda_{}\out\rstplt'.format(l))
