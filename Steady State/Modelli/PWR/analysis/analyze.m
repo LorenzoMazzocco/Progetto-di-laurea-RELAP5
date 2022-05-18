@@ -98,16 +98,18 @@ CHFR = CHF_W3(1:48)./heat_flux_axial(end,1:48);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS %%%%%%%%%%%%%%%%%%%%%%%%
 sens_analysis_absolute = readtable("../../../Sensitivity Analysis/PWR/sensitivity_absolute.csv")
 sens_analysis_relative = readtable("../../../Sensitivity Analysis/PWR/sensitivity_relative.csv")
+sens_analysis_adimensional = readtable("../../../Sensitivity Analysis/PWR/sensitivity_adimensional.csv")
 parameter_lables = sens_analysis_relative.Properties.VariableNames;
 sens_analysis_absolute = table2array(sens_analysis_absolute);
 sens_analysis_relative = table2array(sens_analysis_relative);
+sens_analysis_adimensional = table2array(sens_analysis_adimensional);
 
 % Sostituisco agli zeri numeri piccolissimi in modo da non avere rogne con
 % le funzioni di plotting
 R = rand(3,length(parameter_lables))*1e-10;
 sens_analysis_absolute(sens_analysis_absolute == 0) = R(sens_analysis_absolute == 0);
 sens_analysis_relative(sens_analysis_relative == 0) = R(sens_analysis_relative == 0);
-
+sens_analysis_adimensional(sens_analysis_adimensional == 0) = R(sens_analysis_adimensional == 0);
 
 sa_abs_max_fuel = sens_analysis_absolute(1,:);
 sa_abs_max_clad = sens_analysis_absolute(2,:);
@@ -115,6 +117,32 @@ sa_abs_mdnbr = sens_analysis_absolute(3,:);
 sa_rel_max_fuel = sens_analysis_relative(1,:);
 sa_rel_max_clad = sens_analysis_relative(2,:);
 sa_rel_mdnbr = sens_analysis_relative(3,:);
+sa_adi_max_fuel = sens_analysis_adimensional(1,:);
+sa_adi_max_clad = sens_analysis_adimensional(2,:);
+sa_adi_mdnbr = sens_analysis_adimensional(3,:);
+
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+sens_analysis_k_relative = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_relative.csv")
+sens_analysis_k_adimensional = readtable("../../../Sensitivity Analysis/PWR/sensitivity_conductivity_adimensional.csv")
+
+parameter_lables_k = sens_analysis_k_relative.Properties.VariableNames;
+sens_analysis_k_relative = table2array(sens_analysis_k_relative);
+sens_analysis_k_adimensional = table2array(sens_analysis_k_adimensional);
+
+% Sostituisco agli zeri numeri piccolissimi in modo da non avere rogne con
+% le funzioni di plotting
+R = rand(3,length(parameter_lables_k))*1e-10;
+sens_analysis_k_relative(sens_analysis_k_relative == 0) = R(sens_analysis_k_relative == 0);
+sens_analysis_k_adimensional(sens_analysis_k_adimensional == 0) = R(sens_analysis_k_adimensional == 0);
+
+
+sak_rel_max_fuel = sens_analysis_k_relative(1,:);
+sak_rel_max_clad = sens_analysis_k_relative(2,:);
+sak_rel_mdnbr = sens_analysis_k_relative(3,:);
+sak_adi_max_fuel = sens_analysis_k_adimensional(1,:);
+sak_adi_max_clad = sens_analysis_k_adimensional(2,:);
+sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                            %
@@ -124,10 +152,10 @@ sa_rel_mdnbr = sens_analysis_relative(3,:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS %%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % --------- RELATIVE PLOT ------------
 figure('Position', [10 10 900 900])
-tiledlayout(3,1, 'TileSpacing', 'loose')
+t = tiledlayout(3,1, 'TileSpacing', 'normal');
+title(t, "SA RELATIVE")
 
 % Relative Fuel Temp
 nexttile
@@ -167,6 +195,122 @@ end
 barh(X,sort(Y))
 title("MDNBR")
 xlabel("MDNBR Variation [ ^{1}/_{%} ]")
+
+
+% --------- ADIMENSIONAL PLOT ------------
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'normal');
+title(t, "SA ADIMENSIONAL")
+
+% Adimensional Fuel Temp
+nexttile
+Y = sa_adi_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Adimensional Clad Temp
+nexttile
+Y = sa_adi_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+
+% Adimensional MDNBR
+nexttile
+Y = sa_adi_mdnbr;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("MDNBR")
+xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+
+
+
+%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+
+% --------- RELATIVE PLOT ------------
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'normal');
+title(t, "SA CONDUCTIVITY RELATIVE")
+% Relative Fuel Temp
+nexttile
+Y = sak_rel_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Relative Clad Temp
+nexttile
+Y = sak_rel_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+
+
+
+% --------- ADIMENSIONAL PLOT ------------
+figure('Position', [10 10 900 900])
+t = tiledlayout(3,1, 'TileSpacing', 'normal');
+title(t, "SA CONDUCTIVITY ADIMENSIONAL")
+
+% Adimensional Fuel Temp
+nexttile
+Y = sak_adi_max_fuel;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+title("Max Fuel Temperature")
+
+% Adimensional Clad Temp
+nexttile
+Y = sak_adi_max_clad;
+if length(Y) == length(unique(Y))
+    X = categorical(sort(Y), Y, parameter_lables_k);
+    X = reordercats(X,string(X));
+else
+    X = categorical(Y);
+end
+barh(X,sort(Y))
+title("Max Clad Temperature")
+xlabel("Temperature Variation [ ^{%}/_{%} ]")
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% OTHER %%%%%%%%%%%%%%%%%%%%%%%%
