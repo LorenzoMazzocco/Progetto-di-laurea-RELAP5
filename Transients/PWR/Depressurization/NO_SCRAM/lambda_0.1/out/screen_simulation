@@ -6,16 +6,14 @@
 0$$$$$$$$ Input processing completed successfully.
   RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
  Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-= pwr_channel                                                                     11-May-22    00:31:48      
+= pwr_channel                                                                     18-May-22    13:10:44      
 
  cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
-      0.2  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
-     10.2  46.540     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a    7195  Courant
-     20.2  95.615     7.53E-03 7.53E-03 55501f   15.38     0.0000  1.450E-05 10001   15.51   0.00    g  0.00    a   13714  Courant
-     30.2  121.05     6.26E-04 9.91E-04 55550F   1.891     0.9501  1.753E-05 55501    1.82 -1.826E-04g  0.00    a   23291  Truckin
-     40.2  129.45     4.37E-04 4.37E-04 55550F  0.8121     0.9844  1.985E-05 55501   -0.74  8.951E-19g  0.00    a   36255  Courant
-     50.2  134.17     3.09E-04 3.09E-04 55550F  0.5538     0.9976  2.115E-05 55501   -0.47 -6.534E-19g  0.00    a   50084  Courant
-     60.2  143.29     1.80E-04 1.80E-04 55550F  0.2655     0.9991  8.437E-06 55501   -0.35  1.868E-03g  0.00    a   62829  Courant
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  36.025     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    3983  Courant
+     20.1  83.928     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    7553  Courant
+     30.1  117.79     1.56E-03 1.56E-03 55550F   2.668     0.9990 -2.405E-02 10001   15.51   0.00    g  0.00    a   14171  Courant
+     40.1  154.69     2.74E-02 2.74E-02 55548g  0.1670     0.0000 -2.390E-02 55545    0.88  9.199E-04g  0.00    a   19365  Courant
 0******** Transient terminated by failure.
 Transient terminated by failure.
- At time     146.634     seconds; Step     66067
+ At time     180.303     seconds; Step     20360

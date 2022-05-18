@@ -9,8 +9,8 @@ function [] = flowreg_plot(data, animate, title_string, xlable_string, xlim_valu
 %   - animate: booleano che indica se si vuole l'animazione o no
 %
 
-flow_colors = [[145 145 145]; [145 145 145]; [145 145 145]; [60 207 104]; [60 207 104]; [60 207 104]; [60 207 104]; [255 52 41]; [255 52 41]; [255 52 41]; [255 52 41];]./255;
-flow_texts = ["1", "2", "3", "BUBBLY", "SLUG", "ANULAR", "MIST", "INV-ANULAR", "INV-SLUG", "MIST", "MIST-POST-CHF"];
+flow_colors = [[145 145 145]; [145 145 145]; [145 145 145]; [60 207 104]; [60 207 104]; [60 207 104]; [60 207 104]; [255 52 41]; [255 52 41]; [255 52 41]; [255 52 41]; [252 198 3]; [252 198 3]]./255;
+flow_texts = ["1", "2", "3", "BUBBLY", "SLUG", "ANULAR", "MIST", "INV-ANULAR", "INV-SLUG", "MIST", "MIST-POST-CHF", "HST", "VST"];
 
 if animate
     time = data(:,1);
