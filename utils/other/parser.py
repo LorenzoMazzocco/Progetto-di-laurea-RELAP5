@@ -1,51 +1,65 @@
 import numpy as np
+import sys
 
-f = open('out\stripf', 'r')
+# Adesso usa come default out\stripf
 
-data = f.read() #stringa contenente tutto il file
+if len(sys.argv) == 1:
+    filepaths = [r"out\stripf"]
+else:
+    filepaths = sys.argv[1:]
 
-split = data.split('plotrec         ')
+headers = []
+bodies = []
 
-head = split[0]
-body = split[1:]
+for filepath in filepaths:
+    f = open(filepath, 'r')
 
+    data = f.read() #stringa contenente tutto il file
 
-#########################
-#         HEAD          #
-#########################
-parti = head.split('plotnum          0')
-comp_part = parti[1]
-components = comp_part.split()
-components.insert(0, "")
+    split = data.split('plotrec         ')
 
-# VARIABLES
-var_part = parti[0]
-var_part = var_part.split('plotalf   ')
-var_part = var_part[1]
-variables = var_part.split()
-
-# HEADER
-header = [variables[i]+" "+components[i] for i in range(0,len(variables))]
-header = ';'.join(header)
+    head = split[0]
+    body = split[1:]
 
 
-#########################
-#         BODY          #
-#########################
+    #########################
+    #         HEAD          #
+    #########################
+    parti = head.split('plotnum          0')
+    comp_part = parti[1]
+    components = comp_part.split()
+    components.insert(0, "")
 
-n_rows = len(body)
-n_cols = len(body[0].split())
-matrix = np.empty((n_rows,n_cols))
+    # VARIABLES
+    var_part = parti[0]
+    var_part = var_part.split('plotalf   ')
+    var_part = var_part[1]
+    variables = var_part.split()
 
-for i, rec in enumerate(body):
-    matrix[i,:] = rec.split()
+    # HEADER
+    header = [variables[i]+" "+components[i] for i in range(0,len(variables))]
+    header = ';'.join(header)
+    headers.append(header)
 
-matrix = np.array(matrix, dtype=np.float32)
+    #########################
+    #         BODY          #
+    #########################
 
+    n_rows = len(body)
+    n_cols = len(body[0].split())
+    matrix = np.empty((n_rows,n_cols))
+
+    for i, rec in enumerate(body):
+        matrix[i,:] = rec.split()
+
+    matrix = np.array(matrix, dtype=np.float32)
+    bodies.append(matrix)
 
 
 #########################
 #         CSV           #
 #########################
+header=';'.join(headers)
+matrix = np.hstack(bodies)
 
 np.savetxt('out/data.csv', matrix, delimiter=';', fmt='%.6e', comments='', header=header)

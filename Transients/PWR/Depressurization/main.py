@@ -21,7 +21,7 @@ m_eccs = 0.2 # [kg/s]
 
 
 t_active_core = 31536000 # [s] (1 anno) serve per la formula di Wigner-Way
-delta_t0_scram = 4     # [s] delay di scram dall'inizio del transitorio
+delta_t0_scram = 100     # [s] delay di scram dall'inizio del transitorio
 delta_t_scram = 0.5      # [s] tempo di esecuzione dello scram
 P0 = 66351.88            # [W] potenza nominale rod
 
@@ -120,7 +120,7 @@ for l in lambdas:
     cardno = card_power_100
     for i in range(len(t_power)):
         cardno = cardno+1
-        line = "{}    {:.1f}     {:.2f} \n".format(cardno, t_power[i], P_decay[i])
+        line = "{}    {:.2f}     {:.2f} \n".format(cardno, t_power[i], P_decay[i])
         add_power.append(line)
 
 

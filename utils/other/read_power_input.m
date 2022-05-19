@@ -40,9 +40,12 @@ tt = [];
 pp = [];
 
 for i=idx_init:idx_final
-    words = split(lines(i))
+    words = split(lines(i));
     tt = [tt words(2)];
     pp = [pp words(3)];
 end
+
+tt = str2double(tt);
+pp = str2double(pp);
 
 end
