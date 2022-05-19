@@ -48,9 +48,9 @@ for i=1:length(lambdas)
     data(i).rho_axial = table2array(data(i).raw_data(:,615:664)); % [kg/m3]
     data(i).CHF_RELAP_axial = table2array(data(i).raw_data(:,665:712))./1000; % [kW/m2]
     data(i).CHFR_RELAP_axial = table2array(data(i).raw_data(:,715:762)); % []
-    data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:813)); % [m/s]
-    data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,814:862)); % [m/s]
-    data(i).htvat_axial = table2array(data(i).raw_data(:,863:end)); % [K]
+    data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:814)); % [m/s]
+    data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,815:864)); % [m/s]
+    data(i).htvat_axial = table2array(data(i).raw_data(:,865:end)); % [K]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
