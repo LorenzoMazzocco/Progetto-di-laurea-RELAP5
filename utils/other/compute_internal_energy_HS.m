@@ -37,7 +37,7 @@ C_rod = V_tot*c_rod;  % [J/K]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%            COMPUTING        %
+%       INTERNAL ENERGY       %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 U = sum(C_rod.*temperatures); % Internal energy of the whole rod (U=0 if T=0K)

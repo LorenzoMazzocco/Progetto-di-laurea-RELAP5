@@ -31,25 +31,26 @@ end
 for i=1:length(lambdas)
     data(i).time = table2array(data(i).raw_data(:,1));  % [s]
     data(i).power = table2array(data(i).raw_data(:,2)); % [kW]
-    data(i).outlet_temperature = table2array(data(i).raw_data(:,3));   % [°K]
-    data(i).center_radial_temp_profile = table2array(data(i).raw_data(:, 4:14)); % [°K]
-    data(i).max_fuel_temp_axial = table2array(data(i).raw_data(:,15:64)); % [°K]
+    data(i).outlet_temperature = table2array(data(i).raw_data(:,3));   % [K]
+    data(i).center_radial_temp_profile = table2array(data(i).raw_data(:, 4:14)); % [K]
+    data(i).max_fuel_temp_axial = table2array(data(i).raw_data(:,15:64)); % [K]
     data(i).ht_mode_axial = table2array(data(i).raw_data(:,65:114)); % []
     data(i).heat_flux_axial = table2array(data(i).raw_data(:,115:164))./1000; % [kW/m2]
-    data(i).htc_axial = table2array(data(i).raw_data(:,165:214))./1000; % [kW/m2/°K]
+    data(i).htc_axial = table2array(data(i).raw_data(:,165:214))./1000; % [kW/m2/K]
     data(i).flow_regimes_axial = table2array(data(i).raw_data(:,215:264));  % []
     data(i).void_fraction_axial = table2array(data(i).raw_data(:,265:314)); % []
     data(i).quality_axial = table2array(data(i).raw_data(:,315:364));       % []
     data(i).enthalpy_f_axial = table2array(data(i).raw_data(:,365:414));    % [J/kg] (entalpia del LIQUIDO SATURO)
     data(i).pressure_axial = table2array(data(i).raw_data(:,415:464));      % [Pa]
-    data(i).max_clad_temp_axial = table2array(data(i).raw_data(:,465:514)); % [°K]
-    data(i).temp_liquid_axial = table2array(data(i).raw_data(:,515:564)); % [°K]
-    data(i).temp_vapor_axial = table2array(data(i).raw_data(:,565:614)); % [°K]
+    data(i).max_clad_temp_axial = table2array(data(i).raw_data(:,465:514)); % [K]
+    data(i).temp_liquid_axial = table2array(data(i).raw_data(:,515:564)); % [K]
+    data(i).temp_vapor_axial = table2array(data(i).raw_data(:,565:614)); % [K]
     data(i).rho_axial = table2array(data(i).raw_data(:,615:664)); % [kg/m3]
     data(i).CHF_RELAP_axial = table2array(data(i).raw_data(:,665:712))./1000; % [kW/m2]
     data(i).CHFR_RELAP_axial = table2array(data(i).raw_data(:,715:762)); % []
     data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:813)); % [m/s]
     data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,814:862)); % [m/s]
+    data(i).hsvat_axial = table2array(data(i).raw_data(:,863:end)) % [K]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
@@ -61,6 +62,11 @@ for i=1:length(lambdas)
     data(i).CHFR_W3_axial = data(i).CHF_W3_axial./data(i).heat_flux_axial;
     data(i).CHF_W3_axial = data(i).CHF_W3_axial(:,1:48);
     data(i).CHFR_W3_axial = data(i).CHFR_W3_axial(:,1:48);
+
+    % CALCOLO VARIABILI BILANCIO ENERGETICO
+    data(i).HS_internal_energy = compute_internal_energy_HS(temperatures) %% VA MODIFICATA LA FUNZIONE PER GESTIRE MATRICI (manca dimensione temporale)
+    % CREARE FUNZIONE PER RICOSTRUIRE PROFILO POTENZA GENERATA DATI I
+    % TIMESTEP ATTUALI
 end
 
 
@@ -89,6 +95,7 @@ if media_mobile
         data(i).CHFR_W3_axial = movmean(data(i).CHFR_W3_axial, 100, 1);
         data(i).velocity_liquid_axial = movmean(data(i).velocity_liquid_axial, 50, 1);
         data(i).velocity_vapor_axial = movmean(data(i).velocity_vapor_axial, 50, 1);
+        data(i).htvat_axial = movmean(data(i).htvat_axial, 50, 1);
     end
 end
 

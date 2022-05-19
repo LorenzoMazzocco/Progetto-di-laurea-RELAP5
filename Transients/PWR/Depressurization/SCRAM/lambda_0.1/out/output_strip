@@ -943,18 +943,67 @@
    904    1861 velgj 555490000                                                                            
    905    *                                                                                               
    906    *                                                                                               
-   907                                                                                                    
-   908    .                                                                                               
+   907    1862 htvat 5550001                      $ Volume averaged temperature of HS volumes [K]         
+   908    1863 htvat 5550002                                                                              
+   909    1864 htvat 5550003                                                                              
+   910    1865 htvat 5550004                                                                              
+   911    1866 htvat 5550005                                                                              
+   912    1867 htvat 5550006                                                                              
+   913    1868 htvat 5550007                                                                              
+   914    1869 htvat 5550008                                                                              
+   915    1870 htvat 5550009                                                                              
+   916    1871 htvat 5550010                                                                              
+   917    1872 htvat 5550011                                                                              
+   918    1873 htvat 5550012                                                                              
+   919    1874 htvat 5550013                                                                              
+   920    1875 htvat 5550014                                                                              
+   921    1876 htvat 5550015                                                                              
+   922    1877 htvat 5550016                                                                              
+   923    1878 htvat 5550017                                                                              
+   924    1879 htvat 5550018                                                                              
+   925    1880 htvat 5550019                                                                              
+   926    1881 htvat 5550020                                                                              
+   927    1882 htvat 5550021                                                                              
+   928    1883 htvat 5550022                                                                              
+   929    1884 htvat 5550023                                                                              
+   930    1885 htvat 5550024                                                                              
+   931    1886 htvat 5550025                                                                              
+   932    1887 htvat 5550026                                                                              
+   933    1888 htvat 5550027                                                                              
+   934    1889 htvat 5550028                                                                              
+   935    1890 htvat 5550029                                                                              
+   936    1891 htvat 5550030                                                                              
+   937    1892 htvat 5550031                                                                              
+   938    1893 htvat 5550032                                                                              
+   939    1894 htvat 5550033                                                                              
+   940    1895 htvat 5550034                                                                              
+   941    1896 htvat 5550035                                                                              
+   942    1897 htvat 5550036                                                                              
+   943    1898 htvat 5550037                                                                              
+   944    1899 htvat 5550038                                                                              
+   945    1900 htvat 5550039                                                                              
+   946    1901 htvat 5550040                                                                              
+   947    1902 htvat 5550041                                                                              
+   948    1903 htvat 5550042                                                                              
+   949    1904 htvat 5550043                                                                              
+   950    1905 htvat 5550044                                                                              
+   951    1906 htvat 5550045                                                                              
+   952    1907 htvat 5550046                                                                              
+   953    1908 htvat 5550047                                                                              
+   954    1909 htvat 5550048                                                                              
+   955    1910 htvat 5550049                                                                              
+   956    1911 htvat 5550050                                                                              
+   957    .                                                                                               
 0    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     18-May-22    14:01:38      
+  strip_input                                                                     19-May-22    10:26:10      
 1    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     18-May-22    14:01:38      
+  strip_input                                                                     19-May-22    10:26:10      
 0Processing type is strip   
 +                                       problem option is fmtout  
 0inp-chk, run option is run.    
-0Restart input file was written by program   RELAP5/3.3gl           on 18-May-22    14:01:01   , transient run.
+0Restart input file was written by program   RELAP5/3.3gl           on 19-May-22    10:25:31   , transient run.
 0         Strip variable requests
  req.num.    variable code    parameter
      1001      cntrlvar             110
@@ -1818,6 +1867,56 @@
      1859      velgj          555470000
      1860      velgj          555480000
      1861      velgj          555490000
+     1862      htvat            5550001
+     1863      htvat            5550002
+     1864      htvat            5550003
+     1865      htvat            5550004
+     1866      htvat            5550005
+     1867      htvat            5550006
+     1868      htvat            5550007
+     1869      htvat            5550008
+     1870      htvat            5550009
+     1871      htvat            5550010
+     1872      htvat            5550011
+     1873      htvat            5550012
+     1874      htvat            5550013
+     1875      htvat            5550014
+     1876      htvat            5550015
+     1877      htvat            5550016
+     1878      htvat            5550017
+     1879      htvat            5550018
+     1880      htvat            5550019
+     1881      htvat            5550020
+     1882      htvat            5550021
+     1883      htvat            5550022
+     1884      htvat            5550023
+     1885      htvat            5550024
+     1886      htvat            5550025
+     1887      htvat            5550026
+     1888      htvat            5550027
+     1889      htvat            5550028
+     1890      htvat            5550029
+     1891      htvat            5550030
+     1892      htvat            5550031
+     1893      htvat            5550032
+     1894      htvat            5550033
+     1895      htvat            5550034
+     1896      htvat            5550035
+     1897      htvat            5550036
+     1898      htvat            5550037
+     1899      htvat            5550038
+     1900      htvat            5550039
+     1901      htvat            5550040
+     1902      htvat            5550041
+     1903      htvat            5550042
+     1904      htvat            5550043
+     1905      htvat            5550044
+     1906      htvat            5550045
+     1907      htvat            5550046
+     1908      htvat            5550047
+     1909      htvat            5550048
+     1910      htvat            5550049
+     1911      htvat            5550050
 0$$$$$$$$ Input processing completed successfully.
 
 0Successful end of strip processing.
