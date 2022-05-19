@@ -6,7 +6,7 @@ function [U] = compute_internal_energy_HS(temperatures)
 %   INPUTS:
 %           - temperatures [K]: axial profile of heat structure volume
 %                               averaged temperature of the volumes
-%                               (HTVAT), its a 50 element array;
+%                               (HTVAT), its a matrix of size (n_timesteps,50)
 %
 
 
@@ -40,6 +40,6 @@ C_rod = V_tot*c_rod;  % [J/K]
 %       INTERNAL ENERGY       %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-U = sum(C_rod.*temperatures); % Internal energy of the whole rod (U=0 if T=0K)
+U = sum(C_rod.*temperatures, 2); % Internal energy of the whole rod (U=0 if T=0K)
  
 end
