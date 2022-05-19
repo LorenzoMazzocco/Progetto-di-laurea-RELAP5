@@ -224,12 +224,15 @@ for l in lambdas:
     os.system(r'mkdir lambda_{}\out'.format(l))
     while len(os.listdir(r'lambda_{}\out'.format(l))) != 0:
         os.system(r'del lambda_{}\out\output'.format(l))
-        os.system(r'del lambda_{}\out\output_strip'.format(l))
+        os.system(r'del lambda_{}\out\output_strip1'.format(l))
+        os.system(r'del lambda_{}\out\output_strip2'.format(l))
         os.system(r'del lambda_{}\out\rstplt'.format(l))
-        os.system(r'del lambda_{}\out\stripf'.format(l))
+        os.system(r'del lambda_{}\out\stripf1'.format(l))
+        os.system(r'del lambda_{}\out\stripf2'.format(l))
         os.system(r'del lambda_{}\out\data.csv'.format(l))
         os.system(r'del lambda_{}\out\screen_simulation'.format(l))
-        os.system(r'del lambda_{}\out\screen_stripf'.format(l))
+        os.system(r'del lambda_{}\out\screen_stripf1'.format(l))
+        os.system(r'del lambda_{}\out\screen_stripf2'.format(l))
 
     # Lancio simulazione
     os.system(r"..\..\..\utils\execution\relap5.exe -i lambda_{}\input.i -o lambda_{}\out\output -r lambda_{}\out\rstplt -Z ..\..\..\utils\execution\tpfh2onew".format(l,l,l))
@@ -239,11 +242,13 @@ for l in lambdas:
     os.system(r'move screen lambda_{}\out\screen_simulation'.format(l))
 
     # Creo stripf tramite RELAP
-    os.system(r"..\..\..\utils\execution\relap5.exe -i input_strip.i -o lambda_{}\out\output_strip -r lambda_{}\out\rstplt -s lambda_{}\out\stripf".format(l,l,l))
-    os.system(r'move screen lambda_{}\out\screen_stripf'.format(l))
+    os.system(r"..\..\..\utils\execution\relap5.exe -i input_strip1.i -o lambda_{}\out\output_strip1 -r lambda_{}\out\rstplt -s lambda_{}\out\stripf1".format(l,l,l))
+    os.system(r'move screen lambda_{}\out\screen_stripf1'.format(l))
+    os.system(r"..\..\..\utils\execution\relap5.exe -i input_strip2.i -o lambda_{}\out\output_strip2 -r lambda_{}\out\rstplt -s lambda_{}\out\stripf2".format(l,l,l))
+    os.system(r'move screen lambda_{}\out\screen_stripf2'.format(l))
 
     # Estraggo i dati (creo data.csv)
-    os.system(r"cd lambda_{} & py ..\..\..\..\utils\other\parser.py".format(l))
+    os.system(r"cd lambda_{} & py ..\..\..\..\utils\other\parser.py out\stripf1 out\stripf2".format(l))
 
     # Elimino rstplt e output per alleggerire la cartella
     os.system(r'del lambda_{}\out\output'.format(l))

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-19"><meta name="DC.source" content="analyze.m"><style type="text/css">
+      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-20"><meta name="DC.source" content="analyze.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -119,9 +119,11 @@ for i=1:length(lambdas)
     data(i).rho_axial = table2array(data(i).raw_data(:,615:664)); % [kg/m3]
     data(i).CHF_RELAP_axial = table2array(data(i).raw_data(:,665:712))./1000; % [kW/m2]
     data(i).CHFR_RELAP_axial = table2array(data(i).raw_data(:,715:762)); % []
-    data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:813)); % [m/s]
-    data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,814:862)); % [m/s]
-    data(i).htvat_axial = table2array(data(i).raw_data(:,863:end)); % [K]
+    data(i).velocity_liquid_axial = table2array(data(i).raw_data(:,765:814)); % [m/s]
+    data(i).velocity_vapor_axial = table2array(data(i).raw_data(:,815:864)); % [m/s]
+    data(i).htvat_axial = table2array(data(i).raw_data(:,865:914)); % [K]
+    data(i).density_liquid_axial = table2array(data(i).raw_data(:,916:965)); % [kg/m3]
+    data(i).density_vapor_axial = table2array(data(i).raw_data(:,966:1015)); % [kg/m3]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)

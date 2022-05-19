@@ -6,14 +6,13 @@
 0$$$$$$$$ Input processing completed successfully.
   RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
  Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-= pwr_channel                                                                     19-May-22    12:40:44      
+= pwr_channel                                                                     20-May-22    00:31:00      
 
  cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
       0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
-     10.1  48.974     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4948  Courant
-     20.1  102.47     1.10E-02 1.10E-02 55549G   12.02     0.2524 -2.407E-02 10001   15.51   0.00    g  0.00    a    8929  Courant
-     30.1  123.97     2.64E-03 7.51E-03 55541G   1.490     0.0051 -2.400E-02 55542    1.49  0.373    g  0.00    a   18222  Truckin
-     40.1  180.30     3.28E-02 3.28E-02 55548F  0.1133     0.0000 -2.388E-02 55537    0.13  1.139E-03g  0.00    a   20360  Courant
+     10.1  47.028     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4803  Courant
+     20.1  99.775     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    8734  Courant
+     30.1  123.16     3.67E-03 7.58E-03 55543G   1.600     0.9970 -2.403E-02 55514    1.60  0.447    g  0.00    a   17999  Vod>15%
 0******** Transient terminated by failure.
 Transient terminated by failure.
  At time     180.303     seconds; Step     20360
