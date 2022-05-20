@@ -10,5 +10,5 @@ function [pressure_energy] = pressure_energy (pressure)
     height = 0.07752;                   % [m]
     single_volume = A*height;           % [m^3]
 
-    pressure_energy = single_volume .* sum(pressure,2) .* 10^5;   % [J]
+    pressure_energy = single_volume .* sum(pressure,2);   % [J]
 end
