@@ -26,7 +26,7 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         hs_energy = [int_energy_hs(i,1) 0 0];
         data_to_plot = [pipe_energy ; hs_energy];
         x_legend = categorical({'Channel Fluid','Heat Structure'});
-        bar(x_legend, data_to_plot ,'stacked');
+        bar(x_legend, data_to_plot, 0.2, 'stacked');
         
         ylabel('Total energy [kJ]');
         title('Heat structure and channel fluid energies [kJ]');
@@ -34,12 +34,13 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         ylim([0 1.2*y_max]);   
         legend('Internal', 'Kinetic', 'Pressure')  
         grid on
+        grid minor
     
         nexttile(2)
         hold on  
-        plot(time(1:i), power_generated(1:i),'Color','r','LineWidth',1.6);
-        plot(time(1:i), power_exchanged(1:i),'Color','b','LineWidth',1.6);
-        plot(time(1:i), power_stored(1:i),'Color','g','LineWidth',1.6);
+        plot(time(1:i), power_generated(1:i),'Color',[201 68 2]/255,'LineWidth',1.6);
+        plot(time(1:i), power_exchanged(1:i),'Color',[84 167 255]/255,'LineWidth',1.6);
+        plot(time(1:i), power_stored(1:i),'Color',[74 74 74]/255,'LineWidth',1.6);
         ymax=max([power_generated' power_exchanged' power_stored']);
         ymin=min([power_generated' power_exchanged' power_stored']);
         xmax=max(time);
@@ -50,7 +51,7 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         xlabel('Time [s]');
         title('Power [kW]');
         grid on
-        legend('Generated in rod','Exchanged to fluid','Stored in rod');
+        legend('Generated in rod','Exchanged to fluid','Stored in rod','Location','west');
 
         drawnow
         frame = getframe(gcf); %get frame
