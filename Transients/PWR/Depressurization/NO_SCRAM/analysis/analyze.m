@@ -480,10 +480,10 @@ end
 % ------------ ENERGY BALANCE ----------------
 idx = 2;
 f0 = 1919;
-fend = 2900;
+fend = 3607;
 kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
 pres_energy = pressure_energy(data(idx).pressure_axial);
 figure('Position', [10 10 1000 1000])
-energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend) )
+energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), 'Animations/Energy Balance')
 
 
