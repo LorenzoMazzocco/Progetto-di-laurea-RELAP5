@@ -5,7 +5,7 @@ clear all
 clc
 
 
-media_mobile = true;
+media_mobile = false;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                DATA EXCTRACTION               %
@@ -53,6 +53,7 @@ for i=1:length(lambdas)
     data(i).htvat_axial = table2array(data(i).raw_data(:,865:914)); % [K]
     data(i).density_liquid_axial = table2array(data(i).raw_data(:,916:965)); % [kg/m3]
     data(i).density_vapor_axial = table2array(data(i).raw_data(:,966:1015)); % [kg/m3]
+    data(i).total_internal_energy_axial = table2array(data(i).raw_data(:,1016:1065)); % [J]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
@@ -111,267 +112,267 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% ------ LEGEND LABELS -------
-labels = [];
-for i=1:length(lambdas)
-    new = sprintf("\\lambda = %s", string(lambdas(i)));
-    labels = [labels new];
-end
-labels = [labels "ACCIDENT" "SCRAM"];
-
-
-
-% ------ TOTAL POWER -------
-f = figure('Position', [10 10 900 900]);
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).power, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('TOTAL POWER EXCHANGED [kW]')
-legend(labels)
-xlim([95 250])
-%saveas(f, "TOTAL POWER.png")
-
-
-% ------ ROD INTERNAL ENERGY -------
-f = figure('Position', [10 10 900 900]);
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).HS_internal_energy./1000, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('ROD INTERNAL ENERGY [kJ]')
-legend(labels)
-xlim([95 250])
-%saveas(f, "ROD INTERNAL ENERGY.png")
-
-
-% ------ ROD GENERATED POWER -------
-f = figure('Position', [10 10 900 900]);
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).rod_power./1000, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('ROD GENERATED POWER [kW]')
-legend(labels)
-xlim([95 250])
-%saveas(f, "ROD GENERATED POWER.png")
-
-
-% --- -OUTLET TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,data(i).outlet_temperature-273.15, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('OUTLET TEMPERATURE [°C]')
-xlim([95 250])
-legend(labels)
-
-
-% ---- MAX FUEL TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MAX FUEL TEMPERATURE [°C]')
-xlim([95 250])
-legend(labels)
-
-
-% ---- MAX CLAD TEMPERATURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,max(data(i).max_clad_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MAX CLAD TEMPERATURE [°C]')
-xlim([95 250])
-legend(labels)
-
-% ---- MEAN BULK TEMPERATURE LIQUID ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).temp_liquid_axial-273.15, 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN BULK TEMPERATURE LIQUID [°C]')
-xlim([95 250])
-legend(labels)
-
-% ---- MEAN BULK TEMPERATURE VAPOR ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).temp_vapor_axial-273.15, 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN BULK TEMPERATURE VAPOR [°C]')
-xlim([95 250])
-legend(labels)
-
-% ---- MEAN DENSITY MIXTURE ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).rho_axial, 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN DENSITY MIXTURE [kg/m^3]')
-xlim([95 250])
-legend(labels)
-
-% ---- MEAN VELOCITY LIQUID ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).velocity_liquid_axial, 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN VELOCITY LIQUID [m/s]')
-xlim([95 250])
-legend(labels)
-
-% ---- MEAN VELOCITY VAPOR ----
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).velocity_vapor_axial, 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN VELOCITY VAPOR [K]')
-xlim([95 250])
-legend(labels)
-
-% ------- MDNBR (RELAP)-------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,min(data(i).CHFR_RELAP_axial, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MDNBR (RELAP)')
-ylim([0 7])
-xlim([95 250])
-legend(labels)
-
-% ------- MDNBR (W3)-------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,min(data(i).CHFR_W3_axial, [], 2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MDNBR (W-3 Correlation)')
-ylim([0 7])
-xlim([95 250])
-legend(labels)
-
-% ------- MEAN VOID FRACTION -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN VOID FRACTION')
-ylim([0 1])
-xlim([95 250])
-legend(labels)
-
-
-% ------- MEAN PRESSURE -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN PRESSURE [bar]')
-xlim([95 250])
-legend(labels)
-
-% ------- MEAN HTC -------
-figure('Position', [10 10 900 900])
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
-end
-xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('MEAN HTC [kW/m^2/K]')
-xlim([95 250])
-legend(labels)
+% % ------ LEGEND LABELS -------
+% labels = [];
+% for i=1:length(lambdas)
+%     new = sprintf("\\lambda = %s", string(lambdas(i)));
+%     labels = [labels new];
+% end
+% labels = [labels "ACCIDENT" "SCRAM"];
+% 
+% 
+% 
+% % ------ TOTAL POWER -------
+% f = figure('Position', [10 10 900 900]);
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).power, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('TOTAL POWER EXCHANGED [kW]')
+% legend(labels)
+% xlim([95 250])
+% %saveas(f, "TOTAL POWER.png")
+% 
+% 
+% % ------ ROD INTERNAL ENERGY -------
+% f = figure('Position', [10 10 900 900]);
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).HS_internal_energy./1000, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('ROD INTERNAL ENERGY [kJ]')
+% legend(labels)
+% xlim([95 250])
+% %saveas(f, "ROD INTERNAL ENERGY.png")
+% 
+% 
+% % ------ ROD GENERATED POWER -------
+% f = figure('Position', [10 10 900 900]);
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).rod_power./1000, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('ROD GENERATED POWER [kW]')
+% legend(labels)
+% xlim([95 250])
+% %saveas(f, "ROD GENERATED POWER.png")
+% 
+% 
+% % --- -OUTLET TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,data(i).outlet_temperature-273.15, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('OUTLET TEMPERATURE [°C]')
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% % ---- MAX FUEL TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MAX FUEL TEMPERATURE [°C]')
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% % ---- MAX CLAD TEMPERATURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,max(data(i).max_clad_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MAX CLAD TEMPERATURE [°C]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN BULK TEMPERATURE LIQUID ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).temp_liquid_axial-273.15, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN BULK TEMPERATURE LIQUID [°C]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN BULK TEMPERATURE VAPOR ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).temp_vapor_axial-273.15, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN BULK TEMPERATURE VAPOR [°C]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN DENSITY MIXTURE ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).rho_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN DENSITY MIXTURE [kg/m^3]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN VELOCITY LIQUID ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).velocity_liquid_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VELOCITY LIQUID [m/s]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ---- MEAN VELOCITY VAPOR ----
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).velocity_vapor_axial, 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VELOCITY VAPOR [K]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ------- MDNBR (RELAP)-------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,min(data(i).CHFR_RELAP_axial, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MDNBR (RELAP)')
+% ylim([0 7])
+% xlim([95 250])
+% legend(labels)
+% 
+% % ------- MDNBR (W3)-------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,min(data(i).CHFR_W3_axial, [], 2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MDNBR (W-3 Correlation)')
+% ylim([0 7])
+% xlim([95 250])
+% legend(labels)
+% 
+% % ------- MEAN VOID FRACTION -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN VOID FRACTION')
+% ylim([0 1])
+% xlim([95 250])
+% legend(labels)
+% 
+% 
+% % ------- MEAN PRESSURE -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN PRESSURE [bar]')
+% xlim([95 250])
+% legend(labels)
+% 
+% % ------- MEAN HTC -------
+% figure('Position', [10 10 900 900])
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
+% end
+% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+% hold off
+% grid on, grid minor
+% xlabel('Time [s]')
+% title('MEAN HTC [kW/m^2/K]')
+% xlim([95 250])
+% legend(labels)
 
 
 

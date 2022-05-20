@@ -145,17 +145,70 @@
    106    1098 rhog 555480000                                                                             
    107    1099 rhog 555490000                                                                             
    108    1100 rhog 555500000                                                                             
-   109    .                                                                                               
+   109    *                                                                                               
+   110    *                                                                                               
+   111    1101 tiengv 555010000                        $ Energia interna totale nel volume                
+   112    1102 tiengv 555020000                                                                           
+   113    1103 tiengv 555030000                                                                           
+   114    1104 tiengv 555040000                                                                           
+   115    1105 tiengv 555050000                                                                           
+   116    1106 tiengv 555060000                                                                           
+   117    1107 tiengv 555070000                                                                           
+   118    1108 tiengv 555080000                                                                           
+   119    1109 tiengv 555090000                                                                           
+   120    1110 tiengv 555100000                                                                           
+   121    1111 tiengv 555110000                                                                           
+   122    1112 tiengv 555120000                                                                           
+   123    1113 tiengv 555130000                                                                           
+   124    1114 tiengv 555140000                                                                           
+   125    1115 tiengv 555150000                                                                           
+   126    1116 tiengv 555160000                                                                           
+   127    1117 tiengv 555170000                                                                           
+   128    1118 tiengv 555180000                                                                           
+   129    1119 tiengv 555190000                                                                           
+   130    1120 tiengv 555200000                                                                           
+   131    1121 tiengv 555210000                                                                           
+   132    1122 tiengv 555220000                                                                           
+   133    1123 tiengv 555230000                                                                           
+   134    1124 tiengv 555240000                                                                           
+   135    1125 tiengv 555250000                                                                           
+   136    1126 tiengv 555260000                                                                           
+   137    1127 tiengv 555270000                                                                           
+   138    1128 tiengv 555280000                                                                           
+   139    1129 tiengv 555290000                                                                           
+   140    1130 tiengv 555300000                                                                           
+   141    1131 tiengv 555310000                                                                           
+   142    1132 tiengv 555320000                                                                           
+   143    1133 tiengv 555330000                                                                           
+   144    1134 tiengv 555340000                                                                           
+   145    1135 tiengv 555350000                                                                           
+   146    1136 tiengv 555360000                                                                           
+   147    1137 tiengv 555370000                                                                           
+   148    1138 tiengv 555380000                                                                           
+   149    1139 tiengv 555390000                                                                           
+   150    1140 tiengv 555400000                                                                           
+   151    1141 tiengv 555410000                                                                           
+   152    1142 tiengv 555420000                                                                           
+   153    1143 tiengv 555430000                                                                           
+   154    1144 tiengv 555440000                                                                           
+   155    1145 tiengv 555450000                                                                           
+   156    1146 tiengv 555460000                                                                           
+   157    1147 tiengv 555470000                                                                           
+   158    1148 tiengv 555480000                                                                           
+   159    1149 tiengv 555490000                                                                           
+   160    1150 tiengv 555500000                                                                           
+   161    *                                                                                               
+   162    .                                                                                               
 0    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     20-May-22    00:30:46      
+  strip_input                                                                     20-May-22    10:09:40      
 1    RBIC/3.3gl          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-  strip_input                                                                     20-May-22    00:30:46      
+  strip_input                                                                     20-May-22    10:09:40      
 0Processing type is strip   
 +                                       problem option is fmtout  
 0inp-chk, run option is run.    
-0Restart input file was written by program   RELAP5/3.3gl           on 20-May-22    00:29:40   , transient run.
+0Restart input file was written by program   RELAP5/3.3gl           on 20-May-22    10:08:38   , transient run.
 0         Strip variable requests
  req.num.    variable code    parameter
      1001      rhof           555010000
@@ -258,6 +311,56 @@
      1098      rhog           555480000
      1099      rhog           555490000
      1100      rhog           555500000
+     1101      tiengv         555010000
+     1102      tiengv         555020000
+     1103      tiengv         555030000
+     1104      tiengv         555040000
+     1105      tiengv         555050000
+     1106      tiengv         555060000
+     1107      tiengv         555070000
+     1108      tiengv         555080000
+     1109      tiengv         555090000
+     1110      tiengv         555100000
+     1111      tiengv         555110000
+     1112      tiengv         555120000
+     1113      tiengv         555130000
+     1114      tiengv         555140000
+     1115      tiengv         555150000
+     1116      tiengv         555160000
+     1117      tiengv         555170000
+     1118      tiengv         555180000
+     1119      tiengv         555190000
+     1120      tiengv         555200000
+     1121      tiengv         555210000
+     1122      tiengv         555220000
+     1123      tiengv         555230000
+     1124      tiengv         555240000
+     1125      tiengv         555250000
+     1126      tiengv         555260000
+     1127      tiengv         555270000
+     1128      tiengv         555280000
+     1129      tiengv         555290000
+     1130      tiengv         555300000
+     1131      tiengv         555310000
+     1132      tiengv         555320000
+     1133      tiengv         555330000
+     1134      tiengv         555340000
+     1135      tiengv         555350000
+     1136      tiengv         555360000
+     1137      tiengv         555370000
+     1138      tiengv         555380000
+     1139      tiengv         555390000
+     1140      tiengv         555400000
+     1141      tiengv         555410000
+     1142      tiengv         555420000
+     1143      tiengv         555430000
+     1144      tiengv         555440000
+     1145      tiengv         555450000
+     1146      tiengv         555460000
+     1147      tiengv         555470000
+     1148      tiengv         555480000
+     1149      tiengv         555490000
+     1150      tiengv         555500000
 0$$$$$$$$ Input processing completed successfully.
 
 0Successful end of strip processing.
