@@ -1,17 +1,42 @@
-function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_energy_hs, time, power_generated, power_exchanged, videoname)
+function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_energy_hs, time, power_generated, power_exchanged, rho_liq, rho_vap, videoname)
     % ricevo in input vettori colonna di n-righe per ogni dt contenenti le energie [J] totali di
     % pipe e heat structure, il tempo [s] e le potenze in gioco nel mio
     % sistema [W]
-    
-    tiledlayout(2,1)
 
     % Convert from [J] to [kJ], [W] to [kW]
-    int_energy_pipe=int_energy_pipe/1000;
-    int_energy_hs=int_energy_hs/1000;
-    kin_energy=kin_energy/1000;
-    pres_energy=pres_energy/1000;
-    power_generated=power_generated/1000;
+    int_energy_pipe = int_energy_pipe / 1000;
+    int_energy_hs = int_energy_hs / 1000;
+    kin_energy = kin_energy / 1000;
+    pres_energy = pres_energy / 1000;
+    power_generated = power_generated / 1000;
     power_stored = power_generated - power_exchanged;
+
+        %% Energie specifiche
+    A = 8.79e-5;                                                % [m^2]
+    height = 0.07752;                                           % [m]
+    single_volume = A*height;                                   % [m^3]
+
+    % ricavo 2 matrici contenenti la massa di liquido e vapore per ogni
+    % volumetto ad ogni dt
+    mass_liq = rho_liq .* single_volume;                        % [kg]
+    mass_vap = rho_vap .* single_volume;                        % [kg]
+
+    % ottengo il vettore colonna contenente la massa totale di fluido in
+    % tutta la pipe per ciascun dt
+    total_mass_pipe = sum(mass_liq + mass_vap, 2);              % [kg]
+
+    % ricavo il vettore colonna dell'energia interna specifica del fluido
+    specific_int_energy_pipe = int_energy_pipe ./ total_mass_pipe;   % [kJ/kg]
+
+    % ricavo il vettore colonna dell'energia interna specifica del fluido
+    specific_kin_energy = kin_energy ./ total_mass_pipe;        % [kJ/kg]
+        
+    % ricavo il vettore colonna dell'energia interna specifica del fluido
+    specific_pres_energy = pres_energy ./ total_mass_pipe;      % [kJ/kg]
+
+    %%
+
+    tiledlayout(2,1)
 
     % Initialize Video
     myVideo = VideoWriter(videoname); %open video file
@@ -21,20 +46,37 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
     for i = 1:15:length(time)
         clf
         nexttile(1)
+        
+        hold on
 
+        yyaxis left
         pipe_energy = [int_energy_pipe(i,1) kin_energy(i,1) pres_energy(i,1)];
         hs_energy = [int_energy_hs(i,1) 0 0];
-        data_to_plot = [pipe_energy ; hs_energy];
-        x_legend = categorical({'Channel Fluid','Heat Structure'});
-        bar(x_legend, data_to_plot, 0.2, 'stacked');
-        
+        data_to_plot_left = [pipe_energy ; hs_energy];
+        x_legend_left = categorical({'Channel Fluid','Heat Structure'});
+        bar(x_legend_left, data_to_plot_left, 0.2, 'stacked');
+
         ylabel('Total energy [kJ]');
-        title('Heat structure and channel fluid energies [kJ]');
+        title('Heat structure and channel fluid energies');
         y_max = max(int_energy_hs);
         ylim([0 1.2*y_max]);   
         legend('Internal', 'Kinetic', 'Pressure')  
         grid on
         grid minor
+
+        yyaxis right
+        specific_pipe_energy = [specific_int_energy_pipe(i,1) specific_kin_energy(i,1) specific_pres_energy(i,1)];
+        data_to_plot_right = [specific_pipe_energy];
+        x_legend_right = categorical({'Channel Fluid'});
+        bar(x_legend_right, data_to_plot_right, 0.2, 'stacked');
+
+        ylabel('Total specific energy [kJ/kg]');
+        y_max = max(specific_int_energy_pipe);
+        ylim([0 1.2*y_max]);   
+        legend('Internal', 'Kinetic', 'Pressure') 
+
+        hold off
+        
     
         nexttile(2)
         hold on  
