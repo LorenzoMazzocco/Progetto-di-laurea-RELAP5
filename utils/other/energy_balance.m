@@ -45,38 +45,47 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
 
     for i = 1:15:length(time)
         clf
+
         nexttile(1)
         
-        hold on
-
         yyaxis left
         pipe_energy = [int_energy_pipe(i,1) kin_energy(i,1) pres_energy(i,1)];
         hs_energy = [int_energy_hs(i,1) 0 0];
-        data_to_plot_left = [pipe_energy ; hs_energy];
-        x_legend_left = categorical({'Channel Fluid','Heat Structure'});
-        bar(x_legend_left, data_to_plot_left, 0.2, 'stacked');
-
+        data_to_plot_left = [pipe_energy; hs_energy; [0 0 0]];
+        x_legend_left = categorical({'Channel Fluid', 'Heat Structure', 'Channel Fluid - specific'});
+        x_legend_left = reordercats(x_legend_left, {'Channel Fluid', 'Heat Structure', 'Channel Fluid - specific'});
+        bar(x_legend_left, data_to_plot_left, 0.3, 'stacked');
+        
+        left_colors = [[138 47 1]/255; [0 158 207]/255; [153 207 0]/255];
+        colororder(left_colors);
+        y_axis_left=gca;
+        y_axis_left.YColor = 'black';
+        
         ylabel('Total energy [kJ]');
-        title('Heat structure and channel fluid energies');
-        y_max = max(int_energy_hs);
-        ylim([0 1.2*y_max]);   
-        legend('Internal', 'Kinetic', 'Pressure')  
+        y_max_left = max(int_energy_hs);
+        ylim([0 1.2*y_max_left]);  
+        
+        title('Heat structure and channel fluid energies');  
         grid on
         grid minor
-
+        
         yyaxis right
+
         specific_pipe_energy = [specific_int_energy_pipe(i,1) specific_kin_energy(i,1) specific_pres_energy(i,1)];
-        data_to_plot_right = [specific_pipe_energy];
-        x_legend_right = categorical({'Channel Fluid'});
-        bar(x_legend_right, data_to_plot_right, 0.2, 'stacked');
+        data_to_plot_right = [[0 0 0]; [0 0 0]; specific_pipe_energy];
+        bar(data_to_plot_right, 0.2, 'stacked');
+        
+%         right_colors = [[228 47 1]/255; [0 248 207]/255; [243 207 0]/255];
+        colororder(left_colors);
+        y_axis_right=gca;
+        y_axis_right.YColor = 'black';
 
         ylabel('Total specific energy [kJ/kg]');
-        y_max = max(specific_int_energy_pipe);
-        ylim([0 1.2*y_max]);   
-        legend('Internal', 'Kinetic', 'Pressure') 
+        y_max_right = max(specific_int_energy_pipe);
+        ylim([0 1.2*y_max_right]);  
 
-        hold off
-        
+        legend('Internal', 'Kinetic', 'Pressure')
+
     
         nexttile(2)
         hold on  
