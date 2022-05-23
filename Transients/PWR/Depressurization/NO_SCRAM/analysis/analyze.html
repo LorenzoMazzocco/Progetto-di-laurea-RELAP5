@@ -76,7 +76,7 @@ clear all
 clc
 
 
-media_mobile = false;
+media_mobile = true;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                DATA EXCTRACTION               %
@@ -138,28 +138,6 @@ for i=1:length(lambdas)
     data(i).CHF_W3_axial = data(i).CHF_W3_axial(:,1:48);
     data(i).CHFR_W3_axial = data(i).CHFR_W3_axial(:,1:48);
 
-    % CALCOLO VARIABILI BILANCIO ENERGETICO
-    data(i).HS_internal_energy = compute_internal_energy_HS(data(i).htvat_axial);
-    
-    input_path = sprintf("../lambda_%s/input.i", string(lambdas(i)));
-    [relap_tt relap_pp] = read_power_input(input_path, 20288801);
-    data(i).rod_power = interp1(relap_tt, relap_pp, data(i).time);
-
-    % CALCOLO TEMPO DI ECCS PER OGNI CASO
-    l = lambdas(i);
-    p_atm = 3;
-    p0 = 155.1;
-    toll = 0.1;
-    t = linspace(100.5,10100, 20000);
-    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
-
-    t = t(p_in-p_atm > toll);
-    t_fin = t(end);
-
-    t = linspace(100.0, t_fin, 98);
-    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
-
-    data(i).time_ECCS = t(find(p_in<p_ECCS, 1));
 end
 
 
@@ -190,6 +168,32 @@ if media_mobile
         data(i).velocity_vapor_axial = movmean(data(i).velocity_vapor_axial, 50, 1);
         data(i).htvat_axial = movmean(data(i).htvat_axial, 50, 1);
     end
+end
+
+for i=1:length(lambdas)
+    % CALCOLO VARIABILI BILANCIO ENERGETICO
+    data(i).HS_internal_energy = compute_internal_energy_HS(data(i).htvat_axial);
+    
+    input_path = sprintf("../lambda_%s/input.i", string(lambdas(i)));
+    [relap_tt relap_pp] = read_power_input(input_path, 20288801);
+    data(i).rod_power = interp1(relap_tt, relap_pp, data(i).time);
+
+    % CALCOLO TEMPO DI ECCS PER OGNI CASO
+    l = lambdas(i);
+    p_atm = 3;
+    p0 = 155.1;
+    toll = 0.1;
+    t = linspace(100.5,10100, 20000);
+    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
+    t = t(p_in-p_atm > toll);
+    t_fin = t(end);
+    t = linspace(100.0, t_fin, 98);
+    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
+
+    data(i).time_ECCS = t(find(p_in<p_ECCS, 1));
+
+
+     % CALCOLO TEMPO DI CHF PER OGNI CASO (usando htmode)
 end
 
 
