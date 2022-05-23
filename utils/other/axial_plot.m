@@ -1,4 +1,4 @@
-function [] = axial_plot(data, animate, title_string, xlable_string, xlim_value, videoname)
+function [] = axial_plot(data, animate, title_string, xlable_string, xlim_value, videoname, ECCS_flag, DNB_flag)
 % La funzione richiede i seguenti input:
 %
 %   - data: array contenente i dati che si vogliono plottare.
@@ -6,6 +6,9 @@ function [] = axial_plot(data, animate, title_string, xlable_string, xlim_value,
 %           lo è serve un'array monodimensionale
 %
 %   - animate: booleano che indica se si vuole l'animazione o no
+
+ECCS_colors = [[255 52 41]; [99 214 71]]./255;
+DNB_colors = [[99 214 71]; [255 52 41]]./255;
 
 if animate
     time = data(:,1);
@@ -32,6 +35,14 @@ if animate
         str = strcat('TIME:',{'  '}, timestep, ' s');
         annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
         
+        dim = [.48 .06 .1 .1];
+        str = strcat(' ECCS');
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+
+        dim = [.7 .06 .1 .1];
+        str = strcat(' DNB');
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+
         %pause(0.1)
         frame = getframe(gcf); %get frame
         writeVideo(myVideo, frame);

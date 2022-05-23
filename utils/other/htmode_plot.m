@@ -1,4 +1,4 @@
-function [] = htmode_plot(data, animate, title_string, xlable_string, xlim_value, videoname)
+function [] = htmode_plot(data, animate, title_string, xlable_string, xlim_value, videoname, ECCS_flag, DNB_flag)
 % La funzione richiede i seguenti input:
 %
 %   - data: array contenente i dati che si vogliono plottare.
@@ -10,6 +10,9 @@ function [] = htmode_plot(data, animate, title_string, xlable_string, xlim_value
 %
 %   - htmode: è un booleano che indica se i dati da plottare indicano
 %             il tipo di heat transfer 
+
+ECCS_colors = [[255 52 41]; [99 214 71]]./255;
+DNB_colors = [[99 214 71]; [255 52 41]]./255;
 
 ht_colors = [[169 172 176]; [3 132 252]; [3 132 252]; [99 214 71]; [99 214 71]; [242 236 65]; [242 236 65]; [255 52 41]; [255 52 41]; [235 52 225]; [217 37 214]; [217 37 214]]./255;
 ht_texts = ["MODE 0", "", "", "", "SAT", "", "SAT", "", "SAT", "VAP", "COND", "COND"];
@@ -36,11 +39,21 @@ if animate
         patch([45 55 55 45], [0 0 1 1], [173 173 173]./255)
         patch([47 53 53 47], [0 0 1 1], 'k')
         title(title_string)
+        set(gca,'XTickLabel',[]);
 
-        dim = [.35 0 .1 .1];
+        dim = [.365 0 .1 .1];
         timestep = num2str(time(i));
         str = strcat('TIME:',{'  '}, timestep(1:4), ' s');
         annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+
+
+        dim = [0.13 0 .1 .1];
+        str = strcat(' ECCS');
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+
+        dim = [0.73 0 .1 .1];
+        str = strcat(' DNB');
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
 
         drawnow 
         frame = getframe(gcf); %get frame

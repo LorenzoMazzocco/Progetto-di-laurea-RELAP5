@@ -120,7 +120,7 @@ for i=1:length(lambdas)
     p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
 
     data(i).time_ECCS = t(find(p_in<p_ECCS, 1));
-    data(i).ECCS_label = data(i).time >= data(i).time_ECCS;
+    data(i).ECCS_flag = data(i).time >= data(i).time_ECCS;
 
 
      % CALCOLO TEMPO DI CHF PER OGNI CASO (usando htmode)
@@ -421,7 +421,7 @@ end
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
-% idx = 3;
+idx = 3;
 % 
 % % ----- PROFILE CHFR RELAP -------
 % f0 = 1919; % initial frame (timestep)
@@ -440,13 +440,13 @@ end
 % f0 = 1919; % initial frame (timestep)
 % fend = 2900; % final frame (timestep)
 % figure('Position', [10 10 300 900])
-% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE')
+% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE', data(idx).ECCS_flag(f0:fend,:), data(idx).chf_flag(f0:fend))
 % 
 % % ----- PROFILE FLOW REGIME -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 2500; % final frame (timestep)
 % figure('Position', [10 10 300 900])
-% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime')
+% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime', data(idx).ECCS_flag(f0:fend,:), data(idx).chf_flag(f0:fend))
 % 
 % 
 % % ----- PROFILE HTC -------
@@ -462,17 +462,17 @@ end
 % figure('Position', [10 10 300 900])
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
 % 
-% % ----- PROFILE RADIAL TEMPERATURE -------
-% f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure(10)
-% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
+% ----- PROFILE RADIAL TEMPERATURE -------
+f0 = 1919; % initial frame (timestep)
+fend = 2900; % final frame (timestep)
+figure(10)
+radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend,:), data(idx).chf_flag(f0:fend))
 % 
 % % ----- PROFILE MAX FUEL TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 2900; % final frame (timestep)
 % figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Fuel Temperature')
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Fuel Temperature', data(idx).ECCS_flag(f0:fend,:), data(idx).chf_flag(f0:fend))
 % 
 % % ----- PROFILE MAX CLAD TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)

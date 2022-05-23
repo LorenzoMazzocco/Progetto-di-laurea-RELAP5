@@ -1,4 +1,4 @@
-function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
+function [] = radial_plot_fuel(tt, animate, reactor_type, videoname, ECCS_flag, DNB_flag)
 % La funzione richiede di indicare con quale modalità procedere
 % inserendo una variabile booleana per il valore animate:
 %
@@ -15,6 +15,9 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
     % Cambio la grandezza della finestra per renderla grande
     set(gcf, 'Position',  [50, 50, 800, 500])
     
+ECCS_colors = [[255 52 41]; [99 214 71]]./255;
+DNB_colors = [[99 214 71]; [255 52 41]]./255;
+
     if strcmp(reactor_type, 'pwr')
         rr = [0 0.67817 1.35633 2.03450 2.71267 3.39083 4.06900 4.17860 4.4646 4.7506 5.7506];
     end
@@ -58,6 +61,15 @@ function [] = radial_plot_fuel(tt, animate, reactor_type, videoname)
             timestep = sprintf("%.1f", time(i));
             str = strcat('TIME:',{'  '}, timestep, ' s');
             annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+
+            dim = [.8 .8 .1 .1];
+            str = strcat(' ECCS');
+            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+
+            dim = [.8 .72 .1 .1];
+            str = strcat(' DNB');
+            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+
             frame = getframe(gcf); %get frame
             writeVideo(myVideo, frame);
         end
