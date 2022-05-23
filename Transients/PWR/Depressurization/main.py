@@ -40,7 +40,7 @@ delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pression
 
 
 # ECCS
-p_eccs = 20.
+p_eccs = 45.
 
 
 
