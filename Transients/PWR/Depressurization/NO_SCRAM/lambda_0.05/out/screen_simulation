@@ -6,15 +6,15 @@
 0$$$$$$$$ Input processing completed successfully.
   RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
  Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
-= pwr_channel                                                                     20-May-22    10:08:38      
+= pwr_channel                                                                     23-May-22    18:05:29      
 
  cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
       0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
-     10.1  51.228     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    5116  Courant
-     20.1  107.18     7.24E-03 7.24E-03 55550F   10.74     0.6549 -2.407E-02 10001   15.51   0.00    g  0.00    a    9378  Courant
-     30.1  134.34     1.78E-03 1.78E-03 55550F   2.824     0.9945 -2.406E-02 10001   10.94   0.00    g  0.00    a   18366  Courant
-     40.1  160.49     2.88E-02 2.88E-02 55540G  0.8502     0.0051 -2.386E-02 55547    1.56  0.207    g  0.00    a   27123  Courant
-     50.1  220.48     2.52E-02 2.52E-02 55541g  0.1479     0.0000 -2.381E-02 55542    0.15   0.00    g  0.00    a   29134  Courant
+     10.1  47.632     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4848  Courant
+     20.1  99.480     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    8712  Courant
+     30.1  129.91     2.10E-03 2.10E-03 55550F   3.504     0.9863 -2.406E-02 10001   15.51   0.00    g  0.00    a   16097  Courant
+     40.1  145.49     1.20E-03 1.20E-03 55550F   1.661     0.9988 -2.406E-02 10001    3.71   0.00    g  0.00    a   26204  Courant
+     50.1  197.84     3.28E-02 3.28E-02 55550F  0.2153     0.0000 -2.381E-02 55547    1.56  0.207    g  0.00    a   28400  Courant
 0******** Transient terminated by failure.
 Transient terminated by failure.
  At time     224.273     seconds; Step     29641

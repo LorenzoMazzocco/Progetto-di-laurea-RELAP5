@@ -11,9 +11,10 @@ media_mobile = false;
 %                DATA EXCTRACTION               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-lambdas = [0.05, 0.1];
+lambdas = [0.025, 0.05, 0.1];
 accident_time = 100; % [s]
 scram_time = 200;    % [s]
+p_ECCS = 20;         % [bar]
 
 % Creo una struct. Ogni elemento di questa struct rappresenta un
 % esperimento di depressurizzazione. Esiste un field principale detto
@@ -72,6 +73,10 @@ for i=1:length(lambdas)
     input_path = sprintf("../lambda_%s/input.i", string(lambdas(i)));
     [relap_tt relap_pp] = read_power_input(input_path, 20288801);
     data(i).rod_power = interp1(relap_tt, relap_pp, data(i).time);
+
+    % CALCOLO TEMPO DI ECCS PER OGNI CASO
+    inlet_pressure = data(i).pressure_axial(:,1)./1e5;
+    data(i).time_ECCS = data(i).time(find(inlet_pressure<p_ECCS, 1));
 end
 
 
@@ -116,7 +121,8 @@ end
 labels = [];
 for i=1:length(lambdas)
     new = sprintf("\\lambda = %s", string(lambdas(i)));
-    labels = [labels new];
+    new_eccs = sprintf("ECCS %s", string(lambdas(i)));
+    labels = [labels new new_eccs];
 end
 labels = [labels "ACCIDENT" "SCRAM"];
 
@@ -127,9 +133,10 @@ f = figure('Position', [10 10 900 900]);
 hold on
 for i=1:length(data)
     plot(data(i).time,data(i).power, 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -144,9 +151,10 @@ f = figure('Position', [10 10 900 900]);
 hold on
 for i=1:length(data)
     plot(data(i).time,data(i).HS_internal_energy./1000, 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -161,9 +169,10 @@ f = figure('Position', [10 10 900 900]);
 hold on
 for i=1:length(data)
     plot(data(i).time,data(i).rod_power./1000, 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -178,9 +187,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,data(i).outlet_temperature-273.15, 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -194,9 +204,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -210,9 +221,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,max(data(i).max_clad_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -225,9 +237,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).temp_liquid_axial-273.15, 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -240,9 +253,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).temp_vapor_axial-273.15, 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -255,9 +269,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).rho_axial, 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -270,9 +285,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).velocity_liquid_axial, 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -285,9 +301,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).velocity_vapor_axial, 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -300,9 +317,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,min(data(i).CHFR_RELAP_axial, [], 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -316,9 +334,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,min(data(i).CHFR_W3_axial, [], 2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -332,9 +351,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).void_fraction_axial,2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -349,9 +369,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -364,9 +385,10 @@ figure('Position', [10 10 900 900])
 hold on
 for i=1:length(data)
     plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
+    xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
 end
 xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
 hold off
 grid on, grid minor
 xlabel('Time [s]')
@@ -485,5 +507,5 @@ legend(labels)
 % pres_energy = pressure_energy(data(idx).pressure_axial);
 % figure('Position', [10 10 1000 1000])
 % energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
-
-
+% 
+% 

@@ -35,7 +35,7 @@ card_m_eccs_100 = 3300202
 
 
 # TRANSITORIO
-lambdas = np.array([0.05, 0.1, 0.15])
+lambdas = np.array([0.025, 0.05, 0.1, 0.15])
 delta_trans = 30 # [s] durata transitorio dopo la stabilizzazione della pressione a p_atm
 
 
