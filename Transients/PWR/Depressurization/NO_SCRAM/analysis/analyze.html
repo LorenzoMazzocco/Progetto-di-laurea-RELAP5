@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-20"><meta name="DC.source" content="analyze.m"><style type="text/css">
+      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-05-23"><meta name="DC.source" content="analyze.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -76,7 +76,7 @@ clear all
 clc
 
 
-media_mobile = true;
+media_mobile = false;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                DATA EXCTRACTION               %
@@ -124,6 +124,7 @@ for i=1:length(lambdas)
     data(i).htvat_axial = table2array(data(i).raw_data(:,865:914)); % [K]
     data(i).density_liquid_axial = table2array(data(i).raw_data(:,916:965)); % [kg/m3]
     data(i).density_vapor_axial = table2array(data(i).raw_data(:,966:1015)); % [kg/m3]
+    data(i).total_internal_energy_axial = table2array(data(i).raw_data(:,1016:1065)); % [J]
 
     % CALCOLO CHF_W3 (devo fare un loop per come è implementata la
     % correlazione (richiede vettori, non matrici)
@@ -545,6 +546,18 @@ legend(labels)
 % fend = 2900; % final frame (timestep)
 % figure('Position', [10 10 300 900])
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, 'Animations/Bulk Temperature Vapor')
+% 
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH ENERGY BALANCE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% idx = 2;
+% f0 = 1919;
+% fend = 3607;
+% kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
+% pres_energy = pressure_energy(data(idx).pressure_axial);
+% figure('Position', [10 10 1000 1000])
+% energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
+
+
 
 ##### SOURCE END #####
 --></body></html>
