@@ -421,97 +421,97 @@ end
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
-idx = 3;
-
-% ----- PROFILE CHFR RELAP -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_RELAP_axial(f0:fend,:)), true, 'CHFR (RELAP)', 'CHFR', 10, 'Animations/CHFR_RELAP')
-
-% ----- PROFILE CHFR W3 -------
-f0 = 1919; % initial frame (timestep)
-fend = 2350;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_W3_axial(f0:fend,:)), true, 'CHFR (W3)', 'CHFR', 10, 'Animations/CHFR_W3')
-
-
-% ----- PROFILE HTMODE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE')
-
-% ----- PROFILE FLOW REGIME -------
-f0 = 1919; % initial frame (timestep)
-fend = 2500; % final frame (timestep)
-figure('Position', [10 10 300 900])
-flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime')
-
-
-% ----- PROFILE HTC -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100, 'Animations/HTC')
-
-% ----- PROFILE VOID FRACTION -------
-idx = 2;
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
-
-% ----- PROFILE RADIAL TEMPERATURE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure(10)
-radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
-
-% ----- PROFILE MAX FUEL TEMPERATURE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Fuel Temperature')
-
-% ----- PROFILE MAX CLAD TEMPERATURE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max clad Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Clad Temperature')
-
-
-% ----- PROFILE HEAT FLUX -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
-
-% ----- PROFILE DENSITY MIXTURE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, 'Animations/Heat Flux')
-
-% ----- PROFILE BULK TEMPERATURE LIQUID -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Liquid [°C]', 'Temperature [°C]', 600, 'Animations/Bulk Temperature Liquid')
-
-% ----- PROFILE BULK TEMPERATURE VAPOR -------
-f0 = 1919; % initial frame (timestep)
-fend = 2900; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, 'Animations/Bulk Temperature Vapor')
-
-
-% ------------ ENERGY BALANCE ----------------
-f0 = 1919;
-fend = 3607;
-kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
-pres_energy = pressure_energy(data(idx).pressure_axial);
-figure('Position', [10 10 1000 1000])
-energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
+% idx = 3;
+% 
+% % ----- PROFILE CHFR RELAP -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_RELAP_axial(f0:fend,:)), true, 'CHFR (RELAP)', 'CHFR', 10, 'Animations/CHFR_RELAP')
+% 
+% % ----- PROFILE CHFR W3 -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2350;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_W3_axial(f0:fend,:)), true, 'CHFR (W3)', 'CHFR', 10, 'Animations/CHFR_W3')
+% 
+% 
+% % ----- PROFILE HTMODE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE')
+% 
+% % ----- PROFILE FLOW REGIME -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2500; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime')
+% 
+% 
+% % ----- PROFILE HTC -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100, 'Animations/HTC')
+% 
+% % ----- PROFILE VOID FRACTION -------
+% idx = 2;
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, 'Animations/Void Fraction')
+% 
+% % ----- PROFILE RADIAL TEMPERATURE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure(10)
+% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature')
+% 
+% % ----- PROFILE MAX FUEL TEMPERATURE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Fuel Temperature')
+% 
+% % ----- PROFILE MAX CLAD TEMPERATURE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max clad Temp [°C]', 'Temperature [°C]', 2100, 'Animations/Max Clad Temperature')
+% 
+% 
+% % ----- PROFILE HEAT FLUX -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, 'Animations/Heat Flux')
+% 
+% % ----- PROFILE DENSITY MIXTURE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, 'Animations/Heat Flux')
+% 
+% % ----- PROFILE BULK TEMPERATURE LIQUID -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Liquid [°C]', 'Temperature [°C]', 600, 'Animations/Bulk Temperature Liquid')
+% 
+% % ----- PROFILE BULK TEMPERATURE VAPOR -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2900; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, 'Animations/Bulk Temperature Vapor')
+% 
+% 
+% % ------------ ENERGY BALANCE ----------------
+% f0 = 1919;
+% fend = 3607;
+% kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
+% pres_energy = pressure_energy(data(idx).pressure_axial);
+% figure('Position', [10 10 1000 1000])
+% energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
 
 
