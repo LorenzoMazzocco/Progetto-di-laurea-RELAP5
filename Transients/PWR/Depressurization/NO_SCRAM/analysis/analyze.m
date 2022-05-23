@@ -120,6 +120,7 @@ for i=1:length(lambdas)
     p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
 
     data(i).time_ECCS = t(find(p_in<p_ECCS, 1));
+    data(i).ECCS_label = data(i).time >= data(i).time_ECCS;
 
 
      % CALCOLO TEMPO DI CHF PER OGNI CASO (usando htmode)
