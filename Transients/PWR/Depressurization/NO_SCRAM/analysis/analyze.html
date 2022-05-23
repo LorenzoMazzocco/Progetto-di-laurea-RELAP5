@@ -146,8 +146,20 @@ for i=1:length(lambdas)
     data(i).rod_power = interp1(relap_tt, relap_pp, data(i).time);
 
     % CALCOLO TEMPO DI ECCS PER OGNI CASO
-    inlet_pressure = data(i).pressure_axial(:,1)./1e5;
-    data(i).time_ECCS = data(i).time(find(inlet_pressure<p_ECCS, 1));
+    l = lambdas(i);
+    p_atm = 3;
+    p0 = 155.1;
+    toll = 0.1;
+    t = linspace(100.5,10100, 20000);
+    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
+
+    t = t(p_in-p_atm > toll);
+    t_fin = t(end);
+
+    t = linspace(100.0, t_fin, 98);
+    p_in = (p0-p_atm)*exp(-l*(t-100))+p_atm;
+
+    data(i).time_ECCS = t(find(p_in<p_ECCS, 1));
 end
 
 
