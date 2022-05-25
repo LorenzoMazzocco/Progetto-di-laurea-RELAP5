@@ -1,4 +1,4 @@
-function [] = axial_plot(data, animate, title_string, xlable_string, xlim_value, videoname, ECCS_flag, DNB_flag)
+function [] = axial_plot(data, animate, title_string, xlable_string, xlim_value, ECCS_flag, DNB_flag, videoname)
 % La funzione richiede i seguenti input:
 %
 %   - data: array contenente i dati che si vogliono plottare.

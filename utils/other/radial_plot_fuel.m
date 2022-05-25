@@ -93,6 +93,7 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         xlabel('Distance from center [mm]') 
         ylabel('Temperature [°C]')
         title('Temperature Distribution in Fuel Rod')
+        
     end
 
 end
