@@ -1,0 +1,18 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = lambda_0.05\input.i                                                                     
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     25-May-22    14:45:40      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  54.180     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    5336  Courant
+     20.1  113.89     4.23E-03 4.23E-03 55550F   7.691     0.8883 -2.406E-02 10001   15.51   0.00    g  0.00    a   10583  Courant
+     30.1  158.09     2.78E-02 2.78E-02 55519G  0.9692     0.0039 -2.328E-02 55550    2.42  0.148    g  0.00    a   16382  Courant
+     40.1  222.50     3.39E-02 3.39E-02 55550F  0.1342     0.0000 -2.322E-02 55522    0.58 -1.611E-04g  0.00    a   18501  Courant
+Transient terminated by end of time step cards.
+ At time     276.503     seconds; Step     20131

@@ -1,0 +1,26 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = lambda_0.05\input.i                                                                     
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     24-May-22    19:16:10      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  45.485     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4688  Courant
+     20.1  85.874     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    7698  Courant
+     30.1  118.21     3.44E-03 3.44E-03 55550F   6.205     0.9392 -2.406E-02 10001   15.51   0.00    g  0.00    a   11732  Courant
+     40.1  151.37     5.00E-02 5.57E-02 55549g   1.272     0.0000 -2.352E-02 10001    6.41   0.00    g  0.00    a   16169  dtmax  
+     50.1  173.21     1.38E-03 1.38E-03 55550F  0.4926     0.9778 -2.350E-02 10001    1.47   0.00    f  0.00    a   22503  Courant
+     60.1  183.07     7.27E-04 7.27E-04 55550F  0.3327     0.9893 -2.350E-02 10001    0.69   0.00    f  0.00    a   31984  Courant
+     70.1  188.99     5.38E-04 5.38E-04 55550F  0.2656     0.9923 -2.350E-02 10001    0.54   0.00    f  0.00    a   41518  Courant
+     80.1  193.35     4.36E-04 4.36E-04 55550F  0.2274     0.9938 -2.350E-02 10001    0.48   0.00    g  0.00    a   50781  Courant
+     90.1  196.79     3.51E-04 3.51E-04 55550F  0.2012     0.9952 -2.350E-02 10001    0.44   0.00    f  0.00    a   59829  Courant
+    100.1  200.23     3.00E-04 3.00E-04 55550F  0.1787     0.9959 -2.350E-02 10001    0.42   0.00    f  0.00    a   70488  Courant
+    110.1  226.53     4.71E-02 4.71E-02 55534g  0.1440     0.0000 -2.349E-02 55517    0.17 -2.641E-04g  0.00    a   75982  Courant
+    120.1  268.45     5.00E-02 6.79E-02 55550F  0.1128     0.0000 -2.349E-02 55517    0.16  3.226E-06g  0.00    a   76825  dtmax  
+Transient terminated by end of time step cards.
+ At time     276.505     seconds; Step     76986

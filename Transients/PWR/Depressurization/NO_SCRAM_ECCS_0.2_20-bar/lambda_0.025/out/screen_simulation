@@ -1,0 +1,23 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = lambda_0.025\input.i                                                                    
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     23-May-22    18:03:20      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  44.170     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4590  Courant
+     20.1  95.253     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    8397  Courant
+     30.1  133.28     3.74E-03 3.74E-03 55550F   6.706     0.9258 -2.406E-02 10001   15.51   0.00    g  0.00    a   13767  Courant
+     40.1  156.55     2.36E-03 2.36E-03 55550F   3.797     0.9806 -2.406E-02 10001    6.91   0.00    g  0.00    a   21573  Courant
+     50.1  174.42     1.39E-03 1.39E-03 55550F   2.462     0.9949 -2.407E-02 10001    4.00   0.00    g  0.00    a   30669  Courant
+     60.1  187.14     9.69E-04 9.69E-04 55550F   1.817     0.9978 -2.414E-02 10001    2.67   0.00    g  0.00    a   40874  Courant
+     70.1  224.71     3.39E-02 3.39E-02 55550F  0.7741     0.0000 -2.381E-02 55511    0.88   0.00    g  0.00    a   46518  Courant
+     80.1  278.48     2.32E-02 2.32E-02 55546g  0.2809     0.0000 -2.376E-02 55511    0.49 -1.854E-04g  0.00    a   48284  Courant
+0******** Transient terminated by failure.
+Transient terminated by failure.
+ At time     329.285     seconds; Step     49827
