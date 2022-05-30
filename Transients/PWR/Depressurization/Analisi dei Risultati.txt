@@ -1,0 +1,42 @@
+############################## SCRAM #############################
+
+Quando lo SCRAM avviene sufficientemente presto (5s) non avviene letteralmente nulla.
+
+Giò quando lo SCRAM avviene dopo 10s ho degli  impulsi visibili su HTC (che inizialmente cresce) e la correlazione W-3 per il MDNBR 
+fallisce nei casi di depressurizzazione più veloci. In ogni caso non c'è nessun innalzamento della temperatura massima del fuel e clad perchè 
+lo SCRAM risolve in tempo e la temperatura del coolant diminuisce comunque drasticamente.
+
+Il caso SCRAM a 20s è praticamente identico a quello a 10s.
+
+Nel caso SCRAM a 30s si vede un leggerissimo innalzamento della temperatura massima del clad nei casi di depressurizzazione più lenta prima dello 
+SCRAM. A parte questo il caso non aggiunge informazioni sulla fenomenologia del transitorio.
+
+
+
+
+
+############################ NO SCRAM ###########################
+
+################ ECCS 0.2
+
+
+####### ECCS PRESSURE 20 bar (fittizio)
+
+In ogni caso vado in DNB prima dell'attivazione dell'ECCS e l'attivazione dell'ECCS NON RIESCE A FERMARE IL FILM BOILING. Dunque molta energia generata
+viene fornita al fuel e clad al posto del coolant. Di conseguenza aumentano le temperature massime del clad e fuel. Il problema dei grafici è che CHFR-W3
+fallisce miseramente nel rappresentare il fenomeno di DNB e lo stesso vale per CHFR-RELAP. Per il resto HTMODE e FLOW REGIME funzionano benissimo nel 
+mostrare cosa succede.
+
+
+####### ECCS PRESSURE 45 bar (reale)
+
+In questo caso nel caso di depressurizzazione più veloce l'intervento dell'ECCS ci salva dal DNB
+
+
+
+
+################ ECCS 0.1
+
+####### ECCS PRESSURE 45 bar (reale)
+
+Non cambia praticamente nulla dal caso in cui inietto 0.2 kg/s
