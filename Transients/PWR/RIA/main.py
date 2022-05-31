@@ -58,7 +58,7 @@ cardno = card_power_100
 
 for i in range(len(tt)):
     cardno = cardno+1
-    line = "{}    {:.2f}     {:.2f} \n".format(cardno, tt[i], P_impulso[i])
+    line = "{}    {:.4f}     {:.2f} \n".format(cardno, tt[i], P_impulso[i])
     add_power.append(line)
 
 for i in range(len(add_power)):
@@ -99,3 +99,44 @@ r_lines.insert(38, "204     {}     1e-8   0.005   00003   10    10    10 \n".for
 w_file = open(r'input.i', 'w')
 w_file.writelines(r_lines)
 w_file.close()
+
+
+
+#####################################################
+#                    SIMULAZIONE                    #
+#####################################################
+
+########### CREO STRUTTURA FOLDER ############
+# Pulisco
+os.system(r'mkdir out')
+while len(os.listdir(r'out')) != 0:
+    os.system(r'del out\output')
+    os.system(r'del out\output_strip1')
+    os.system(r'del out\output_strip2')
+    os.system(r'del out\rstplt')
+    os.system(r'del out\stripf1')
+    os.system(r'del out\stripf2')
+    os.system(r'del out\data.csv')
+    os.system(r'del out\screen_simulation')
+    os.system(r'del out\screen_stripf1')
+    os.system(r'del out\screen_stripf2')
+
+# Lancio simulazione
+os.system(r"..\..\..\utils\execution\relap5.exe -i input.i -o out\output -r out\rstplt -Z ..\..\..\utils\execution\tpfh2onew")
+
+# Pulisco file inutili e ordino
+os.system(r'del read_steam_comment.o')
+#os.system(r'move screen lambda_{}\out\screen_simulation'.format(l))
+
+# Creo stripf tramite RELAP
+os.system(r"..\..\..\utils\execution\relap5.exe -i input_strip1.i -o out\output_strip1 -r out\rstplt -s out\stripf1")
+os.system(r'move screen out\screen_stripf1')
+os.system(r"..\..\..\utils\execution\relap5.exe -i input_strip2.i -o out\output_strip2 -r out\rstplt -s out\stripf2")
+os.system(r'move screen out\screen_stripf2')
+
+# Estraggo i dati (creo data.csv)
+os.system(r"py ..\..\..\..\utils\other\parser.py out\stripf1 out\stripf2")
+
+# Elimino rstplt e output per alleggerire la cartella
+os.system(r'out\output')
+#os.system(r'out\rstplt')
