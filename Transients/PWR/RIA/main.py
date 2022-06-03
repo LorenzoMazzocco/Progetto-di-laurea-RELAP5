@@ -62,13 +62,18 @@ for r in reactivities:
     P_impulso = (P_impulso + P0)*1000 # [W]
 
     add_power = []
-    add_power.append("{}    {:.1f}     {:.2f} \n".format(card_power_100, 100, P0*1000)) #aggiungo la prima line per il delay di delta_t_scram
+    add_power.append("{}    {:.2f}     {:.2f} \n".format(card_power_100, 100.01, P0*1000)) #aggiungo la prima line per il delay di delta_t_scram
     cardno = card_power_100
 
     for i in range(len(tt)):
         cardno = cardno+1
         line = "{}    {:.4f}     {:.2f} \n".format(cardno, tt[i], P_impulso[i])
         add_power.append(line)
+
+    # AGGIUNGO LA CARD FINALE INDICANTE LA POTENZA NOMINALE, NECESSARIA A MATLAB PER INTERPOLARE LA ROD_POWER, ho aggiunto anche quello 0.01
+    cardnumber = cardno+1
+    final_line = "{}    {:.4f}     {:.2f} \n".format(cardnumber, t_fin, P0*1000)
+    add_power.append(final_line)        
 
     for i in range(len(add_power)):
         print(add_power[i])
