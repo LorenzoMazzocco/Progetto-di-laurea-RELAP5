@@ -12,7 +12,7 @@ t_fin = 150.0   # [s]
 
 P0 = 66.35188   # [kW]
 
-lambdas = np.array([0.05, 0.075, 0.1])      # exponential coefficient
+lambdas = np.array([0.05, 0.075, 0.1, 0.15])      # exponential coefficient
 
 card_power_100 = 20288802
 

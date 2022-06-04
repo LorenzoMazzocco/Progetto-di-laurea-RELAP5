@@ -11,7 +11,7 @@ media_mobile = true;
 %                DATA EXCTRACTION               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-lambdas = [0.05, 0.075, 0.1];
+lambdas = [0.05, 0.075, 0.1, 0.15];
 accident_time = 100; % [s]
 scram_time = 200;    % [s]
 
@@ -393,7 +393,7 @@ legend(labels)
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TUTTE LE ANIMAZIONI SONO CON LA PRIMA REACTIVITY IPOTIZZATA (5000 pcm)
-idx = 3;
+idx = 4;
 
 % ----- PROFILE CHFR RELAP -------
 f0 = 1919; % initial frame (timestep)
