@@ -200,7 +200,7 @@ xlabel("MDNBR Variation [ ^{1}/_{%} ]")
 
 
 % --------- ADIMENSIONAL PLOT ------------
-figure('Position', [10 10 900 900])
+f = figure('Position', [10 10 900 900])
 t = tiledlayout(3,1, 'TileSpacing', 'normal');
 title(t, "SA ADIMENSIONAL")
 
@@ -242,6 +242,7 @@ end
 barh(X,sort(Y))
 title("MDNBR")
 xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+saveas(f, 'photo_ppt/sa1.png')
 
 
 
@@ -280,7 +281,7 @@ xlabel("Temperature Variation [ ^{°K}/_{%} ]")
 
 
 % --------- ADIMENSIONAL PLOT ------------
-figure('Position', [10 10 900 900])
+f = figure('Position', [10 10 900 900])
 t = tiledlayout(3,1, 'TileSpacing', 'normal');
 title(t, "SA CONDUCTIVITY ADIMENSIONAL")
 
@@ -296,6 +297,7 @@ end
 barh(X,sort(Y))
 xlabel("Temperature Variation [ ^{%}/_{%} ]")
 title("Max Fuel Temperature")
+
 
 % Adimensional Clad Temp
 nexttile
@@ -375,48 +377,48 @@ saveas(f, 'photo_ppt/outlet_temperature.png')
 % xlabel('Time [s]')
 % title('MAX CLAD TEMPERATURE [K]')
 % 
-% ----- AXIAL PROFILE MAX TEMP FUEL -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(T_max_fuel_axial(end,:)-273.15, false, 'Max Fuel Temperature [°C]', 'Fuel Temperature [°C]', 2000-273.15)
-saveas(f, 'photo_ppt/axial_max_fuel_temp.png')
+% % ----- AXIAL PROFILE MAX TEMP FUEL -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(T_max_fuel_axial(end,:)-273.15, false, 'Max Fuel Temperature [°C]', 'Fuel Temperature [°C]', 2000-273.15)
+% saveas(f, 'photo_ppt/axial_max_fuel_temp.png')
+% % 
+% % 
+% % ----- AXIAL PROFILE HTMODE -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% htmode_plot(HTMODE_axial(end,:), false, 'Heat Transfer Mode', '', 1)
+% saveas(f, 'photo_ppt/axial_htmode.png')
 % 
+% % ----- AXIAL PROFILE HEAT FLUX -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(heat_flux_axial(end,:), false, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1500)
+% saveas(f, 'photo_ppt/axial_heat_flux.png')
 % 
-% ----- AXIAL PROFILE HTMODE -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-htmode_plot(HTMODE_axial(end,:), false, 'Heat Transfer Mode', '', 1)
-saveas(f, 'photo_ppt/axial_htmode.png')
-
-% ----- AXIAL PROFILE HEAT FLUX -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(heat_flux_axial(end,:), false, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1500)
-saveas(f, 'photo_ppt/axial_heat_flux.png')
-
-% ----- AXIAL PROFILE HTC -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(htc_axial(end,:), false, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100)
-saveas(f, 'photo_ppt/axial_htc.png')
-
-% ----- AXIAL PROFILE FLOW REGIME -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-flowreg_plot(flow_reg_axial(end,:), false, 'Flow Regime', '', 1)
-saveas(f, ['photo_ppt/axial_flow_reg.png'])
-
-% ----- AXIAL PROFILE VOID FRACTION -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(void_axial(end,:), false, 'Void Fraction', 'Void Fraction', 1)
-saveas(f, 'photo_ppt/axial_void_fraction.png')
-
-% ----- AXIAL PROFILE CHF W-3 -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(CHF_W3, false, 'CHF W-3 [kW/m^2]', 'CHF [kW/m^2]', 6000)
-saveas(f, 'photo_ppt/axial_chfw3.png')
-
-% ----- AXIAL PROFILE CHFR -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-MDNBR = min(CHFR);
-title = strcat(["MDNBR:{ }", num2str(MDNBR)]);
-axial_plot(CHFR, false, 'CHFR', title, 6)
-saveas(f, 'photo_ppt/CHFR.png')
+% % ----- AXIAL PROFILE HTC -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(htc_axial(end,:), false, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100)
+% saveas(f, 'photo_ppt/axial_htc.png')
+% 
+% % ----- AXIAL PROFILE FLOW REGIME -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% flowreg_plot(flow_reg_axial(end,:), false, 'Flow Regime', '', 1)
+% saveas(f, ['photo_ppt/axial_flow_reg.png'])
+% 
+% % ----- AXIAL PROFILE VOID FRACTION -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(void_axial(end,:), false, 'Void Fraction', 'Void Fraction', 1)
+% saveas(f, 'photo_ppt/axial_void_fraction.png')
+% 
+% % ----- AXIAL PROFILE CHF W-3 -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(CHF_W3, false, 'CHF W-3 [kW/m^2]', 'CHF [kW/m^2]', 6000)
+% saveas(f, 'photo_ppt/axial_chfw3.png')
+% 
+% % ----- AXIAL PROFILE CHFR -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% MDNBR = min(CHFR);
+% title = strcat(["MDNBR:{ }", num2str(MDNBR)]);
+% axial_plot(CHFR, false, 'CHFR', title, 6)
+% saveas(f, 'photo_ppt/CHFR.png')
 % 
 % % ----- PROFILE RADIAL TEMP FUEL ------
 % figure()
