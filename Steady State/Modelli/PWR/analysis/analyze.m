@@ -311,7 +311,7 @@ end
 barh(X,sort(Y))
 title("Max Clad Temperature")
 xlabel("Temperature Variation [ ^{%}/_{%} ]")
-
+saveas(f, 'photo_ppt/sa2.png')
 
 
 
@@ -338,7 +338,7 @@ text(time(end), T_out(end)-273.15, str, "FontSize", fs, 'FontWeight','bold');
 grid on, grid minor
 xlabel('Time [s]')
 ylabel('Temperature [°C]')
-title('WATER OUTLET TEMPERATURE [K]')
+title('WATER OUTLET TEMPERATURE [°C]')
 saveas(f, 'photo_ppt/outlet_temperature.png')
 
 % % ----- MAX FUEL TEMP -----
