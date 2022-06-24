@@ -49,7 +49,7 @@ if animate
     end
     close(myVideo);
 else
-    plot(data,(1:length(data))./length(data), 'LineWidth', 1.5, 'Color', 'r')
+    plot(data,(1:length(data))./length(data), 'LineWidth', 2.8, 'Color', 'r')
     ylim([1/length(data) 1])
     xlim([0 xlim_value])
     xlabel(xlable_string)
