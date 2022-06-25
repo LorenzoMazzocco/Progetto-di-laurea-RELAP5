@@ -13,7 +13,7 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
 if animate
     time = data(:,1);
     data = data(:,2:end);
-    h = animatedline('LineWidth', 1.5, 'Color', 'r');
+    h = animatedline('LineWidth', 2.3, 'Color', 'r');
     grid on
     grid minor
     ylim([1/length(data) 1])
@@ -30,18 +30,18 @@ if animate
         addpoints(h, data(i,:), (1:length(data(i,:)))./length(data(i,:)));
         drawnow nocallbacks
 
-        dim = [.5 .1 .1 .1];
+        dim = [.5 .12 .1 .1];
         timestep = sprintf("%.1f", time(i));
         str = strcat('TIME:',{'  '}, timestep, ' s');
-        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w', 'FontSize', 14);
         
-        dim = [.48 .06 .1 .1];
+        dim = [.48 .07 .1 .1];
         str = strcat(' ECCS');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:), 'FontSize', 14);
 
-        dim = [.7 .06 .1 .1];
+        dim = [.7 .07 .1 .1];
         str = strcat(' DNB');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:), 'FontSize', 14);
 
         %pause(0.1)
         frame = getframe(gcf); %get frame
