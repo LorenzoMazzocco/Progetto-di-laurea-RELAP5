@@ -40,13 +40,13 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         patch([rr(10) rr(11) rr(11) rr(10)], [0 0 3000 3000], [0 138 230]./255, 'LineStyle', 'none')
         hold off
         alpha(.85)
-        h = animatedline('LineWidth', 1.5, 'Color', 'r');
-        j = animatedline('LineWidth', 1.5, 'Color', 'r', 'LineStyle','--');
+        h = animatedline('LineWidth', 2.5, 'Color', 'r');
+        j = animatedline('LineWidth', 2.5, 'Color', 'r', 'LineStyle','--');
         
         ylim([0 3000])
         xlim([0 rr(11)])
-        xlabel('Distance from center [mm]') 
-        ylabel('Temperature [°C]')
+        xlabel('Distance from center (mm)') 
+        ylabel('Temperature (°C)')
         title('Temperature Distribution in Fuel Rod')
 
         for i=2:10:length(time)
@@ -60,15 +60,15 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
             dim = [.2 0 .3 .3];
             timestep = sprintf("%.1f", time(i));
             str = strcat('TIME:',{'  '}, timestep, ' s');
-            annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+            annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w', 'FontSize', 14);
 
             dim = [.8 .8 .1 .1];
             str = strcat(' ECCS');
-            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:), 'FontSize', 14);
 
             dim = [.8 .72 .1 .1];
             str = strcat(' DNB');
-            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+            annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:), 'FontSize', 14);
 
             frame = getframe(gcf); %get frame
             writeVideo(myVideo, frame);
@@ -90,8 +90,8 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         hold off
         ylim([0 3000])
         xlim([0 rr(11)])
-        xlabel('Distance from center [mm]') 
-        ylabel('Temperature [°C]')
+        xlabel('Distance from center (mm)') 
+        ylabel('Temperature (°C)')
         title('Temperature Distribution in Fuel Rod')
         
     end

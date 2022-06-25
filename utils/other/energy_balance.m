@@ -56,12 +56,12 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         x_legend_left = reordercats(x_legend_left, {'Channel Fluid', 'Heat Structure', 'Channel Fluid - specific'});
         bar(x_legend_left, data_to_plot_left, 0.3, 'stacked');
         
-        left_colors = [[138 47 1]/255; [0 158 207]/255; [153 207 0]/255];
+        left_colors = [[255, 119, 51]/255; [0 158 207]/255; [40 171 0]/255];
         colororder(left_colors);
         y_axis_left=gca;
         y_axis_left.YColor = 'black';
         
-        ylabel('Total energy [kJ]');
+        ylabel('Total energy (kJ)');
         y_max_left = max(int_energy_hs);
         ylim([0 1.2*y_max_left]);  
         
@@ -80,7 +80,7 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         y_axis_right=gca;
         y_axis_right.YColor = 'black';
 
-        ylabel('Total specific energy [kJ/kg]');
+        ylabel('Total specific energy (kJ/kg)');
         y_max_right = max(specific_int_energy_pipe);
         ylim([0 1.2*y_max_right]);  
 
@@ -89,7 +89,7 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
     
         nexttile(2)
         hold on  
-        plot(time(1:i), power_generated(1:i),'Color',[201 68 2]/255,'LineWidth',1.6);
+        plot(time(1:i), power_generated(1:i),'Color',[255, 119, 51]/255,'LineWidth',1.6);
         plot(time(1:i), power_exchanged(1:i),'Color',[84 167 255]/255,'LineWidth',1.6);
         plot(time(1:i), power_stored(1:i),'Color',[74 74 74]/255,'LineWidth',1.6);
         ymax=max([power_generated' power_exchanged' power_stored']);
@@ -98,9 +98,9 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         xmin=min(time);
         ylim([ymin 1.2*ymax]);
         xlim([xmin xmax]);
-        ylabel('Power [kW]');
-        xlabel('Time [s]');
-        title('Power [kW]');
+        ylabel('Power (kW)');
+        xlabel('Time (s)');
+        title('Power (kW)');
         grid on
         legend('Generated in rod','Exchanged to fluid','Stored in rod','Location','west');
 

@@ -29,8 +29,8 @@ if animate
         hold on
         for j=1:length(data(i,:))
           patch([0 100 100 0], [j-1 j-1 j j]./length(data(i,:)), flow_colors(data(i,j),:), 'LineStyle', 'none')
-          text(15,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
-          text(65,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 7, 'FontWeight','bold')
+          text(15,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 10, 'FontWeight','bold')
+          text(65,(j-0.5)/length(data(i,:)),flow_texts(data(i)), 'FontSize', 10, 'FontWeight','bold')
         end
         hold off
         alpha(.75)
@@ -42,15 +42,15 @@ if animate
         dim = [.365 0 .1 .1];
         timestep = num2str(time(i));
         str = strcat('TIME:',{'  '}, timestep(1:4), ' s');
-        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w', 'FontSize', 14);
 
         dim = [0.13 0 .1 .1];
         str = strcat(' ECCS');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:), 'FontSize', 14);
 
         dim = [0.73 0 .1 .1];
         str = strcat(' DNB');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:), 'FontSize', 14);
 
         drawnow 
         frame = getframe(gcf); %get frame

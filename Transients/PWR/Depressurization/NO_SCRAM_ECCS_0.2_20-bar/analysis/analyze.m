@@ -218,20 +218,22 @@ end
 % 
 % 
 % % ---- MAX FUEL TEMPERATURE ----
-% figure('Position', [10 10 900 900])
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
 % hold on
 % for i=1:length(data)
-%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
+%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 2.5, 'DisplayName', labels(i));
+%     xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
 % end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
+% xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
 % hold off
 % grid on, grid minor
-% xlabel('Time [s]')
-% title('MAX FUEL TEMPERATURE [°C]')
-% xlim([95 250])
-% legend(labels)
+% xlabel('Time (s)')
+% title('MAX FUEL TEMPERATURE (°C)')
+% xlim([95 198])
+% g = get(gca, 'Children')
+% legend([g(1) g(3) g(5) g(7) g(2)])
+% saveas(f, 'photo_ppt/max_fuel_temp.png')
+
 % 
 % 
 % % ---- MAX CLAD TEMPERATURE ----
@@ -382,22 +384,22 @@ end
 % legend(labels)
 % 
 % 
-% ------- MEAN PRESSURE -------
-f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
-hold on
-for i=1:length(data)
-    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 2.5, 'DisplayName', labels(i));
-    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', "ECCS")
-end
-xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
-hold off
-grid on, grid minor
-xlabel('Time [s]')
-title('PRESSURE [bar]')
-xlim([95 250])
-g = get(gca, 'Children')
-legend([g(1) g(3) g(5) g(7)])
-saveas(f, 'photo_ppt/pressure.png')
+% % ------- MEAN PRESSURE -------
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+% hold on
+% for i=1:length(data)
+%     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 2.5, 'DisplayName', labels(i));
+%     xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', "ECCS")
+% end
+% xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+% hold off
+% grid on, grid minor
+% xlabel('Time (s)')
+% title('PRESSURE (bar)')
+% xlim([95 250])
+% g = get(gca, 'Children')
+% legend([g(1) g(3) g(5) g(7) g(2)])
+% saveas(f, 'photo_ppt/pressure.png')
 
 % 
 % % ------- MEAN HTC -------
@@ -421,8 +423,8 @@ saveas(f, 'photo_ppt/pressure.png')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TUTTE LE ANIMAZIONI SONO CON IL TERZO LAMBDA (0.1)
-idx = 3;
+% TUTTE LE ANIMAZIONI SONO CON IL SECONDO LAMBDA 
+idx = 2;
 
 % % ----- PROFILE CHFR RELAP -------
 % f0 = 1919; % initial frame (timestep)
@@ -439,47 +441,48 @@ idx = 3;
 % 
 % % ----- PROFILE HTMODE -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure('Position', [10 10 300 900])
+% fend = 3600; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
 % htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-% 
+
 % % ----- PROFILE FLOW REGIME -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2500; % final frame (timestep)
-% figure('Position', [10 10 300 900])
+% fend = 3600; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
 % flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
 % 
 % 
 % % ----- PROFILE HTC -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900;
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/HTC')
-% 
+% fend = 3600;
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC (kW/m^2/K)', 'HTC (kW/m^2/K)', 100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/HTC')
+% % 
 % % ----- PROFILE VOID FRACTION -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction \alpha', 'Void Fraction \alpha', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
 % 
 % % ----- PROFILE RADIAL TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure(10)
+% fend = 3600; % final frame (timestep)
+% figure('DefaultAxesFontSize', fs-2)
 % radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
+
 % 
 % % ----- PROFILE MAX FUEL TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
+% fend = 3600; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp (°C)', 'Temperature (°C)', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
 % 
 % % ----- PROFILE MAX CLAD TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure('Position', [10 10 300 900])
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max clad Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
-% 
+% fend = 3600; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max Clad Temp (°C)', 'Temperature (°C)', 1300, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
+
 % 
 % % ----- PROFILE HEAT FLUX -------
 % f0 = 1919; % initial frame (timestep)
@@ -492,13 +495,13 @@ idx = 3;
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density')
-
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture (kg/m^3)', 'Density (kg/m^3)', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density')
+% 
 % % ----- PROFILE BULK TEMPERATURE LIQUID -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temp. Liquid [°C]', 'Temperature [°C]', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temp. Liquid (°C)', 'Temperature (°C)', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
 % 
 % % ----- PROFILE BULK TEMPERATURE VAPOR -------
 % f0 = 1919; % initial frame (timestep)
@@ -507,12 +510,12 @@ idx = 3;
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Vapor')
 % 
 % 
-% % ------------ ENERGY BALANCE ----------------
-% f0 = 1919;
-% fend = 3607;
-% kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
-% pres_energy = pressure_energy(data(idx).pressure_axial);
-% figure('Position', [10 10 1000 1000])
-% energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
+% ------------ ENERGY BALANCE ----------------
+f0 = 1919;
+fend = 3600;
+kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
+pres_energy = pressure_energy(data(idx).pressure_axial);
+figure('Position', [10 10 1000 1000], 'DefaultAxesFontSize', fs -4)
+energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
 
 

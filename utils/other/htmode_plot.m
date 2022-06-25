@@ -24,15 +24,15 @@ if animate
     myVideo = VideoWriter(videoname); %open video file
     myVideo.FrameRate = 10;  %can adjust this, 5 - 10 works well for me
     open(myVideo)
-    for i=2:4:length(time)
+    for i=2:10:length(time)
         clf
         patch([55 100 100 55], [0 0 1 1], [1 1 1])
         patch([0 45 45 0], [0 0 1 1], [1 1 1])
         hold on
         for j=1:length(data(i,:))
           patch([0 100 100 0], [j-1 j-1 j j]./length(data(i,:)), ht_colors(data(i,j)+1,:), 'LineStyle', 'none')
-          text(20,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
-          text(70,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 8, 'FontWeight','bold')
+          text(20,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 10, 'FontWeight','bold')
+          text(70,(j-0.5)/length(data(i,:)),ht_texts(data(i)+1), 'FontSize', 10, 'FontWeight','bold')
         end
         hold off
         alpha(.75)
@@ -44,16 +44,16 @@ if animate
         dim = [.365 0 .1 .1];
         timestep = num2str(time(i));
         str = strcat('TIME:',{'  '}, timestep(1:4), ' s');
-        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w');
+        annotation('textbox',dim,'String',str, 'FitBoxToText','on', 'BackgroundColor','w', 'FontSize', 14);
 
 
         dim = [0.13 0 .1 .1];
         str = strcat(' ECCS');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',ECCS_colors(ECCS_flag(i)+1,:), 'FontSize', 14);
 
         dim = [0.73 0 .1 .1];
         str = strcat(' DNB');
-        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:));
+        annotation('textbox',dim,'string',str,'FitBoxToText','on','BackgroundColor',DNB_colors(DNB_flag(i)+1,:), 'FontSize', 14);
 
         drawnow 
         frame = getframe(gcf); %get frame
