@@ -15,7 +15,7 @@ media_mobile = true;
 lambdas = [0.025, 0.05, 0.1];
 accident_time = 100; % [s]
 scram_time = 200;    % [s]
-p_ECCS = 45;         % [bar]
+p_ECCS = 20;         % [bar]
 
 % Creo una struct. Ogni elemento di questa struct rappresenta un
 % esperimento di depressurizzazione. Esiste un field principale detto
@@ -141,10 +141,8 @@ end
 labels = [];
 for i=1:length(lambdas)
     new = sprintf("\\lambda = %s", string(lambdas(i)));
-    new_eccs = sprintf("ECCS %s", string(lambdas(i)));
-    labels = [labels new new_eccs];
+    labels = [labels new];
 end
-labels = [labels "ACCIDENT" "SCRAM"];
 
 % 
 % 
@@ -384,21 +382,23 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % 
-% % ------- MEAN PRESSURE -------
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MEAN PRESSURE [bar]')
-% xlim([95 250])
-% legend(labels)
+% ------- MEAN PRESSURE -------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,mean(data(i).pressure_axial,2)./1e5, 'LineWidth', 2.5, 'DisplayName', labels(i));
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', "ECCS")
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Time [s]')
+title('PRESSURE [bar]')
+xlim([95 250])
+g = get(gca, 'Children')
+legend([g(1) g(3) g(5) g(7)])
+saveas(f, 'photo_ppt/pressure.png')
+
 % 
 % % ------- MEAN HTC -------
 % figure('Position', [10 10 900 900])
@@ -494,11 +494,11 @@ idx = 3;
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density')
 
-% ----- PROFILE BULK TEMPERATURE LIQUID -------
-f0 = 1919; % initial frame (timestep)
-fend = 3600; % final frame (timestep)
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temp. Liquid [°C]', 'Temperature [°C]', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
+% % ----- PROFILE BULK TEMPERATURE LIQUID -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 3600; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temp. Liquid [°C]', 'Temperature [°C]', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
 % 
 % % ----- PROFILE BULK TEMPERATURE VAPOR -------
 % f0 = 1919; % initial frame (timestep)
