@@ -85,8 +85,8 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         hold off
         alpha(.85)
         hold on
-        plot(rr(1:10),tt(:,1:10), 'LineWidth', 1.5, 'Color', 'r')
-        plot([rr(10) rr(11)], [tt(11) tt(11)], 'LineWidth', 1.5, 'LineStyle','--', 'Color', 'r')
+        plot(rr(1:10),tt(:,1:10), 'LineWidth', 2.5, 'Color', 'r')
+        plot([rr(10) rr(11)], [tt(11) tt(11)], 'LineWidth', 2.5, 'LineStyle','--', 'Color', 'r')
         hold off
         ylim([0 3000])
         xlim([0 rr(11)])

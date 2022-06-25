@@ -154,192 +154,192 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS %%%%%%%%%%%%%%%%%%%%%%%%
 
-% --------- RELATIVE PLOT ------------
-figure('Position', [10 10 900 900])
-t = tiledlayout(3,1, 'TileSpacing', 'normal');
-title(t, "SA RELATIVE")
-
-% Relative Fuel Temp
-nexttile
-Y = sa_rel_max_fuel;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-xlabel("Temperature Variation [ ^{°K}/_{%} ]")
-title("Max Fuel Temperature")
-
-% Relative Clad Temp
-nexttile
-Y = sa_rel_max_clad;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("Max Clad Temperature")
-xlabel("Temperature Variation [ ^{°K}/_{%} ]")
-
-% Relative MDNBR
-nexttile
-Y = sa_rel_mdnbr;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("MDNBR")
-xlabel("MDNBR Variation [ ^{1}/_{%} ]")
-
-
-% --------- ADIMENSIONAL PLOT ------------
-f = figure('Position', [10 10 900 900])
-t = tiledlayout(3,1, 'TileSpacing', 'normal');
-title(t, "SA ADIMENSIONAL")
-
-% Adimensional Fuel Temp
-nexttile
-Y = sa_adi_max_fuel;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-xlabel("Temperature Variation [ ^{%}/_{%} ]")
-title("Max Fuel Temperature")
-
-% Adimensional Clad Temp
-nexttile
-Y = sa_adi_max_clad;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("Max Clad Temperature")
-xlabel("Temperature Variation [ ^{%}/_{%} ]")
-
-% Adimensional MDNBR
-nexttile
-Y = sa_adi_mdnbr;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("MDNBR")
-xlabel("MDNBR Variation [ ^{%}/_{%} ]")
-saveas(f, 'photo_ppt/sa1.png')
-
-
-
-%%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
-
-% --------- RELATIVE PLOT ------------
-figure('Position', [10 10 900 900])
-t = tiledlayout(3,1, 'TileSpacing', 'normal');
-title(t, "SA CONDUCTIVITY RELATIVE")
-% Relative Fuel Temp
-nexttile
-Y = sak_rel_max_fuel;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables_k);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-xlabel("Temperature Variation [ ^{°K}/_{%} ]")
-title("Max Fuel Temperature")
-
-% Relative Clad Temp
-nexttile
-Y = sak_rel_max_clad;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables_k);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("Max Clad Temperature")
-xlabel("Temperature Variation [ ^{°K}/_{%} ]")
-
-
-
-% --------- ADIMENSIONAL PLOT ------------
-f = figure('Position', [10 10 900 900])
-t = tiledlayout(3,1, 'TileSpacing', 'normal');
-title(t, "SA CONDUCTIVITY ADIMENSIONAL")
-
-% Adimensional Fuel Temp
-nexttile
-Y = sak_adi_max_fuel;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables_k);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-xlabel("Temperature Variation [ ^{%}/_{%} ]")
-title("Max Fuel Temperature")
-
-
-% Adimensional Clad Temp
-nexttile
-Y = sak_adi_max_clad;
-if length(Y) == length(unique(Y))
-    X = categorical(sort(Y), Y, parameter_lables_k);
-    X = reordercats(X,string(X));
-else
-    X = categorical(Y);
-end
-barh(X,sort(Y))
-title("Max Clad Temperature")
-xlabel("Temperature Variation [ ^{%}/_{%} ]")
-saveas(f, 'photo_ppt/sa2.png')
-
-
-
-
+% % --------- RELATIVE PLOT ------------
+% figure('Position', [10 10 900 900])
+% t = tiledlayout(3,1, 'TileSpacing', 'normal');
+% title(t, "SA RELATIVE")
+% 
+% % Relative Fuel Temp
+% nexttile
+% Y = sa_rel_max_fuel;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+% title("Max Fuel Temperature")
+% 
+% % Relative Clad Temp
+% nexttile
+% Y = sa_rel_max_clad;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("Max Clad Temperature")
+% xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+% 
+% % Relative MDNBR
+% nexttile
+% Y = sa_rel_mdnbr;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("MDNBR")
+% xlabel("MDNBR Variation [ ^{1}/_{%} ]")
+% 
+% 
+% % --------- ADIMENSIONAL PLOT ------------
+% f = figure('Position', [10 10 900 900])
+% t = tiledlayout(3,1, 'TileSpacing', 'normal');
+% title(t, "SA ADIMENSIONAL")
+% 
+% % Adimensional Fuel Temp
+% nexttile
+% Y = sa_adi_max_fuel;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% title("Max Fuel Temperature")
+% 
+% % Adimensional Clad Temp
+% nexttile
+% Y = sa_adi_max_clad;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("Max Clad Temperature")
+% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% 
+% % Adimensional MDNBR
+% nexttile
+% Y = sa_adi_mdnbr;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("MDNBR")
+% xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+% saveas(f, 'photo_ppt/sa1.png')
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
+% 
+% % --------- RELATIVE PLOT ------------
+% figure('Position', [10 10 900 900])
+% t = tiledlayout(3,1, 'TileSpacing', 'normal');
+% title(t, "SA CONDUCTIVITY RELATIVE")
+% % Relative Fuel Temp
+% nexttile
+% Y = sak_rel_max_fuel;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables_k);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+% title("Max Fuel Temperature")
+% 
+% % Relative Clad Temp
+% nexttile
+% Y = sak_rel_max_clad;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables_k);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("Max Clad Temperature")
+% xlabel("Temperature Variation [ ^{°K}/_{%} ]")
+% 
+% 
+% 
+% % --------- ADIMENSIONAL PLOT ------------
+% f = figure('Position', [10 10 900 900])
+% t = tiledlayout(3,1, 'TileSpacing', 'normal');
+% title(t, "SA CONDUCTIVITY ADIMENSIONAL")
+% 
+% % Adimensional Fuel Temp
+% nexttile
+% Y = sak_adi_max_fuel;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables_k);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% title("Max Fuel Temperature")
+% 
+% 
+% % Adimensional Clad Temp
+% nexttile
+% Y = sak_adi_max_clad;
+% if length(Y) == length(unique(Y))
+%     X = categorical(sort(Y), Y, parameter_lables_k);
+%     X = reordercats(X,string(X));
+% else
+%     X = categorical(Y);
+% end
+% barh(X,sort(Y))
+% title("Max Clad Temperature")
+% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% saveas(f, 'photo_ppt/sa2.png')
+% 
+% 
+% 
+% 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% OTHER %%%%%%%%%%%%%%%%%%%%%%%%
 
-% ---- TOTAL POWER EXCHANGED -----
-f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
-plot(time,power, 'LineWidth', 2.8 , 'Color', 'r');
-str = strcat({'   '}, num2str(power(end),3));
-text(time(end), power(end), str, "FontSize", fs, 'FontWeight','bold');
-grid on, grid minor
-xlabel('Time [s]')
-ylabel('Power [kW]')
-title('POWER EXCHANGED TO FLUID [kW]')
-saveas(f, 'photo_ppt/power_to_fluid.png')
-
-% --- -OUTLET TEMPERATURE ----
-f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
-plot(time,T_out-273.15, 'LineWidth', 2.8, 'Color', 'r');
-str = strcat({'   '}, num2str(T_out(end)-273.15,3));
-text(time(end), T_out(end)-273.15, str, "FontSize", fs, 'FontWeight','bold');
-grid on, grid minor
-xlabel('Time [s]')
-ylabel('Temperature [°C]')
-title('WATER OUTLET TEMPERATURE [°C]')
-saveas(f, 'photo_ppt/outlet_temperature.png')
+% % ---- TOTAL POWER EXCHANGED -----
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
+% plot(time,power, 'LineWidth', 2.8 , 'Color', 'r');
+% str = strcat({'   '}, num2str(power(end),3));
+% text(time(end), power(end), str, "FontSize", fs, 'FontWeight','bold');
+% grid on, grid minor
+% xlabel('Time [s]')
+% ylabel('Power [kW]')
+% title('POWER EXCHANGED TO FLUID [kW]')
+% saveas(f, 'photo_ppt/power_to_fluid.png')
+% 
+% % --- -OUTLET TEMPERATURE ----
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
+% plot(time,T_out-273.15, 'LineWidth', 2.8, 'Color', 'r');
+% str = strcat({'   '}, num2str(T_out(end)-273.15,3));
+% text(time(end), T_out(end)-273.15, str, "FontSize", fs, 'FontWeight','bold');
+% grid on, grid minor
+% xlabel('Time [s]')
+% ylabel('Temperature [°C]')
+% title('WATER OUTLET TEMPERATURE [°C]')
+% saveas(f, 'photo_ppt/outlet_temperature.png')
 
 % % ----- MAX FUEL TEMP -----
 % figure('Position', [10 10 900 900])
@@ -420,9 +420,10 @@ saveas(f, 'photo_ppt/outlet_temperature.png')
 % axial_plot(CHFR, false, 'CHFR', title, 6)
 % saveas(f, 'photo_ppt/CHFR.png')
 % 
-% % ----- PROFILE RADIAL TEMP FUEL ------
-% figure()
-% radial_plot_fuel(T_profile(end,:), false, 'pwr')
+% ----- PROFILE RADIAL TEMP FUEL ------
+f = figure('DefaultAxesFontSize',fs-4)
+radial_plot_fuel(T_profile(end,:)-273.15, false, 'pwr')
+saveas(f, 'photo_ppt/radial_temp.png')
 
 
 
