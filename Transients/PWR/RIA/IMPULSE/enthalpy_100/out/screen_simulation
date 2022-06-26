@@ -1,0 +1,17 @@
+0======== Execute file name = ..\..\..\utils\execution\relap5.exe                                             
+            Input file name = IMPULSE\enthalpy_100\input.i                                                            
+
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+
+0$$$$$$$$ Input processing completed successfully.
+  RELAP5/3.3gl          Reactor Loss Of Coolant Analysis Program                                
+ Copyright (C) 2001-2006  Information Systems Laboratories, Inc.
+= pwr_channel                                                                     26-Jun-22    02:59:20      
+
+ cpuT_(s)  probTime  dTime_(s) dTCournt VolCoP  PresCo_MPa VoidCo  emass_kg  VolEr PresEr_MPa  VoidEr    QualaEr   NSteps   Reason
+      0.1  0.0000     1.00E-09  0.0     10001    15.51     0.0000   0.00     10001   15.51   0.00    g  0.00    a       0         
+     10.1  44.975     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    4650  Courant
+     20.1  93.696     1.34E-02 1.34E-02 55550F   15.30     0.0000 -2.407E-02 10001   15.51   0.00    g  0.00    a    8281  Courant
+     30.1  132.66     5.00E-03 1.34E-02 55550F   15.30     0.0000 -2.409E-02 10001   15.51   0.00    g  0.00    a   15283  dtmax  
+Transient terminated by end of time step cards.
+ At time     135.003     seconds; Step     15751

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-02"><meta name="DC.source" content="analyze.m"><style type="text/css">
+      --><title>analyze</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-26"><meta name="DC.source" content="analyze.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><img vspace="5" hspace="5" src="analyze_01.png" alt=""> <img vspace="5" hspace="5" src="analyze_02.png" alt=""> <img vspace="5" hspace="5" src="analyze_03.png" alt=""> <img vspace="5" hspace="5" src="analyze_04.png" alt=""> <img vspace="5" hspace="5" src="analyze_05.png" alt=""> <img vspace="5" hspace="5" src="analyze_06.png" alt=""> <img vspace="5" hspace="5" src="analyze_07.png" alt=""> <img vspace="5" hspace="5" src="analyze_08.png" alt=""> <img vspace="5" hspace="5" src="analyze_09.png" alt=""> <img vspace="5" hspace="5" src="analyze_10.png" alt=""> <img vspace="5" hspace="5" src="analyze_11.png" alt=""> <img vspace="5" hspace="5" src="analyze_12.png" alt=""> <img vspace="5" hspace="5" src="analyze_13.png" alt=""> <img vspace="5" hspace="5" src="analyze_14.png" alt=""> <img vspace="5" hspace="5" src="analyze_15.png" alt=""> <img vspace="5" hspace="5" src="analyze_16.png" alt=""> <img vspace="5" hspace="5" src="analyze_17.png" alt=""> <img vspace="5" hspace="5" src="analyze_18.png" alt=""> <img vspace="5" hspace="5" src="analyze_19.png" alt=""> <img vspace="5" hspace="5" src="analyze_20.png" alt=""> <img vspace="5" hspace="5" src="analyze_21.png" alt=""> <img vspace="5" hspace="5" src="analyze_22.png" alt=""> <img vspace="5" hspace="5" src="analyze_23.png" alt=""> <img vspace="5" hspace="5" src="analyze_24.png" alt=""> <img vspace="5" hspace="5" src="analyze_25.png" alt=""> <img vspace="5" hspace="5" src="analyze_26.png" alt=""> <img vspace="5" hspace="5" src="analyze_27.png" alt=""> <img vspace="5" hspace="5" src="analyze_28.png" alt=""> <img vspace="5" hspace="5" src="analyze_29.png" alt=""> <img vspace="5" hspace="5" src="analyze_30.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+  </style></head><body><div class="content"><img vspace="5" hspace="5" src="analyze_01.png" alt=""> <img vspace="5" hspace="5" src="analyze_02.png" alt=""> <img vspace="5" hspace="5" src="analyze_03.png" alt=""> <img vspace="5" hspace="5" src="analyze_04.png" alt=""> <img vspace="5" hspace="5" src="analyze_05.png" alt=""> <img vspace="5" hspace="5" src="analyze_06.png" alt=""> <img vspace="5" hspace="5" src="analyze_07.png" alt=""> <img vspace="5" hspace="5" src="analyze_08.png" alt=""> <img vspace="5" hspace="5" src="analyze_09.png" alt=""> <img vspace="5" hspace="5" src="analyze_10.png" alt=""> <img vspace="5" hspace="5" src="analyze_11.png" alt=""> <img vspace="5" hspace="5" src="analyze_12.png" alt=""> <img vspace="5" hspace="5" src="analyze_13.png" alt=""> <img vspace="5" hspace="5" src="analyze_14.png" alt=""> <img vspace="5" hspace="5" src="analyze_15.png" alt=""> <img vspace="5" hspace="5" src="analyze_16.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 addpath(genpath('../../../../../utils/'));
 warning('OFF', 'MATLAB:table:ModifiedAndSavedVarnames')
@@ -76,13 +76,13 @@ clear all
 clc
 
 
-media_mobile = true;
+media_mobile = false;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                DATA EXCTRACTION               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-react = [1000, 2000, 3000, 4000, 5000, 6000];
+enthalpies = [80, 100, 120];
 accident_time = 110; % [s]
 scram_time = 200;    % [s]
 
@@ -91,15 +91,15 @@ scram_time = 200;    % [s]
 % raw_data
 data = struct([]);
 
-for i=1:length(react)
-    filename = sprintf("../react_%s/out/data.csv", string(react(i)));
+for i=1:length(enthalpies)
+    filename = sprintf("../enthalpy_%s/out/data.csv", string(enthalpies(i)));
     new = readtable(filename);
-    data(i).react = react(i);
+    data(i).enthalpy = enthalpies(i);
     data(i).raw_data = new;
 end
 
 % Per ogni esperimento creo un field con dati di interesse
-for i=1:length(react)
+for i=1:length(enthalpies)
     data(i).time = table2array(data(i).raw_data(:,1));  % [s]
     data(i).power = table2array(data(i).raw_data(:,2)); % [kW]
     data(i).outlet_temperature = table2array(data(i).raw_data(:,3));   % [K]
@@ -147,7 +147,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if media_mobile
-    for i=1:length(react)
+    for i=1:length(enthalpies)
         data(i).power = movmean(data(i).power, 80, 1);
         %data(i).max_fuel_temp_axial = movmean(data(i).max_fuel_temp_axial, 20, 1);
         data(i).ht_mode_axial = round(movmean(data(i).ht_mode_axial, 40, 1));
@@ -171,11 +171,11 @@ if media_mobile
     end
 end
 
-for i=1:length(react)
+for i=1:length(enthalpies)
     % CALCOLO VARIABILI BILANCIO ENERGETICO
     data(i).HS_internal_energy = compute_internal_energy_HS(data(i).htvat_axial);
     
-    input_path = sprintf("../react_%s/input.i", string(react(i)));
+    input_path = sprintf("../enthalpy_%s/input.i", string(enthalpies(i)));
     [relap_tt relap_pp] = read_power_input(input_path, 20288801);
 
     %relap_tt=[relap_tt(1) relap_tt(3:end)];   % interp1 non vuole in input punti identici tra loro => rimuovo la ripetizione (t=110 s, P=66351,88 W) in questo modo poco elegante ma efficace dai 2 array (andrebbe rivisto il main.py per evitare questa ripetizione direttamente nell'input)
@@ -199,8 +199,8 @@ end
 
 % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH LEGEND LABELS REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
 
-for i=1:length(react)
-    labels(i) = sprintf("reactivity = %s", string(react(i)));
+for i=1:length(enthalpies)
+    labels(i) = sprintf("enthalpy = %s J/gUO2", string(enthalpies(i)));
 end
 labels = [labels "ACCIDENT" "SCRAM"];
 
@@ -253,8 +253,8 @@ grid on, grid minor
 xlabel('Time [s]')
 title('ROD GENERATED POWER [kW]')
 legend(labels)
-xlim([95 140])
-%saveas(f, "ROD GENERATED POWER.png")
+xlim([100 120])
+saveas(f, "ROD GENERATED POWER.png")
 
 
 % REPLACE_WITH_DASH_DASH- -OUTLET TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
@@ -457,104 +457,104 @@ xlabel('Time [s]')
 title('MEAN HTC [kW/m^2/K]')
 xlim([95 140])
 legend(labels)
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                    ANIMATIONS                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TUTTE LE ANIMAZIONI SONO CON LA PRIMA REACTIVITY IPOTIZZATA (5000 pcm)
-idx = 5;
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE CHFR RELAP REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_RELAP_axial(f0:fend,:)), true, 'CHFR (RELAP)', 'CHFR', 10, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/CHFR_RELAP')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE CHFR W3 REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_W3_axial(f0:fend,:)), true, 'CHFR (W3)', 'CHFR', 10, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/CHFR_W3')
-
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTMODE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE FLOW REGIME REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTC REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701;
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/HTC')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE VOID FRACTION REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE RADIAL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 1000 1000])
-radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE MAX FUEL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE MAX CLAD TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max clad Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
-
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HEAT FLUX REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Heat Flux')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE DENSITY MIXTURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density Mixture')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE BULK TEMPERATURE LIQUID REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Liquid [°C]', 'Temperature [°C]', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE BULK TEMPERATURE VAPOR REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 300 900])
-axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Vapor')
-
-
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH ENERGY BALANCE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
-f0 = 1919;
-fend = 2701;
-kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
-pres_energy = pressure_energy(data(idx).pressure_axial);
-figure('Position', [10 10 1000 1000])
-energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %                    ANIMATIONS                 %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % TUTTE LE ANIMAZIONI SONO CON LA PRIMA REACTIVITY IPOTIZZATA (5000 pcm)
+% idx = 5;
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE CHFR RELAP REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_RELAP_axial(f0:fend,:)), true, 'CHFR (RELAP)', 'CHFR', 10, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/CHFR_RELAP')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE CHFR W3 REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).CHFR_W3_axial(f0:fend,:)), true, 'CHFR (W3)', 'CHFR', 10, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/CHFR_W3')
+% 
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTMODE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE FLOW REGIME REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
+% 
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HTC REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701;
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC [kW/m^2/K]', 'HTC [kW/m^2/K]', 100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/HTC')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE VOID FRACTION REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE RADIAL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 1000 1000])
+% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE MAX FUEL TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE MAX CLAD TEMPERATURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max clad Temp [°C]', 'Temperature [°C]', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
+% 
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE HEAT FLUX REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).heat_flux_axial(f0:fend,:)), true, 'Heat Flux [kW/m^2]', 'Heat Flux [kW/m^2]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Heat Flux')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE DENSITY MIXTURE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture [kg/m^3]', 'Density [kg/m^3]', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density Mixture')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE BULK TEMPERATURE LIQUID REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Liquid [°C]', 'Temperature [°C]', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- PROFILE BULK TEMPERATURE VAPOR REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 300 900])
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Vapor')
+% 
+% 
+% % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH ENERGY BALANCE REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% f0 = 1919;
+% fend = 2701;
+% kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
+% pres_energy = pressure_energy(data(idx).pressure_axial);
+% figure('Position', [10 10 1000 1000])
+% energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
 
 
 
