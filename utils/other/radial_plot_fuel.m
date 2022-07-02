@@ -43,11 +43,11 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         h = animatedline('LineWidth', 2.5, 'Color', 'r');
         j = animatedline('LineWidth', 2.5, 'Color', 'r', 'LineStyle','--');
         
-        ylim([0 3000])
+        ylim([0 2200])
         xlim([0 rr(11)])
-        xlabel('Distance from center (mm)') 
-        ylabel('Temperature (°C)')
-        title('Temperature Distribution in Fuel Rod')
+        xlabel('Distanza dal centro (mm)') 
+        ylabel('Temperatura (°C)')
+        title('DISTRIBUZIONE DI TEMPERATURA NELLA BARRA')
 
         for i=2:10:length(time)
             clearpoints(h);
@@ -85,14 +85,19 @@ DNB_colors = [[99 214 71]; [255 52 41]]./255;
         hold off
         alpha(.85)
         hold on
+        line([0 rr(8)], [tt(8) tt(8)], 'LineWidth', 1.2, 'LineStyle', '--', 'Color', [1 1 1])
+        line([0 rr(7)], [tt(7) tt(7)], 'LineWidth', 1.2, 'LineStyle', '--', 'Color', [1 1 1])
         plot(rr(1:10),tt(:,1:10), 'LineWidth', 2.5, 'Color', 'r')
         plot([rr(10) rr(11)], [tt(11) tt(11)], 'LineWidth', 2.5, 'LineStyle','--', 'Color', 'r')
+        %errorbar(rr(2)/6, tt(1), 80, 80, 'LineWidth', 2.0, 'Color', [1 1 1])
+        %errorbar(rr(2)/6, tt(1), 160, 160, 'LineWidth', 1.4, 'Color', [1 1 1])
+        %errorbar(rr(2)/6, tt(1), 240, 240, 'LineWidth', 1.0, 'Color', [1 1 1])
         hold off
-        ylim([0 3000])
+        ylim([0 1600])
         xlim([0 rr(11)])
-        xlabel('Distance from center (mm)') 
-        ylabel('Temperature (°C)')
-        title('Temperature Distribution in Fuel Rod')
+        xlabel('Distanza dal centro (mm)') 
+        ylabel('Temperatura (°C)')
+        title('DISTRIBUZIONE DI TEMPERATURA NELLA BARRA')
         
     end
 

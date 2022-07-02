@@ -202,7 +202,7 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 % % --------- ADIMENSIONAL PLOT ------------
 % f = figure('Position', [10 10 900 900])
 % t = tiledlayout(3,1, 'TileSpacing', 'normal');
-% title(t, "SA ADIMENSIONAL")
+% title(t, "SA ADIMENSIONALE")
 % 
 % % Adimensional Fuel Temp
 % nexttile
@@ -214,8 +214,8 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 %     X = categorical(Y);
 % end
 % barh(X,sort(Y))
-% xlabel("Temperature Variation [ ^{%}/_{%} ]")
-% title("Max Fuel Temperature")
+% xlabel("Variazione Temperatura ( ^{%}/_{%} )")
+% title("TEMPERATURA MASSIMA COMBUSTIBILE")
 % 
 % % Adimensional Clad Temp
 % nexttile
@@ -227,8 +227,8 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 %     X = categorical(Y);
 % end
 % barh(X,sort(Y))
-% title("Max Clad Temperature")
-% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% title("TEMPERATURA MASSIMA CLADDING")
+% xlabel("Variazione Temperatura ( ^{%}/_{%} )")
 % 
 % % Adimensional MDNBR
 % nexttile
@@ -241,9 +241,9 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 % end
 % barh(X,sort(Y))
 % title("MDNBR")
-% xlabel("MDNBR Variation [ ^{%}/_{%} ]")
+% xlabel("VARIAZIONE MDNBR ( ^{%}/_{%} )")
 % saveas(f, 'photo_ppt/sa1.png')
-% 
+
 % 
 % 
 % %%%%%%%%%%%%%%%%%%%%% SENSITIVITY ANALYSIS CONDUCTIVITY %%%%%%%%%%%%%%%%%%%
@@ -283,7 +283,7 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 % % --------- ADIMENSIONAL PLOT ------------
 % f = figure('Position', [10 10 900 900])
 % t = tiledlayout(3,1, 'TileSpacing', 'normal');
-% title(t, "SA CONDUCTIVITY ADIMENSIONAL")
+% title(t, "SA CONDUCTIVITY ADIMENSIONALE")
 % 
 % % Adimensional Fuel Temp
 % nexttile
@@ -295,8 +295,8 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 %     X = categorical(Y);
 % end
 % barh(X,sort(Y))
-% xlabel("Temperature Variation [ ^{%}/_{%} ]")
-% title("Max Fuel Temperature")
+% xlabel("Variazione Temperatura ( ^{%}/_{%} )")
+% title("TEMPERATURA MASSIMA COMBUSTIBILE")
 % 
 % 
 % % Adimensional Clad Temp
@@ -309,37 +309,37 @@ sak_adi_mdnbr = sens_analysis_k_adimensional(3,:);
 %     X = categorical(Y);
 % end
 % barh(X,sort(Y))
-% title("Max Clad Temperature")
-% xlabel("Temperature Variation [ ^{%}/_{%} ]")
+% title("TEMPERATURA MASSIMA CLADDING")
+% xlabel("Variazione Temperatura ( ^{%}/_{%} )")
 % saveas(f, 'photo_ppt/sa2.png')
-% 
+
 % 
 % 
 % 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% OTHER %%%%%%%%%%%%%%%%%%%%%%%%
 
-% ---- TOTAL POWER EXCHANGED -----
-f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
-plot(time,power, 'LineWidth', 2.8 , 'Color', 'r');
-str = strcat({'   '}, num2str(power(end),3));
-text(time(end), power(end), str, "FontSize", fs, 'FontWeight','bold');
-grid on, grid minor
-xlabel('Time (s)')
-ylabel('Power [kW]')
-title('POWER EXCHANGED TO FLUID (kW)')
-saveas(f, 'photo_ppt/power_to_fluid.png')
-% 
-% --- -OUTLET TEMPERATURE ----
-f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
-plot(time,T_out-273.15, 'LineWidth', 2.8, 'Color', 'r');
-str = strcat({'   '}, num2str(T_out(end)-273.15,3));
-text(time(end), T_out(end)-273.15, str, "FontSize", fs, 'FontWeight','bold');
-grid on, grid minor
-xlabel('Time (s)')
-ylabel('Temperature (°C)')
-title('WATER OUTLET TEMPERATURE (°C)')
-saveas(f, 'photo_ppt/outlet_temperature.png')
+% % ---- TOTAL POWER EXCHANGED -----
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
+% plot(time,power, 'LineWidth', 2.8 , 'Color', 'r');
+% str = strcat({'   '}, num2str(power(end),3));
+% text(time(end), power(end), str, "FontSize", fs, 'FontWeight','bold');
+% grid on, grid minor
+% xlabel('Tempo (s)')
+% ylabel('Potenza (kW)')
+% title('POTENZA SCAMBIATA AL FLUIDO (kW)')
+% saveas(f, 'photo_ppt/power_to_fluid.png')
+% % 
+% % --- -OUTLET TEMPERATURE ----
+% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize',fs)
+% plot(time,T_out-273.15, 'LineWidth', 2.8, 'Color', 'r');
+% str = strcat({'   '}, num2str(T_out(end)-273.15,3));
+% text(time(end), T_out(end)-273.15, str, "FontSize", fs, 'FontWeight','bold');
+% grid on, grid minor
+% xlabel('Tempo (s)')
+% ylabel('Temperatura (°C)')
+% title('TEMPERATURA USCITA FLUIDO (°C)')
+% saveas(f, 'photo_ppt/outlet_temperature.png')
 
 % % ----- MAX FUEL TEMP -----
 % figure('Position', [10 10 900 900])
@@ -377,10 +377,10 @@ saveas(f, 'photo_ppt/outlet_temperature.png')
 % xlabel('Time [s]')
 % title('MAX CLAD TEMPERATURE [K]')
 % 
-% ----- AXIAL PROFILE MAX TEMP FUEL -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(T_max_fuel_axial(end,:)-273.15, false, 'Max Fuel Temperature (°C)', 'Fuel Temperature (°C)', 2000-273.15)
-saveas(f, 'photo_ppt/axial_max_fuel_temp.png')
+% % ----- AXIAL PROFILE MAX TEMP FUEL -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(T_max_fuel_axial(end,:)-273.15, false, 'TEMP. MAX  UO2 (°C)', 'Temperatura (°C)', 2000-273.15)
+% saveas(f, 'photo_ppt/axial_max_fuel_temp.png')
 % % 
 % % 
 % % ----- AXIAL PROFILE HTMODE -------
@@ -388,15 +388,15 @@ saveas(f, 'photo_ppt/axial_max_fuel_temp.png')
 % htmode_plot(HTMODE_axial(end,:), false, 'Heat Transfer Mode', '', 1)
 % saveas(f, 'photo_ppt/axial_htmode.png')
 % 
-% ----- AXIAL PROFILE HEAT FLUX -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(heat_flux_axial(end,:), false, 'Heat Flux (kW/m^2)', 'Heat Flux (kW/m^2)', 1500)
-saveas(f, 'photo_ppt/axial_heat_flux.png')
-% 
-% ----- AXIAL PROFILE HTC -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(htc_axial(end,:), false, 'HTC (kW/m^2/K)', 'HTC (kW/m^2/K)', 100)
-saveas(f, 'photo_ppt/axial_htc.png')
+% % ----- AXIAL PROFILE HEAT FLUX -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(heat_flux_axial(end,:), false, 'FLUSSO TERMICO (kW/m^2)', 'Flusso termico (kW/m^2)', 1500)
+% saveas(f, 'photo_ppt/axial_heat_flux.png')
+% % 
+% % ----- AXIAL PROFILE HTC -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(htc_axial(end,:), false, 'HTC (kW/m^2/K)', 'HTC (kW/m^2/K)', 100)
+% saveas(f, 'photo_ppt/axial_htc.png')
 % 
 % % ----- AXIAL PROFILE FLOW REGIME -------
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
@@ -408,17 +408,17 @@ saveas(f, 'photo_ppt/axial_htc.png')
 % axial_plot(void_axial(end,:), false, 'Void Fraction', 'Void Fraction', 1)
 % saveas(f, 'photo_ppt/axial_void_fraction.png')
 % 
-% ----- AXIAL PROFILE CHF W-3 -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-axial_plot(CHF_W3, false, 'CHF W-3 (kW/m^2)', 'CHF (kW/m^2)', 6000)
-saveas(f, 'photo_ppt/axial_chfw3.png')
-
-% ----- AXIAL PROFILE CHFR -------
-f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-MDNBR = min(CHFR);
-title = strcat(["MDNBR:{ }", num2str(MDNBR)]);
-axial_plot(CHFR, false, 'CHFR', title, 6)
-saveas(f, 'photo_ppt/CHFR.png')
+% % ----- AXIAL PROFILE CHF W-3 -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% axial_plot(CHF_W3, false, 'CHF W-3 (kW/m^2)', 'CHF (kW/m^2)', 6000)
+% saveas(f, 'photo_ppt/axial_chfw3.png')
+% 
+% % ----- AXIAL PROFILE CHFR -------
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+% MDNBR = min(CHFR);
+% title = strcat(["MDNBR:{ }", num2str(MDNBR)]);
+% axial_plot(CHFR, false, 'CHFR', title, 6)
+% saveas(f, 'photo_ppt/CHFR.png')
 % 
 % ----- PROFILE RADIAL TEMP FUEL ------
 f = figure('DefaultAxesFontSize',fs-4)

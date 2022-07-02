@@ -140,10 +140,8 @@ end
 labels = [];
 for i=1:length(lambdas)
     new = sprintf("\\lambda = %s", string(lambdas(i)));
-    new_eccs = sprintf("ECCS %s", string(lambdas(i)));
-    labels = [labels new new_eccs];
+    labels = [labels new];
 end
-labels = [labels "ACCIDENT" "SCRAM"];
 
 
 
@@ -165,22 +163,24 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % %saveas(f, "TOTAL POWER.png")
 % 
 % 
-% % ------ ROD INTERNAL ENERGY -------
-% f = figure('Position', [10 10 900 900]);
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,data(i).HS_internal_energy./1000, 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('ROD INTERNAL ENERGY [kJ]')
-% legend(labels)
-% xlim([95 250])
-% %saveas(f, "ROD INTERNAL ENERGY.png")
+% ------ ROD INTERNAL ENERGY -------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,data(i).HS_internal_energy./1000, 'LineWidth', 2.5, 'DisplayName', labels(i));
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Energia Interna (kJ)')
+title('ENERGIA INTERNA DELLA BARRA (kJ)')
+xlim([95 195])
+g = get(gca, 'Children')
+legend([g(1) g(3) g(5) g(7) g(2)])
+saveas(f, "photo_ppt/rod_internal_energy.png")
+
 % 
 % 
 % % ------ ROD GENERATED POWER -------
@@ -218,21 +218,23 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % 
-% % ---- MAX FUEL TEMPERATURE ----
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MAX FUEL TEMPERATURE [°C]')
-% xlim([95 250])
-% legend(labels)
+% ---- MAX FUEL TEMPERATURE ----
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 2.5, 'DisplayName', labels(i));
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Temperatura (°C)')
+title('TEMPERATURA MASSIMA COMBUSTIBILE (°C)')
+xlim([95 195])
+g = get(gca, 'Children')
+legend([g(1) g(3) g(5) g(7) g(2)])
+saveas(f, "photo_ppt/max_fuel_temperature.png")
 % 
 % 
 % % ---- MAX CLAD TEMPERATURE ----
@@ -284,20 +286,23 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % % ---- MEAN DENSITY MIXTURE ----
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,mean(data(i).rho_axial, 2), 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MEAN DENSITY MIXTURE [kg/m^3]')
-% xlim([95 250])
-% legend(labels)
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=2
+    plot(data(i).time,mean(data(i).rho_axial,2), 'LineWidth', 2.5, 'DisplayName', labels(i), 'Color', [222,104,54,255]./255);
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Densità (kg/m3)')
+title("DENSITA' MEDIA (kg/m3)")
+xlim([95 180])
+g = get(gca, 'Children')
+legend([g(1) g(2) g(3)])
+saveas(f, "photo_ppt/density.png")
+
 % 
 % % ---- MEAN VELOCITY LIQUID ----
 % figure('Position', [10 10 900 900])
@@ -399,28 +404,30 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % xlim([95 250])
 % legend(labels)
 % 
-% % ------- MEAN HTC -------
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 1.3);
-%     xline(data(i).time_ECCS, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'k')
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MEAN HTC [kW/m^2/K]')
-% xlim([95 250])
-% legend(labels)
+% ------- MEAN HTC -------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=2
+    plot(data(i).time,mean(data(i).htc_axial,2), 'LineWidth', 2.5, 'DisplayName', labels(i), 'Color', [222,104,54,255]./255);
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('HTC (kW/m^2/K)')
+title('HTC MEDIO (kW/m^2/K)')
+xlim([95 180])
+g = get(gca, 'Children')
+legend([g(1) g(2) g(3)])
+saveas(f, "photo_ppt/htc.png")
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ANIMATIONS                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-idx = 1;
+idx = 2;
 
 % % ----- PROFILE CHFR RELAP -------
 % f0 = 1919; % initial frame (timestep)
@@ -437,16 +444,16 @@ idx = 1;
 % 
 % % ----- PROFILE HTMODE -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2900; % final frame (timestep)
-% figure('Position', [10 10 300 900])
+% fend = 3100; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',20)
 % htmode_plot(horzcat(data(idx).time(f0:fend,:), data(idx).ht_mode_axial(f0:fend,:)), true, 'Heat Transfer Mode', '', 1, 'Animations/HTMODE', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-% 
+% % 
 % % ----- PROFILE FLOW REGIME -------
 % f0 = 1919; % initial frame (timestep)
-% fend = 2500; % final frame (timestep)
-% figure('Position', [10 10 300 900])
+% fend = 3100; % final frame (timestep)
+% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',20)
 % flowreg_plot(horzcat(data(idx).time(f0:fend,:), data(idx).flow_regimes_axial(f0:fend,:)), true, 'Flow Regime', '', 1, 'Animations/Flow Regime', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
-% 
+% % 
 % 
 % % ----- PROFILE HTC -------
 % f0 = 1919; % initial frame (timestep)
@@ -504,12 +511,12 @@ idx = 1;
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Vapor')
 
 
-% ------------ ENERGY BALANCE ----------------
+% % ------------ ENERGY BALANCE ----------------
 % f0 = 1919;
-% fend = 3000;
+% fend = 3600;
 % kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
 % pres_energy = pressure_energy(data(idx).pressure_axial);
-% figure('Position', [10 10 1000 1000])
+% figure('Position', [10 10 1000 1000], 'DefaultAxesFontSize', 20 -4)
 % energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
 
 

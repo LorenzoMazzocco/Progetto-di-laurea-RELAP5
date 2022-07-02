@@ -52,8 +52,8 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         pipe_energy = [int_energy_pipe(i,1) kin_energy(i,1) pres_energy(i,1)];
         hs_energy = [int_energy_hs(i,1) 0 0];
         data_to_plot_left = [pipe_energy; hs_energy; [0 0 0]];
-        x_legend_left = categorical({'Channel Fluid', 'Heat Structure', 'Channel Fluid - specific'});
-        x_legend_left = reordercats(x_legend_left, {'Channel Fluid', 'Heat Structure', 'Channel Fluid - specific'});
+        x_legend_left = categorical({'Fluido', 'Barra', 'Fluido - Specifica'});
+        x_legend_left = reordercats(x_legend_left, {'Fluido', 'Barra', 'Fluido - Specifica'});
         bar(x_legend_left, data_to_plot_left, 0.3, 'stacked');
         
         left_colors = [[255, 119, 51]/255; [0 158 207]/255; [40 171 0]/255];
@@ -61,11 +61,11 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         y_axis_left=gca;
         y_axis_left.YColor = 'black';
         
-        ylabel('Total energy (kJ)');
+        ylabel('Energia Totale (kJ)');
         y_max_left = max(int_energy_hs);
         ylim([0 1.2*y_max_left]);  
         
-        title('Heat structure and channel fluid energies');  
+        title('ENERGIA TOTALE');  
         grid on
         grid minor
         
@@ -80,11 +80,11 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         y_axis_right=gca;
         y_axis_right.YColor = 'black';
 
-        ylabel('Total specific energy (kJ/kg)');
+        ylabel('Energia specifica totale (kJ/kg)');
         y_max_right = max(specific_int_energy_pipe);
         ylim([0 1.2*y_max_right]);  
 
-        legend('Internal', 'Kinetic', 'Pressure')
+        legend('Interna', 'Cinetica', 'Pressione')
 
     
         nexttile(2)
@@ -98,11 +98,11 @@ function [] = energy_balance (int_energy_pipe, kin_energy, pres_energy, int_ener
         xmin=min(time);
         ylim([ymin 1.2*ymax]);
         xlim([xmin xmax]);
-        ylabel('Power (kW)');
-        xlabel('Time (s)');
-        title('Power (kW)');
+        ylabel('Potenza (kW)');
+        xlabel('Tempo (s)');
+        title('POTENZA (kW)');
         grid on
-        legend('Generated in rod','Exchanged to fluid','Stored in rod','Location','west');
+        legend('Generata nella barra','Scambiata al fluido','Accumulata nella barra','Location','west');
 
         drawnow
         frame = getframe(gcf); %get frame

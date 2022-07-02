@@ -217,22 +217,23 @@ end
 % legend(labels)
 % 
 % 
-% % ---- MAX FUEL TEMPERATURE ----
-% f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 2.5, 'DisplayName', labels(i));
-%     xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
-% end
-% xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
-% hold off
-% grid on, grid minor
-% xlabel('Time (s)')
-% title('MAX FUEL TEMPERATURE (°C)')
-% xlim([95 198])
-% g = get(gca, 'Children')
-% legend([g(1) g(3) g(5) g(7) g(2)])
-% saveas(f, 'photo_ppt/max_fuel_temp.png')
+% ---- MAX FUEL TEMPERATURE ----
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 2.5, 'DisplayName', labels(i));
+    xline(data(i).time_ECCS, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'k', 'DisplayName', 'ECCS')
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Temperatura (°C)')
+title('TEMPERATURA MASSIMA COMBUSTIBILE (°C)')
+xlim([95 198])
+g = get(gca, 'Children')
+legend([g(1) g(3) g(5) g(7) g(2)])
+saveas(f, 'photo_ppt/max_fuel_temp.png')
 
 % 
 % 
@@ -394,8 +395,9 @@ end
 % xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
 % hold off
 % grid on, grid minor
-% xlabel('Time (s)')
-% title('PRESSURE (bar)')
+% xlabel('Tempo (s)')
+% ylabel('Pressione (bar)')
+% title('PRESSIONE (bar)')
 % xlim([95 250])
 % g = get(gca, 'Children')
 % legend([g(1) g(3) g(5) g(7) g(2)])
@@ -457,13 +459,13 @@ idx = 2;
 % fend = 3600;
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).htc_axial(f0:fend,:)), true, 'HTC (kW/m^2/K)', 'HTC (kW/m^2/K)', 100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/HTC')
-% % 
+% % % 
 % % ----- PROFILE VOID FRACTION -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction \alpha', 'Void Fraction \alpha', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
-% 
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'FRAZIONE DI VUOTO \alpha', 'Frazione di vuoto \alpha', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
+
 % % ----- PROFILE RADIAL TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
@@ -471,17 +473,17 @@ idx = 2;
 % radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
 
 % 
-% % ----- PROFILE MAX FUEL TEMPERATURE -------
-% f0 = 1919; % initial frame (timestep)
-% fend = 3600; % final frame (timestep)
-% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'Max Fuel Temp (°C)', 'Temperature (°C)', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
-% 
-% % ----- PROFILE MAX CLAD TEMPERATURE -------
-% f0 = 1919; % initial frame (timestep)
-% fend = 3600; % final frame (timestep)
-% f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'Max Clad Temp (°C)', 'Temperature (°C)', 1300, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
+% ----- PROFILE MAX FUEL TEMPERATURE -------
+f0 = 1919; % initial frame (timestep)
+fend = 3600; % final frame (timestep)
+f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_fuel_temp_axial(f0:fend,:)-273.15), true, 'TEMP. MAX  UO2 (°C)', 'Temperatura (°C)', 2100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend),  'Animations/Max Fuel Temperature')
+
+% ----- PROFILE MAX CLAD TEMPERATURE -------
+f0 = 1919; % initial frame (timestep)
+fend = 3600; % final frame (timestep)
+f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
+axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).max_clad_temp_axial(f0:fend,:)-273.15), true, 'TEMP. MAX CLAD (°C)', 'Temperatura (°C)', 1300, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Max Clad Temperature')
 
 % 
 % % ----- PROFILE HEAT FLUX -------
@@ -495,13 +497,13 @@ idx = 2;
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, 'Density Mixture (kg/m^3)', 'Density (kg/m^3)', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density')
-% 
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).rho_axial(f0:fend,:)), true, "DENSITA' MISCELA (kg/m^3)", 'Densità (kg/m^3)', 2000, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Density')
+% % 
 % % ----- PROFILE BULK TEMPERATURE LIQUID -------
 % f0 = 1919; % initial frame (timestep)
 % fend = 3600; % final frame (timestep)
 % f = figure('Position', [10 10 400 900], 'DefaultAxesFontSize',fs)
-% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'Bulk Temp. Liquid (°C)', 'Temperature (°C)', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
+% axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_liquid_axial(f0:fend,:)-273.15), true, 'TEMP. LIQUIDO (°C)', 'Temperatura (°C)', 600, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Liquid')
 % 
 % % ----- PROFILE BULK TEMPERATURE VAPOR -------
 % f0 = 1919; % initial frame (timestep)
@@ -510,12 +512,12 @@ idx = 2;
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).temp_vapor_axial(f0:fend,:)-273.15), true, 'Bulk Temperature Vapor [°C]', 'Temperature [°C]', 1100, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Bulk Temperature Vapor')
 % 
 % 
-% ------------ ENERGY BALANCE ----------------
-f0 = 1919;
-fend = 3600;
-kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
-pres_energy = pressure_energy(data(idx).pressure_axial);
-figure('Position', [10 10 1000 1000], 'DefaultAxesFontSize', fs -4)
-energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
+% % ------------ ENERGY BALANCE ----------------
+% f0 = 1919;
+% fend = 3600;
+% kin_energy = kinetic_energy(data(idx).velocity_liquid_axial, data(idx).velocity_vapor_axial, data(idx).density_liquid_axial, data(idx).density_vapor_axial);
+% pres_energy = pressure_energy(data(idx).pressure_axial);
+% figure('Position', [10 10 1000 1000], 'DefaultAxesFontSize', fs -4)
+% energy_balance(sum(data(idx).total_internal_energy_axial(f0:fend,:),2), kin_energy(f0:fend), pres_energy(f0:fend), data(idx).HS_internal_energy(f0:fend), data(idx).time(f0:fend), data(idx).rod_power(f0:fend), data(idx).power(f0:fend), data(idx).density_liquid_axial(f0:fend,:), data(idx).density_vapor_axial(f0:fend,:), 'Animations/Energy Balance')
 
 

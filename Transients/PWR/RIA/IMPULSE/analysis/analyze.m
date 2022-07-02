@@ -129,10 +129,9 @@ end
 % ------ LEGEND LABELS -------
 
 for i=1:length(enthalpies)
-    labels(i) = sprintf("enthalpy = %s J/gUO2", string(enthalpies(i)));
+    labels(i) = sprintf("Energy = %s J/gUO2", string(enthalpies(i)));
 end
-labels = [labels "ACCIDENT" "SCRAM"];
-
+labels = [labels "ACCIDENT"];
 
 
 % % ------ TOTAL POWER -------
@@ -169,21 +168,21 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % %saveas(f, "ROD INTERNAL ENERGY.png")
 % 
 % 
-% % ------ ROD GENERATED POWER -------
-% f = figure('Position', [10 10 900 900]);
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,data(i).rod_power./1000, 'LineWidth', 1.3);
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('ROD GENERATED POWER [kW]')
-% legend(labels)
-% xlim([100 120])
-% saveas(f, "ROD GENERATED POWER.png")
+% ------ ROD GENERATED POWER -------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,data(i).rod_power./1000, 'LineWidth', 2.5, 'DisplayName', labels(i));
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r', 'DisplayName', 'ACCIDENT')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Potenza (kW)')
+title('POTENZA GENERATA DALLA BARRA (kW)')
+legend(labels)
+xlim([105 120])
+saveas(f, "photo_ppt/generated_power.png")
 % 
 % 
 % % --- -OUTLET TEMPERATURE ----
@@ -202,36 +201,38 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % legend(labels)
 % 
 % 
-% % ---- MAX FUEL TEMPERATURE ----
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MAX FUEL TEMPERATURE [°C]')
-% xlim([95 140])
-% legend(labels)
-% 
-% 
-% % ---- MAX CLAD TEMPERATURE ----
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,max(data(i).max_clad_temp_axial-273.15, [], 2), 'LineWidth', 1.3);
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MAX CLAD TEMPERATURE [°C]')
-% xlim([95 140])
-% legend(labels)
+% ---- MAX FUEL TEMPERATURE ----
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,max(data(i).max_fuel_temp_axial-273.15, [], 2), 'LineWidth', 2.5);
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Temperatura (°C)')
+title('TEMPERATURA MASSIMA COMBUSTIBILE (°C)')
+xlim([95 135])
+legend(labels)
+saveas(f, "photo_ppt/max_fuel_temp.png")
+
+
+% ---- MAX CLAD TEMPERATURE ----
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,max(data(i).max_clad_temp_axial-273.15, [], 2), 'LineWidth', 2.5);
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+ylabel('Temperatura (°C)')
+title('TEMPERATURA MASSIMA CLADDING (°C)')
+xlim([95 135])
+legend(labels)
+saveas(f, "photo_ppt/max_clad_temp.png")
 % 
 % % ---- MEAN BULK TEMPERATURE LIQUID ----
 % figure('Position', [10 10 900 900])
@@ -308,37 +309,40 @@ labels = [labels "ACCIDENT" "SCRAM"];
 % xlim([95 140])
 % legend(labels)
 % 
-% % ------- MDNBR (RELAP)-------
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,min(data(i).CHFR_RELAP_axial, [], 2), 'LineWidth', 1.3);
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MDNBR (RELAP)')
-% ylim([0 7])
-% xlim([95 140])
-% legend(labels)
-% 
-% % ------- MDNBR (W3)-------
-% figure('Position', [10 10 900 900])
-% hold on
-% for i=1:length(data)
-%     plot(data(i).time,min(data(i).CHFR_W3_axial, [], 2), 'LineWidth', 1.3);
-% end
-% xline(accident_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% xline(scram_time, 'LineWidth', 1.4, 'LineStyle', '--', 'Color', 'r')
-% hold off
-% grid on, grid minor
-% xlabel('Time [s]')
-% title('MDNBR (W-3 Correlation)')
-% ylim([0 7])
-% xlim([95 140])
-% legend(labels)
+% ------- MDNBR (RELAP)-------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,min(data(i).CHFR_RELAP_axial, [], 2), 'LineWidth', 2.5);
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r')
+yline(1, 'LineWidth', 2.0, 'LineStyle', '--', 'Color','k')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+title('MDNBR [RELAP]')
+ylim([0 4])
+xlim([105 120])
+legend(labels, 'Location', 'southeast')
+saveas(f, "photo_ppt/mdnbr_relap.png")
+
+% ------- MDNBR (W3)-------
+f = figure('Position', [10 10 900 900], 'DefaultAxesFontSize', 20)
+hold on
+for i=1:length(data)
+    plot(data(i).time,min(data(i).CHFR_W3_axial, [], 2), 'LineWidth', 2.5);
+end
+xline(accident_time, 'LineWidth', 2.0, 'LineStyle', '--', 'Color', 'r')
+yline(1, 'LineWidth', 2.0, 'LineStyle', '--', 'Color','k')
+hold off
+grid on, grid minor
+xlabel('Tempo (s)')
+title('MDNBR [W-3 Correlation]')
+ylim([0 4])
+xlim([105 120])
+legend(labels, 'Location', 'southeast')
+saveas(f, "photo_ppt/mdnbr_w3.png")
+
 % 
 % % ------- MEAN VOID FRACTION -------
 % figure('Position', [10 10 900 900])
@@ -433,11 +437,11 @@ idx = 2;
 % figure('Position', [10 10 300 900])
 % axial_plot(horzcat(data(idx).time(f0:fend,:), data(idx).void_fraction_axial(f0:fend,:)), true, 'Void Fraction ( \alpha )', 'Void Fraction ( \alpha )', 1, data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend), 'Animations/Void Fraction')
 % 
-% ----- PROFILE RADIAL TEMPERATURE -------
-f0 = 1919; % initial frame (timestep)
-fend = 2701; % final frame (timestep)
-figure('Position', [10 10 1000 1000])
-radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
+% % ----- PROFILE RADIAL TEMPERATURE -------
+% f0 = 1919; % initial frame (timestep)
+% fend = 2701; % final frame (timestep)
+% figure('Position', [10 10 1000 1000])
+% radial_plot_fuel(horzcat(data(idx).center_radial_temp_profile(f0:fend, :)-273.15, data(idx).time(f0:fend,:)), true, 'pwr', 'Animations/Radial Temperature', data(idx).ECCS_flag(f0:fend), data(idx).chf_flag(f0:fend))
 % 
 % % ----- PROFILE MAX FUEL TEMPERATURE -------
 % f0 = 1919; % initial frame (timestep)

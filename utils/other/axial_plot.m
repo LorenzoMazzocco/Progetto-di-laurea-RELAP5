@@ -20,6 +20,9 @@ if animate
     xlim([0 xlim_value])
     xlabel(xlable_string)
     title(title_string)
+    YTick = get(gca, 'YTickLabel');
+    YTick{end} = '';
+    set(gca,'YTickLabel',YTick);
 
     % Initialize Video
     myVideo = VideoWriter(videoname); %open video file
@@ -54,6 +57,9 @@ else
     xlim([0 xlim_value])
     xlabel(xlable_string)
     title(title_string)
+    YTick = get(gca, 'YTickLabel');
+    YTick{end} = '';
+    set(gca,'YTickLabel',YTick);
     grid on
     grid minor
 end
